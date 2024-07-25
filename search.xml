@@ -1,0 +1,1662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>8位二进制cpu的设计和实现-全加器^八位二进制加法器</title>
+    <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%85%A8%E5%8A%A0%E5%99%A8-%E5%85%AB%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>全加器：实现二进制加法，涉及进位</p>
+<ul>
+<li><p>逻辑表达式：S = A ^ B ^ C、C = (A &amp; B) | (B &amp; C) | (A &amp; C)</p>
+</li>
+<li><p>真值表</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>S</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>实现这样一个运算的逻辑电路称为全加器<br>根据经验我们得知，逻辑表达式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="44.036ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 19464 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtable"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(922.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1978.6,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="mo" transform="translate(2950.8,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(3951,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(4932.2,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(5932.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mtext" transform="translate(6692.4,0)"><path data-c="A0" d=""></path></g><g data-mml-node="mi" transform="translate(6942.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(7980.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(9036,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(9425,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(11175,0)"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(759,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1148,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1426,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1815,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g><g data-mml-node="mtd" transform="translate(14749,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1149,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1427,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1816,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(18315,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></g></g></svg></mjx-container><br>打开logiccircuit根据上面异或和与关系搭建门电路，验证</p>
+</li>
+<li><p>将异或(XOR)门用与、或、非门实现出来</p>
+</li>
+<li><p>然后用异或(XOR)门和与门共同搭建半加器(Half Adder)</p>
+</li>
+<li><p>然后用半加器(Half Adder)和与门共同搭建全加器(Full Adder)</p>
+</li>
+<li><p>搭建完之后通过按键和LED测试，符合真值表逻辑即可</p>
+</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248a5d9c307b7e97724ba.png"></p>
+<p>利用只读存储器，通过真值表<br>（ROM）实现全加器</p>
+<ul>
+<li>将全加器电路用ROM实现出来</li>
+<li>搭建完之后通过按键和LED测试，符合真值表逻辑即可</li>
+<li>ROM中的数据写入为全加器的真值表</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248c8d9c307b7e9774391.png"></p>
+<h2 id="8位加法器-8Adder"><a href="#8位加法器-8Adder" class="headerlink" title="8位加法器 8Adder"></a>8位加法器 8Adder</h2><ul>
+<li>8位加法器：实现8位二进制加法，涉及进位<blockquote>
+<p>补充：这种全加器叫串形加法器，由于高位的运算需要等待低位的进位输出，所以会有延迟，效率不是很高。<br>还有一种并行加法器可以实现同步，这里不多做介绍。事实上还可以通过前面的ROM实现方法实现低延迟运算。</p>
+</blockquote>
+</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248e8d9c307b7e97762ca.png"></p>
+<p><strong>制作测试器测试</strong><br>也就是八位按钮和八位的LED，通过测试器测试，符合预期即可</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a24916d9c307b7e977859b.png"></p>
+]]></content>
+      <categories>
+        <category>8位二进制cpu的设计和实现</category>
+      </categories>
+      <tags>
+        <tag>8位二进制cpu的设计和实现</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>8位二进制cpu的设计和实现-半加器</title>
+    <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%8D%8A%E5%8A%A0%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p>[CPU/Circuit/Half Adder at main · TomLiYouXiu/CPU (github.com)](<a class="link" href="https://github.com/TomLiYouXiu/CPU/tree/main/Circuit/Half">https://github.com/TomLiYouXiu/CPU/tree/main/Circuit/Half <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> Adder)</p>
+<h1 id="CPU基本电路的实现"><a href="#CPU基本电路的实现" class="headerlink" title="CPU基本电路的实现"></a>CPU基本电路的实现</h1><blockquote>
+<p>本文是对B站UP踌躇月光出的8位二进制CPU的设计和实现的文字教程复现第一部分 CPU基本电路的实现<br>相关 github 地址：<a class="link" href="https://github.com/StevenBaby/computer">https://github.com/StevenBaby/computer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>PS：有错误的地方请指正，谢谢！共同学习，一起进步！</p>
+</blockquote>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p>这个视频主要是分享8位二进制CPU的设计和实现。<br>首先，解释一下为什么做这个视频。众所周知，计算机专业众多课程中有一门课是计算机组成原理，这门课程实际上并不那么好理解，因为他涉及到了硬件。但是组成原理这门课又没有对硬件部分做充分的描述，导致这门课没有其他课那么容易学习，特别是中央处理器(CPU)部分的实现。那么我们一起来实现一个8位二进制CPU，就可以更加自然的理解计算机组成原理究竟说了些什么。<br>其次，关于做CPU或者说做一台计算机，做一台什么样的计算机的问题，图灵(1912-1954)给出过答案，图灵在他的论文&lt;可计算性&gt;中给出了什么样的事情是计算机可以做的，什么是做不到的，以及给出了计算机的抽象模型-图灵机，其中就描述了计算机和机器的区别，区别就是支持任何条件转移指令的机器就是计算机，也就是说我们要做一个支持条件转移的计算机，在这篇论文中还介绍了另一种测试计算机的方法，这就是人们熟知的图灵测试。最早引入条件转移指令的人是英国数学家和经济学家查尔斯.巴贝奇(1792-1871)，大约在19世纪，巴贝奇就有了制造解析机的想法，不过巴贝奇的解析机并没有在他有生之年实现。那么我们要做的CPU就是可以支持条件转移指令的机器，这里推荐大家两本书，一本是查尔斯的《编码：隐匿在计算机软硬件背后的语言》，也是这本书让up有了想做此视频的想法，第二本是李忠的《穿越计算机的迷雾》，可以作为前一本书的补充，值得大家一读再读。以上两本就作为教材了，如果想尽快了解做什么，可以去下载这两本书先读一读。工欲善其事必先利其器，本教程使用一个电路仿真的软件logiccircuit(下面会提到)来制作CPU电路。</p>
+</blockquote>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li>小白可以看看上面的两本书的前面部分或者快速入门数电基础</li>
+<li>下载仿真软件logiccircuit</li>
+</ul>
+<h2 id="logiccircuit软件使用方法"><a href="#logiccircuit软件使用方法" class="headerlink" title="logiccircuit软件使用方法"></a>logiccircuit软件使用方法</h2><p>打开软件，主窗口由以下几个部分组成</p>
+<ul>
+<li>软件提供模块：软件自身提供的一些基本输入输出单元和基本模块</li>
+<li>自建模块：通过下面的软件提供模块搭建的特殊功能模块</li>
+<li>搭建操作窗口：拖动模块连线和仿真展示的窗口</li>
+<li>开启仿真按钮：模块搭建和连线之后开启仿真的按钮</li>
+</ul>
+<h3 id="输入输出单元"><a href="#输入输出单元" class="headerlink" title="输入输出单元"></a>输入输出单元</h3><ul>
+<li>输入单元<ul>
+<li>位宽：可选位宽如1位，8位</li>
+<li>边：搭建模块时选择接口位置</li>
+</ul>
+</li>
+<li>输出单元<ul>
+<li>位宽：可选位宽如1位，8位</li>
+<li>边：搭建模块时选择接口位置</li>
+</ul>
+</li>
+<li>按钮/切换器<ul>
+<li>符号：名字是模块内部用的，特别是展示真值表时显示。符号是模块上表示该引脚的一个代号。</li>
+<li>切换器：切换器是锁定状态的，和按钮不同，按钮按下是一个状态，弹开是一个状态，切换器每按下弹起一次切换一次状态</li>
+<li>针脚：和边类似，搭建模块时选择接口位置</li>
+</ul>
+</li>
+<li>常量：和输入单元差不多，只不过是常量</li>
+<li>传感器：暂时不涉及</li>
+<li>时钟：提供时钟信号</li>
+<li>分路器：用来合并分路针脚为总线<ul>
+<li>分路针脚数目：引脚多的一端的针脚数</li>
+<li>分路针脚位宽：引脚多的一端的单个针脚的位宽</li>
+<li>组合针脚位置：单总线的位宽=分路针脚数目x分路针脚位宽，位置决定是输入还是输出，有三角标志的是低位</li>
+</ul>
+</li>
+<li>LED：方便显示逻辑电平输出，1 亮 0灭</li>
+<li>7段数码管：显示数字</li>
+<li>LED矩阵</li>
+<li>图形序列</li>
+<li>蜂鸣器</li>
+<li>探针：方便看某一处的电平输出</li>
+</ul>
+<h3 id="基本元件"><a href="#基本元件" class="headerlink" title="基本元件"></a>基本元件</h3><ul>
+<li>非门<ul>
+<li>逻辑表达式：L = !A</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>与门<ul>
+<li>逻辑表达式：L = A &amp; B</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>或门<ul>
+<li>逻辑表达式：L = A | B</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>与非门<ul>
+<li>逻辑表达式：L = !A &amp; B</li>
+</ul>
+</li>
+<li>或非门<ul>
+<li>逻辑表达式：L = !A | B</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>异或门<ul>
+<li>逻辑表达式：L = A ^ B</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>异或非门<ul>
+<li>逻辑表达式：L = !A ^ B</li>
+</ul>
+</li>
+<li>与或非门<ul>
+<li>逻辑表达式：L = !(A &amp; B)</li>
+</ul>
+</li>
+<li>或非门</li>
+<li>与非门<ul>
+<li>逻辑表达式：L = !A &amp; B</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li>异或非门<ul>
+<li>逻辑表达式：L = !A ^ B</li>
+</ul>
+</li>
+<li>NAND门<ul>
+<li>逻辑表达式：L = !(A | B)</li>
+</ul>
+</li>
+<li>或非门<ul>
+<li>逻辑表达式：L = !A | B</li>
+</ul>
+</li>
+<li>异或非门<ul>
+<li>逻辑表达式：L = !A ^ B</li>
+</ul>
+</li>
+<li>NAND门<ul>
+<li>逻辑表达式：L = !(A &amp; B)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>真值表：选中自建模块后，确保有输入输出单元，然后点击菜单栏电路-真值表，即可查看该模块的真值表</p>
+</blockquote>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><ul>
+<li>新建模块<br>点击菜单栏电路-新建逻辑电路，即可新建模块</li>
+<li>修改自建模块名称<br>选中模块，点击菜单栏电路-逻辑电路，即可修改名字，符号，类别</li>
+<li>交叉线的画法<br>按住Alt，点击交叉点</li>
+<li>旋转元器件<br>ctrl+L</li>
+</ul>
+<h1 id="半加器"><a href="#半加器" class="headerlink" title="半加器"></a>半加器</h1><p>单位二进制加法：0 + 0 = 0(无进位)、0 + 1 = 1(无进位)、1 + 0 = 1(无进位)、1 + 1 = 0(进位1)<br>半加器：实现单位二进制加法，不涉及进位</p>
+<ul>
+<li>逻辑表达式：S = A ^ B、C = A &amp; B</li>
+<li>真值表<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>S</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody></table>
+实现这样一个运算的逻辑电路称为半加器</li>
+</ul>
+<blockquote>
+<p>半加器电路是指对两个输入数据位相加，输出一个结果位和进位，没有进位输入的加法器电路。 是实现两个一位二进制数的加法运算电路。</p>
+</blockquote>
+<p>根据经验我们得知，逻辑表达式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.188ex;" xmlns="http://www.w3.org/2000/svg" width="10.656ex" height="1.808ex" role="img" focusable="false" viewBox="0 -716 4710 799"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(922.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1978.6,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="mo" transform="translate(2950.8,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(3951,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g></g></svg></mjx-container></p>
+<p><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="16.29ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 7200 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="Misplaced &" title="Misplaced &"><rect data-background="true" width="7200" height="950" y="-200"></rect><title>Misplaced &</title><g data-mml-node="mtext" style="font-family: serif;"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px">  C = A &amp; B </text></g></g></g></g></svg></mjx-container></p>
+<p>打开logiccircuit根据上面异或和与关系搭建门电路，验证</p>
+<ul>
+<li>将异或(XOR)门用与、或、非门实现出来</li>
+<li>然后用异或(XOR)门和与门共同搭建半加器(Half Adder)</li>
+<li>搭建完之后通过按键和LED测试，符合真值表逻辑即可</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a21a14d9c307b7e94ce9dd.png"></p>
+]]></content>
+      <categories>
+        <category>8位二进制cpu的设计和实现</category>
+      </categories>
+      <tags>
+        <tag>8位二进制cpu的设计和实现</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>8位二进制cpu的设计和实现</title>
+    <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><h2 id="八位二进制CPU的学习与制造-开始日期2024年7月24日09-48-59-项目结构本项目包含以下文件和目录：-README-md：项目说明文件-Note：笔记目录-Circuit：电路目录-tests：测试目录-build：构建目录-resources：资源目录-项目简介本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：-CPU-基本电路的实现-半加器-全加器和八位二进制加法器"><a href="#八位二进制CPU的学习与制造-开始日期2024年7月24日09-48-59-项目结构本项目包含以下文件和目录：-README-md：项目说明文件-Note：笔记目录-Circuit：电路目录-tests：测试目录-build：构建目录-resources：资源目录-项目简介本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：-CPU-基本电路的实现-半加器-全加器和八位二进制加法器" class="headerlink" title="八位二进制CPU的学习与制造&gt; 开始日期2024年7月24日09:48:59&gt;## 项目结构本项目包含以下文件和目录：- README.md：项目说明文件- Note：笔记目录- Circuit：电路目录- tests：测试目录- build：构建目录- resources：资源目录## 项目简介本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：- CPU 基本电路的实现  - 半加器  - 全加器和八位二进制加法器"></a>八位二进制CPU的学习与制造<br>&gt; 开始日期2024年7月24日09:48:59<br>&gt;<br>## 项目结构<br>本项目包含以下文件和目录：<br>- <code>README.md</code>：项目说明文件<br>- <code>Note</code>：笔记目录<br>- <code>Circuit</code>：电路目录<br>- <code>tests</code>：测试目录<br>- <code>build</code>：构建目录<br>- <code>resources</code>：资源目录<br>## 项目简介<br>本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：<br>- CPU 基本电路的实现<br>  - 半加器<br>  - 全加器和八位二进制加法器</h2><ul>
+<li>CPU 微架构的实现</li>
+<li>CPU 指令集的设计与实现</li>
+</ul>
+]]></content>
+      <categories>
+        <category>8位二进制cpu的设计和实现</category>
+      </categories>
+      <tags>
+        <tag>8位二进制cpu的设计和实现</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dify接入微信</title>
+    <url>/2024/05/14/dify%E6%8E%A5%E5%85%A5%E5%BE%AE%E4%BF%A1/</url>
+    <content><![CDATA[<h1 id="一、Dify简介"><a href="#一、Dify简介" class="headerlink" title="一、Dify简介"></a>一、Dify简介</h1><p><strong>项目官网</strong>：<a class="link"   href="https://dify.ai/zh" >Dify.AI · 生成式 AI 应用创新引擎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><strong>Dify</strong> 是一款开源的大语言模型(LLM) 应用开发平台。它融合了后端即服务（Backend as Service）和 <a class="link"   href="https://docs.dify.ai/v/zh-hans/learn-more/extended-reading/what-is-llmops" >LLMOps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 的理念，使开发者可以快速搭建生产级的生成式 AI 应用。即使你是非技术人员，也能参与到 AI 应用的定义和数据运营过程中。</p>
+<p>由于 Dify 内置了构建 LLM 应用所需的关键技术栈，包括对数百个模型的支持、直观的 Prompt 编排界面、高质量的 RAG 引擎以及灵活的 Agent 框架，并同时提供了一套易用的界面和 API。这为开发者节省了许多重复造轮子的时间，使其可以专注在创新和业务需求上。</p>
+<h3 id="为什么使用-Dify？"><a href="#为什么使用-Dify？" class="headerlink" title="为什么使用 Dify？"></a>为什么使用 Dify？</h3><p>你或许可以把 LangChain 这类的开发库（Library）想象为有着锤子、钉子的工具箱。与之相比，Dify 提供了更接近生产需要的完整方案，Dify 好比是一套脚手架，并且经过了精良的工程设计和软件测试。</p>
+<p>重要的是，Dify 是<strong>开源</strong>的，它由一个专业的全职团队和社区共同打造。你可以基于任何模型自部署类似 Assistants API 和 GPTs 的能力，在灵活的安全的基础上，同时保持对数据的完全控制。</p>
+<blockquote>
+<p>我们的社区用户对 Dify 的产品评价可以归结为简单、克制、迭代迅速。 ——路宇，Dify.AI CEO</p>
+</blockquote>
+<p>希望以上信息和这份指南可以帮助你了解这款产品，我们相信 Dify 是为你而做的（Do It For You）。</p>
+<h3 id="Dify-能做什么？"><a href="#Dify-能做什么？" class="headerlink" title="Dify 能做什么？"></a>Dify 能做什么？</h3><p>Dify 一词源自 Define + Modify，意指定义并且持续的改进你的 AI 应用，它是为你而做的（Do it for you）。</p>
+<ul>
+<li><strong>创业</strong>，快速的将你的 AI 应用创意变成现实，无论成功和失败都需要加速。在真实世界，已经有几十个团队通过 Dify 构建 MVP（最小可用产品）获得投资，或通过 POC（概念验证）赢得了客户的订单。</li>
+<li><strong>将 LLM 集成至已有业务</strong>，通过引入 LLM 增强现有应用的能力，接入 Dify 的 RESTful API 从而实现 Prompt 与业务代码的解耦，在 Dify 的管理界面是跟踪数据、成本和用量，持续改进应用效果。</li>
+<li><strong>作为企业级 LLM 基础设施</strong>，一些银行和大型互联网公司正在将 Dify 部署为企业内的 LLM 网关，加速 GenAI 技术在企业内的推广，并实现中心化的监管。</li>
+<li><strong>探索 LLM 的能力边界</strong>，即使你是一个技术爱好者，通过 Dify 也可以轻松的实践 Prompt 工程和 Agent 技术，在 GPTs 推出以前就已经有超过 60,000 开发者在 Dify 上创建了自己的第一个应用。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/image-9jkv.png"
+                      alt="image-9jkv.png"
+                ></p>
+<h1 id="二、Dify-on-WeChat"><a href="#二、Dify-on-WeChat" class="headerlink" title="二、Dify on WeChat"></a>二、Dify on WeChat</h1><p><strong>项目地址</strong>：<a class="link"   href="https://github.com/hanfangyuan4396/dify-on-wechat.git" >https://github.com/hanfangyuan4396/dify-on-wechat.git <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>项目为 <a class="link"   href="https://github.com/zhayujie/chatgpt-on-wechat" >chatgpt-on-wechat <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>下游分支</p>
+<p>额外对接了LLMOps平台 <a class="link"   href="https://github.com/langgenius/dify" >Dify <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，支持Dify智能助手模型，调用工具和知识库，支持Dify工作流。</p>
+<p>如果作者的项目对您有帮助请帮助作者点一个star吧~</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/image-95t6.png"
+                      alt="image-95t6.png"
+                ></p>
+<h1 id="三、部署"><a href="#三、部署" class="headerlink" title="三、部署"></a>三、部署</h1><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>首先需要一台服务器，推荐浪浪云服务器：高防，稳定，有保障！！！</p>
+<p>浪浪云限时活动推荐：</p>
+<ul>
+<li><a class="link"   href="https://blog.langlangy.com/archives/apifree" >公益免费大模型接口–无需再为api付费 | 浪浪云技术栈 (langlangy.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.langlangy.com/archives/bphd" >浪浪云白嫖服务器活动 | 浪浪云技术栈 (langlangy.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="Dify的搭建："><a href="#Dify的搭建：" class="headerlink" title="Dify的搭建："></a>Dify的搭建：</h3><p>1.可以参考官方的教程：</p>
+<p>2.如果不想这么麻烦的话可以使用浪浪云的一键部署<a class="link"   href="https://blog.langlangy.com/archives/dify" >Dify知识库可接入全场大模型【一.搭建演示篇】 | 浪浪云技术栈 (langlangy.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/image-fe3n.png"
+                      alt="image-fe3n.png"
+                ></p>
+<h3 id="升级Dify版本"><a href="#升级Dify版本" class="headerlink" title="升级Dify版本"></a>升级Dify版本</h3><p>购买完浪浪云的服务器后可能会出现Dify的版本较低，此时我们升级版本即可</p>
+<p>1.远程连接浪浪云服务器<a class="link"   href="https://langlangy.com/news/detail/support/9" >Linux服务器登陆教程 - 浪浪云：提供高性能、可靠稳定的云服务器解决方案 (langlangy.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>2.挨个执行命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入对应的目录</span></span><br><span class="line"><span class="built_in">cd</span> <span class="comment">#返回根目录</span></span><br><span class="line"><span class="built_in">cd</span> dify/docker/ <span class="comment">#进入对应的文件夹</span></span><br><span class="line">vi docker-compose.yaml <span class="comment">#编辑对应的文件信息，或者删除文件，新建也可</span></span><br><span class="line">docker compose down <span class="comment">#停止容器</span></span><br><span class="line">docker compose pull <span class="comment">#拉取新的镜像</span></span><br><span class="line">docker compose up -d <span class="comment">#启动容器</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>docker-compose.yaml</strong>文件内容，可能存在一定的时效性，目前2024年5月8日13:59:54[处于最新版]，也可到项目的官网进行复制对应的文件</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># API service</span></span><br><span class="line">  <span class="attr">api:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">langgenius/dify-api:0.6.6</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># Startup mode, &#x27;api&#x27; starts the API server.</span></span><br><span class="line">      <span class="attr">MODE:</span> <span class="string">api</span></span><br><span class="line">      <span class="comment"># The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`</span></span><br><span class="line">      <span class="attr">LOG_LEVEL:</span> <span class="string">INFO</span></span><br><span class="line">      <span class="comment"># A secret key that is used for securely signing the session cookie and encrypting sensitive information on the database. You can generate a strong key using `openssl rand -base64 42`.</span></span><br><span class="line">      <span class="attr">SECRET_KEY:</span> <span class="string">sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U</span></span><br><span class="line">      <span class="comment"># The base URL of console application web frontend, refers to the Console base URL of WEB service if console domain is</span></span><br><span class="line">      <span class="comment"># different from api or web app domain.</span></span><br><span class="line">      <span class="comment"># example: http://cloud.dify.ai</span></span><br><span class="line">      <span class="attr">CONSOLE_WEB_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># Password for admin user initialization.</span></span><br><span class="line">      <span class="comment"># If left unset, admin user will not be prompted for a password when creating the initial admin account.</span></span><br><span class="line">      <span class="attr">INIT_PASSWORD:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># The base URL of console application api server, refers to the Console base URL of WEB service if console domain is</span></span><br><span class="line">      <span class="comment"># different from api or web app domain.</span></span><br><span class="line">      <span class="comment"># example: http://cloud.dify.ai</span></span><br><span class="line">      <span class="attr">CONSOLE_API_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># The URL prefix for Service API endpoints, refers to the base URL of the current API service if api domain is</span></span><br><span class="line">      <span class="comment"># different from console domain.</span></span><br><span class="line">      <span class="comment"># example: http://api.dify.ai</span></span><br><span class="line">      <span class="attr">SERVICE_API_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># The URL prefix for Web APP frontend, refers to the Web App base URL of WEB service if web app domain is different from</span></span><br><span class="line">      <span class="comment"># console or api domain.</span></span><br><span class="line">      <span class="comment"># example: http://udify.app</span></span><br><span class="line">      <span class="attr">APP_WEB_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># File preview or download Url prefix.</span></span><br><span class="line">      <span class="comment"># used to display File preview or download Url to the front-end or as Multi-model inputs;</span></span><br><span class="line">      <span class="comment"># Url is signed and has expiration time.</span></span><br><span class="line">      <span class="attr">FILES_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># When enabled, migrations will be executed prior to application startup and the application will start after the migrations have completed.</span></span><br><span class="line">      <span class="attr">MIGRATION_ENABLED:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="comment"># The configurations of postgres database connection.</span></span><br><span class="line">      <span class="comment"># It is consistent with the configuration in the &#x27;db&#x27; service below.</span></span><br><span class="line">      <span class="attr">DB_USERNAME:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="attr">DB_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="attr">DB_HOST:</span> <span class="string">db</span></span><br><span class="line">      <span class="attr">DB_PORT:</span> <span class="number">5432</span></span><br><span class="line">      <span class="attr">DB_DATABASE:</span> <span class="string">dify</span></span><br><span class="line">      <span class="comment"># The configurations of redis connection.</span></span><br><span class="line">      <span class="comment"># It is consistent with the configuration in the &#x27;redis&#x27; service below.</span></span><br><span class="line">      <span class="attr">REDIS_HOST:</span> <span class="string">redis</span></span><br><span class="line">      <span class="attr">REDIS_PORT:</span> <span class="number">6379</span></span><br><span class="line">      <span class="attr">REDIS_USERNAME:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">REDIS_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="attr">REDIS_USE_SSL:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="comment"># use redis db 0 for redis cache</span></span><br><span class="line">      <span class="attr">REDIS_DB:</span> <span class="number">0</span></span><br><span class="line">      <span class="comment"># The configurations of celery broker.</span></span><br><span class="line">      <span class="comment"># Use redis as the broker, and redis db 1 for celery broker.</span></span><br><span class="line">      <span class="attr">CELERY_BROKER_URL:</span> <span class="string">redis://:difyai123456@redis:6379/1</span></span><br><span class="line">      <span class="comment"># Specifies the allowed origins for cross-origin requests to the Web API, e.g. https://dify.app or * for all origins.</span></span><br><span class="line">      <span class="attr">WEB_API_CORS_ALLOW_ORIGINS:</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line">      <span class="comment"># Specifies the allowed origins for cross-origin requests to the console API, e.g. https://cloud.dify.ai or * for all origins.</span></span><br><span class="line">      <span class="attr">CONSOLE_CORS_ALLOW_ORIGINS:</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line">      <span class="comment"># CSRF Cookie settings</span></span><br><span class="line">      <span class="comment"># Controls whether a cookie is sent with cross-site requests,</span></span><br><span class="line">      <span class="comment"># providing some protection against cross-site request forgery attacks</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      <span class="comment"># Default: `SameSite=Lax, Secure=false, HttpOnly=true`</span></span><br><span class="line">      <span class="comment"># This default configuration supports same-origin requests using either HTTP or HTTPS,</span></span><br><span class="line">      <span class="comment"># but does not support cross-origin requests. It is suitable for local debugging purposes.</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      <span class="comment"># If you want to enable cross-origin support,</span></span><br><span class="line">      <span class="comment"># you must use the HTTPS protocol and set the configuration to `SameSite=None, Secure=true, HttpOnly=true`.</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      <span class="comment"># The type of storage to use for storing user files. Supported values are `local` and `s3` and `azure-blob` and `google-storage`, Default: `local`</span></span><br><span class="line">      <span class="attr">STORAGE_TYPE:</span> <span class="string">local</span></span><br><span class="line">      <span class="comment"># The path to the local storage directory, the directory relative the root path of API service codes or absolute path. Default: `storage` or `/home/john/storage`.</span></span><br><span class="line">      <span class="comment"># only available when STORAGE_TYPE is `local`.</span></span><br><span class="line">      <span class="attr">STORAGE_LOCAL_PATH:</span> <span class="string">storage</span></span><br><span class="line">      <span class="comment"># The S3 storage configurations, only available when STORAGE_TYPE is `s3`.</span></span><br><span class="line">      <span class="attr">S3_ENDPOINT:</span> <span class="string">&#x27;https://xxx.r2.cloudflarestorage.com&#x27;</span></span><br><span class="line">      <span class="attr">S3_BUCKET_NAME:</span> <span class="string">&#x27;difyai&#x27;</span></span><br><span class="line">      <span class="attr">S3_ACCESS_KEY:</span> <span class="string">&#x27;ak-difyai&#x27;</span></span><br><span class="line">      <span class="attr">S3_SECRET_KEY:</span> <span class="string">&#x27;sk-difyai&#x27;</span></span><br><span class="line">      <span class="attr">S3_REGION:</span> <span class="string">&#x27;us-east-1&#x27;</span></span><br><span class="line">      <span class="comment"># The Azure Blob storage configurations, only available when STORAGE_TYPE is `azure-blob`.</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_ACCOUNT_NAME:</span> <span class="string">&#x27;difyai&#x27;</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_ACCOUNT_KEY:</span> <span class="string">&#x27;difyai&#x27;</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_CONTAINER_NAME:</span> <span class="string">&#x27;difyai-container&#x27;</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_ACCOUNT_URL:</span> <span class="string">&#x27;https://&lt;your_account_name&gt;.blob.core.windows.net&#x27;</span></span><br><span class="line">      <span class="comment"># The Google storage configurations, only available when STORAGE_TYPE is `google-storage`.</span></span><br><span class="line">      <span class="attr">GOOGLE_STORAGE_BUCKET_NAME:</span> <span class="string">&#x27;yout-bucket-name&#x27;</span></span><br><span class="line">      <span class="attr">GOOGLE_STORAGE_SERVICE_ACCOUNT_JSON_BASE64:</span> <span class="string">&#x27;your-google-service-account-json-base64-string&#x27;</span></span><br><span class="line">      <span class="comment"># The type of vector store to use. Supported values are `weaviate`, `qdrant`, `milvus`, `relyt`.</span></span><br><span class="line">      <span class="attr">VECTOR_STORE:</span> <span class="string">weaviate</span></span><br><span class="line">      <span class="comment"># The Weaviate endpoint URL. Only available when VECTOR_STORE is `weaviate`.</span></span><br><span class="line">      <span class="attr">WEAVIATE_ENDPOINT:</span> <span class="string">http://weaviate:8080</span></span><br><span class="line">      <span class="comment"># The Weaviate API key.</span></span><br><span class="line">      <span class="attr">WEAVIATE_API_KEY:</span> <span class="string">WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih</span></span><br><span class="line">      <span class="comment"># The Qdrant endpoint URL. Only available when VECTOR_STORE is `qdrant`.</span></span><br><span class="line">      <span class="attr">QDRANT_URL:</span> <span class="string">http://qdrant:6333</span></span><br><span class="line">      <span class="comment"># The Qdrant API key.</span></span><br><span class="line">      <span class="attr">QDRANT_API_KEY:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="comment"># The Qdrant client timeout setting.</span></span><br><span class="line">      <span class="attr">QDRANT_CLIENT_TIMEOUT:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># The Qdrant client enable gRPC mode.</span></span><br><span class="line">      <span class="attr">QDRANT_GRPC_ENABLED:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="comment"># The Qdrant server gRPC mode PORT.</span></span><br><span class="line">      <span class="attr">QDRANT_GRPC_PORT:</span> <span class="number">6334</span></span><br><span class="line">      <span class="comment"># Milvus configuration Only available when VECTOR_STORE is `milvus`.</span></span><br><span class="line">      <span class="comment"># The milvus host.</span></span><br><span class="line">      <span class="attr">MILVUS_HOST:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="comment"># The milvus host.</span></span><br><span class="line">      <span class="attr">MILVUS_PORT:</span> <span class="number">19530</span></span><br><span class="line">      <span class="comment"># The milvus username.</span></span><br><span class="line">      <span class="attr">MILVUS_USER:</span> <span class="string">root</span></span><br><span class="line">      <span class="comment"># The milvus password.</span></span><br><span class="line">      <span class="attr">MILVUS_PASSWORD:</span> <span class="string">Milvus</span></span><br><span class="line">      <span class="comment"># The milvus tls switch.</span></span><br><span class="line">      <span class="attr">MILVUS_SECURE:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="comment"># relyt configurations</span></span><br><span class="line">      <span class="attr">RELYT_HOST:</span> <span class="string">db</span></span><br><span class="line">      <span class="attr">RELYT_PORT:</span> <span class="number">5432</span></span><br><span class="line">      <span class="attr">RELYT_USER:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="attr">RELYT_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="attr">RELYT_DATABASE:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="comment"># Mail configuration, support: resend, smtp</span></span><br><span class="line">      <span class="attr">MAIL_TYPE:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># default send from email address, if not specified</span></span><br><span class="line">      <span class="attr">MAIL_DEFAULT_SEND_FROM:</span> <span class="string">&#x27;YOUR EMAIL FROM (eg: no-reply &lt;no-reply@dify.ai&gt;)&#x27;</span></span><br><span class="line">      <span class="attr">SMTP_SERVER:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">SMTP_PORT:</span> <span class="number">587</span></span><br><span class="line">      <span class="attr">SMTP_USERNAME:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">SMTP_PASSWORD:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">SMTP_USE_TLS:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="comment"># the api-key for resend (https://resend.com)</span></span><br><span class="line">      <span class="attr">RESEND_API_KEY:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">RESEND_API_URL:</span> <span class="string">https://api.resend.com</span></span><br><span class="line">      <span class="comment"># The DSN for Sentry error reporting. If not set, Sentry error reporting will be disabled.</span></span><br><span class="line">      <span class="attr">SENTRY_DSN:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># The sample rate for Sentry events. Default: `1.0`</span></span><br><span class="line">      <span class="attr">SENTRY_TRACES_SAMPLE_RATE:</span> <span class="number">1.0</span></span><br><span class="line">      <span class="comment"># The sample rate for Sentry profiles. Default: `1.0`</span></span><br><span class="line">      <span class="attr">SENTRY_PROFILES_SAMPLE_RATE:</span> <span class="number">1.0</span></span><br><span class="line">      <span class="comment"># Notion import configuration, support public and internal</span></span><br><span class="line">      <span class="attr">NOTION_INTEGRATION_TYPE:</span> <span class="string">public</span></span><br><span class="line">      <span class="attr">NOTION_CLIENT_SECRET:</span> <span class="string">you-client-secret</span></span><br><span class="line">      <span class="attr">NOTION_CLIENT_ID:</span> <span class="string">you-client-id</span></span><br><span class="line">      <span class="attr">NOTION_INTERNAL_SECRET:</span> <span class="string">you-internal-secret</span></span><br><span class="line">      <span class="comment"># The sandbox service endpoint.</span></span><br><span class="line">      <span class="attr">CODE_EXECUTION_ENDPOINT:</span> <span class="string">&quot;http://sandbox:8194&quot;</span></span><br><span class="line">      <span class="attr">CODE_EXECUTION_API_KEY:</span> <span class="string">dify-sandbox</span></span><br><span class="line">      <span class="attr">CODE_MAX_NUMBER:</span> <span class="number">9223372036854775807</span></span><br><span class="line">      <span class="attr">CODE_MIN_NUMBER:</span> <span class="number">-9223372036854775808</span></span><br><span class="line">      <span class="attr">CODE_MAX_STRING_LENGTH:</span> <span class="number">80000</span></span><br><span class="line">      <span class="attr">TEMPLATE_TRANSFORM_MAX_LENGTH:</span> <span class="number">80000</span></span><br><span class="line">      <span class="attr">CODE_MAX_STRING_ARRAY_LENGTH:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">CODE_MAX_OBJECT_ARRAY_LENGTH:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">CODE_MAX_NUMBER_ARRAY_LENGTH:</span> <span class="number">1000</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># Mount the storage directory to the container, for storing user files.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./volumes/app/storage:/app/api/storage</span></span><br><span class="line">    <span class="comment"># uncomment to expose dify-api port to host</span></span><br><span class="line">    <span class="comment"># ports:</span></span><br><span class="line">    <span class="comment">#   - &quot;5001:5001&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># worker service</span></span><br><span class="line">  <span class="comment"># The Celery worker for processing the queue.</span></span><br><span class="line">  <span class="attr">worker:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">langgenius/dify-api:0.6.6</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># Startup mode, &#x27;worker&#x27; starts the Celery worker for processing the queue.</span></span><br><span class="line">      <span class="attr">MODE:</span> <span class="string">worker</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># --- All the configurations below are the same as those in the &#x27;api&#x27; service. ---</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`</span></span><br><span class="line">      <span class="attr">LOG_LEVEL:</span> <span class="string">INFO</span></span><br><span class="line">      <span class="comment"># A secret key that is used for securely signing the session cookie and encrypting sensitive information on the database. You can generate a strong key using `openssl rand -base64 42`.</span></span><br><span class="line">      <span class="comment"># same as the API service</span></span><br><span class="line">      <span class="attr">SECRET_KEY:</span> <span class="string">sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U</span></span><br><span class="line">      <span class="comment"># The configurations of postgres database connection.</span></span><br><span class="line">      <span class="comment"># It is consistent with the configuration in the &#x27;db&#x27; service below.</span></span><br><span class="line">      <span class="attr">DB_USERNAME:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="attr">DB_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="attr">DB_HOST:</span> <span class="string">db</span></span><br><span class="line">      <span class="attr">DB_PORT:</span> <span class="number">5432</span></span><br><span class="line">      <span class="attr">DB_DATABASE:</span> <span class="string">dify</span></span><br><span class="line">      <span class="comment"># The configurations of redis cache connection.</span></span><br><span class="line">      <span class="attr">REDIS_HOST:</span> <span class="string">redis</span></span><br><span class="line">      <span class="attr">REDIS_PORT:</span> <span class="number">6379</span></span><br><span class="line">      <span class="attr">REDIS_USERNAME:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">REDIS_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="attr">REDIS_DB:</span> <span class="number">0</span></span><br><span class="line">      <span class="attr">REDIS_USE_SSL:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="comment"># The configurations of celery broker.</span></span><br><span class="line">      <span class="attr">CELERY_BROKER_URL:</span> <span class="string">redis://:difyai123456@redis:6379/1</span></span><br><span class="line">      <span class="comment"># The type of storage to use for storing user files. Supported values are `local` and `s3` and `azure-blob`, Default: `local`</span></span><br><span class="line">      <span class="attr">STORAGE_TYPE:</span> <span class="string">local</span></span><br><span class="line">      <span class="attr">STORAGE_LOCAL_PATH:</span> <span class="string">storage</span></span><br><span class="line">      <span class="comment"># The S3 storage configurations, only available when STORAGE_TYPE is `s3`.</span></span><br><span class="line">      <span class="attr">S3_ENDPOINT:</span> <span class="string">&#x27;https://xxx.r2.cloudflarestorage.com&#x27;</span></span><br><span class="line">      <span class="attr">S3_BUCKET_NAME:</span> <span class="string">&#x27;difyai&#x27;</span></span><br><span class="line">      <span class="attr">S3_ACCESS_KEY:</span> <span class="string">&#x27;ak-difyai&#x27;</span></span><br><span class="line">      <span class="attr">S3_SECRET_KEY:</span> <span class="string">&#x27;sk-difyai&#x27;</span></span><br><span class="line">      <span class="attr">S3_REGION:</span> <span class="string">&#x27;us-east-1&#x27;</span></span><br><span class="line">      <span class="comment"># The Azure Blob storage configurations, only available when STORAGE_TYPE is `azure-blob`.</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_ACCOUNT_NAME:</span> <span class="string">&#x27;difyai&#x27;</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_ACCOUNT_KEY:</span> <span class="string">&#x27;difyai&#x27;</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_CONTAINER_NAME:</span> <span class="string">&#x27;difyai-container&#x27;</span></span><br><span class="line">      <span class="attr">AZURE_BLOB_ACCOUNT_URL:</span> <span class="string">&#x27;https://&lt;your_account_name&gt;.blob.core.windows.net&#x27;</span></span><br><span class="line">      <span class="comment"># The type of vector store to use. Supported values are `weaviate`, `qdrant`, `milvus`, `relyt`.</span></span><br><span class="line">      <span class="attr">VECTOR_STORE:</span> <span class="string">weaviate</span></span><br><span class="line">      <span class="comment"># The Weaviate endpoint URL. Only available when VECTOR_STORE is `weaviate`.</span></span><br><span class="line">      <span class="attr">WEAVIATE_ENDPOINT:</span> <span class="string">http://weaviate:8080</span></span><br><span class="line">      <span class="comment"># The Weaviate API key.</span></span><br><span class="line">      <span class="attr">WEAVIATE_API_KEY:</span> <span class="string">WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih</span></span><br><span class="line">      <span class="comment"># The Qdrant endpoint URL. Only available when VECTOR_STORE is `qdrant`.</span></span><br><span class="line">      <span class="attr">QDRANT_URL:</span> <span class="string">http://qdrant:6333</span></span><br><span class="line">      <span class="comment"># The Qdrant API key.</span></span><br><span class="line">      <span class="attr">QDRANT_API_KEY:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="comment"># The Qdrant clinet timeout setting.</span></span><br><span class="line">      <span class="attr">QDRANT_CLIENT_TIMEOUT:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># The Qdrant client enable gRPC mode.</span></span><br><span class="line">      <span class="attr">QDRANT_GRPC_ENABLED:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="comment"># The Qdrant server gRPC mode PORT.</span></span><br><span class="line">      <span class="attr">QDRANT_GRPC_PORT:</span> <span class="number">6334</span></span><br><span class="line">      <span class="comment"># Milvus configuration Only available when VECTOR_STORE is `milvus`.</span></span><br><span class="line">      <span class="comment"># The milvus host.</span></span><br><span class="line">      <span class="attr">MILVUS_HOST:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="comment"># The milvus host.</span></span><br><span class="line">      <span class="attr">MILVUS_PORT:</span> <span class="number">19530</span></span><br><span class="line">      <span class="comment"># The milvus username.</span></span><br><span class="line">      <span class="attr">MILVUS_USER:</span> <span class="string">root</span></span><br><span class="line">      <span class="comment"># The milvus password.</span></span><br><span class="line">      <span class="attr">MILVUS_PASSWORD:</span> <span class="string">Milvus</span></span><br><span class="line">      <span class="comment"># The milvus tls switch.</span></span><br><span class="line">      <span class="attr">MILVUS_SECURE:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="comment"># Mail configuration, support: resend</span></span><br><span class="line">      <span class="attr">MAIL_TYPE:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># default send from email address, if not specified</span></span><br><span class="line">      <span class="attr">MAIL_DEFAULT_SEND_FROM:</span> <span class="string">&#x27;YOUR EMAIL FROM (eg: no-reply &lt;no-reply@dify.ai&gt;)&#x27;</span></span><br><span class="line">      <span class="comment"># the api-key for resend (https://resend.com)</span></span><br><span class="line">      <span class="attr">RESEND_API_KEY:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="attr">RESEND_API_URL:</span> <span class="string">https://api.resend.com</span></span><br><span class="line">      <span class="comment"># relyt configurations</span></span><br><span class="line">      <span class="attr">RELYT_HOST:</span> <span class="string">db</span></span><br><span class="line">      <span class="attr">RELYT_PORT:</span> <span class="number">5432</span></span><br><span class="line">      <span class="attr">RELYT_USER:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="attr">RELYT_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="attr">RELYT_DATABASE:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="comment"># Notion import configuration, support public and internal</span></span><br><span class="line">      <span class="attr">NOTION_INTEGRATION_TYPE:</span> <span class="string">public</span></span><br><span class="line">      <span class="attr">NOTION_CLIENT_SECRET:</span> <span class="string">you-client-secret</span></span><br><span class="line">      <span class="attr">NOTION_CLIENT_ID:</span> <span class="string">you-client-id</span></span><br><span class="line">      <span class="attr">NOTION_INTERNAL_SECRET:</span> <span class="string">you-internal-secret</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># Mount the storage directory to the container, for storing user files.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./volumes/app/storage:/app/api/storage</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Frontend web application.</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">langgenius/dify-web:0.6.6</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># The base URL of console application api server, refers to the Console base URL of WEB service if console domain is</span></span><br><span class="line">      <span class="comment"># different from api or web app domain.</span></span><br><span class="line">      <span class="comment"># example: http://cloud.dify.ai</span></span><br><span class="line">      <span class="attr">CONSOLE_API_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># The URL for Web APP api server, refers to the Web App base URL of WEB service if web app domain is different from</span></span><br><span class="line">      <span class="comment"># console or api domain.</span></span><br><span class="line">      <span class="comment"># example: http://udify.app</span></span><br><span class="line">      <span class="attr">APP_API_URL:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="comment"># The DSN for Sentry error reporting. If not set, Sentry error reporting will be disabled.</span></span><br><span class="line">      <span class="attr">SENTRY_DSN:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># uncomment to expose dify-web port to host</span></span><br><span class="line">    <span class="comment"># ports:</span></span><br><span class="line">    <span class="comment">#   - &quot;3000:3000&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The postgres database.</span></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:15-alpine</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">PGUSER:</span> <span class="string">postgres</span></span><br><span class="line">      <span class="comment"># The password for the default postgres user.</span></span><br><span class="line">      <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">difyai123456</span></span><br><span class="line">      <span class="comment"># The name of the default postgres database.</span></span><br><span class="line">      <span class="attr">POSTGRES_DB:</span> <span class="string">dify</span></span><br><span class="line">      <span class="comment"># postgres data directory</span></span><br><span class="line">      <span class="attr">PGDATA:</span> <span class="string">/var/lib/postgresql/data/pgdata</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./volumes/db/data:/var/lib/postgresql/data</span></span><br><span class="line">    <span class="comment"># uncomment to expose db(postgresql) port to host</span></span><br><span class="line">    <span class="comment"># ports:</span></span><br><span class="line">    <span class="comment">#   - &quot;5432:5432&quot;</span></span><br><span class="line">    <span class="attr">healthcheck:</span></span><br><span class="line">      <span class="attr">test:</span> [ <span class="string">&quot;CMD&quot;</span>, <span class="string">&quot;pg_isready&quot;</span> ]</span><br><span class="line">      <span class="attr">interval:</span> <span class="string">1s</span></span><br><span class="line">      <span class="attr">timeout:</span> <span class="string">3s</span></span><br><span class="line">      <span class="attr">retries:</span> <span class="number">30</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The redis cache.</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:6-alpine</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># Mount the redis data directory to the container.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./volumes/redis/data:/data</span></span><br><span class="line">    <span class="comment"># Set the redis password when startup redis server.</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--requirepass</span> <span class="string">difyai123456</span></span><br><span class="line">    <span class="attr">healthcheck:</span></span><br><span class="line">      <span class="attr">test:</span> [ <span class="string">&quot;CMD&quot;</span>, <span class="string">&quot;redis-cli&quot;</span>, <span class="string">&quot;ping&quot;</span> ]</span><br><span class="line">    <span class="comment"># uncomment to expose redis port to host</span></span><br><span class="line">    <span class="comment"># ports:</span></span><br><span class="line">    <span class="comment">#   - &quot;6379:6379&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The Weaviate vector store.</span></span><br><span class="line">  <span class="attr">weaviate:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">semitechnologies/weaviate:1.19.0</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># Mount the Weaviate data directory to the container.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./volumes/weaviate:/var/lib/weaviate</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># The Weaviate configurations</span></span><br><span class="line">      <span class="comment"># You can refer to the [Weaviate](https://weaviate.io/developers/weaviate/config-refs/env-vars) documentation for more information.</span></span><br><span class="line">      <span class="attr">QUERY_DEFAULTS_LIMIT:</span> <span class="number">25</span></span><br><span class="line">      <span class="attr">AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">      <span class="attr">PERSISTENCE_DATA_PATH:</span> <span class="string">&#x27;/var/lib/weaviate&#x27;</span></span><br><span class="line">      <span class="attr">DEFAULT_VECTORIZER_MODULE:</span> <span class="string">&#x27;none&#x27;</span></span><br><span class="line">      <span class="attr">CLUSTER_HOSTNAME:</span> <span class="string">&#x27;node1&#x27;</span></span><br><span class="line">      <span class="attr">AUTHENTICATION_APIKEY_ENABLED:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">AUTHENTICATION_APIKEY_ALLOWED_KEYS:</span> <span class="string">&#x27;WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih&#x27;</span></span><br><span class="line">      <span class="attr">AUTHENTICATION_APIKEY_USERS:</span> <span class="string">&#x27;hello@dify.ai&#x27;</span></span><br><span class="line">      <span class="attr">AUTHORIZATION_ADMINLIST_ENABLED:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">AUTHORIZATION_ADMINLIST_USERS:</span> <span class="string">&#x27;hello@dify.ai&#x27;</span></span><br><span class="line">    <span class="comment"># uncomment to expose weaviate port to host</span></span><br><span class="line">    <span class="comment"># ports:</span></span><br><span class="line">    <span class="comment">#  - &quot;8080:8080&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The DifySandbox</span></span><br><span class="line">  <span class="attr">sandbox:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">langgenius/dify-sandbox:0.1.0</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">cap_add:</span></span><br><span class="line">    <span class="comment"># Why is sys_admin permission needed?</span></span><br><span class="line">    <span class="comment"># https://docs.dify.ai/getting-started/install-self-hosted/install-faq#id-16.-why-is-sys_admin-permission-needed</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">SYS_ADMIN</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># The DifySandbox configurations</span></span><br><span class="line">      <span class="attr">API_KEY:</span> <span class="string">dify-sandbox</span></span><br><span class="line">      <span class="attr">GIN_MODE:</span> <span class="string">release</span></span><br><span class="line">      <span class="attr">WORKER_TIMEOUT:</span> <span class="number">15</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Qdrant vector store.</span></span><br><span class="line">  <span class="comment"># uncomment to use qdrant as vector store.</span></span><br><span class="line">  <span class="comment"># (if uncommented, you need to comment out the weaviate service above,</span></span><br><span class="line">  <span class="comment"># and set VECTOR_STORE to qdrant in the api &amp; worker service.)</span></span><br><span class="line">  <span class="comment"># qdrant:</span></span><br><span class="line">  <span class="comment">#   image: langgenius/qdrant:v1.7.3</span></span><br><span class="line">  <span class="comment">#   restart: always</span></span><br><span class="line">  <span class="comment">#   volumes:</span></span><br><span class="line">  <span class="comment">#     - ./volumes/qdrant:/qdrant/storage</span></span><br><span class="line">  <span class="comment">#   environment:</span></span><br><span class="line">  <span class="comment">#     QDRANT_API_KEY: &#x27;difyai123456&#x27;</span></span><br><span class="line">  <span class="comment">#   # uncomment to expose qdrant port to host</span></span><br><span class="line">  <span class="comment">#   # ports:</span></span><br><span class="line">  <span class="comment">#   #  - &quot;6333:6333&quot;</span></span><br><span class="line">  <span class="comment">#   #  - &quot;6334:6334&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The nginx reverse proxy.</span></span><br><span class="line">  <span class="comment"># used for reverse proxying the API service and Web service.</span></span><br><span class="line">  <span class="attr">nginx:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:latest</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./nginx/nginx.conf:/etc/nginx/nginx.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./nginx/proxy.conf:/etc/nginx/proxy.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./nginx/conf.d:/etc/nginx/conf.d</span></span><br><span class="line">      <span class="comment">#- ./nginx/ssl:/etc/ssl</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">api</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">web</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;80:80&quot;</span></span><br><span class="line">      <span class="comment">#- &quot;443:443&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="项目Dify-on-WeChat的拉取与部署（改编自作者大佬的教程）"><a href="#项目Dify-on-WeChat的拉取与部署（改编自作者大佬的教程）" class="headerlink" title="项目Dify on WeChat的拉取与部署（改编自作者大佬的教程）"></a>项目Dify on WeChat的拉取与部署（改编自作者大佬的教程）</h3><p><strong>创建Dify基础编排聊天助手应用</strong></p>
+<p>登录成功后，进入Dify页面，我们按照下方步骤创建一个基础编排聊天助手应用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/image-os7s.png"
+                      alt="image-os7s.png"
+                ></p>
+<ol>
+<li>点击页面上方的工作室</li>
+<li>创建空白应用</li>
+<li>应用类型选择聊天助手</li>
+<li>聊天助手编排方式选择基础编排</li>
+<li>选择应用图标并为应用填写一个名称，比如基础编排聊天助手</li>
+<li>点击创建</li>
+</ol>
+<p>Dify的配置较为多样化，也可以参考官方的教程进行个性化配置</p>
+<p>在配置完成后，我们可以在右侧对话框进行测试，在测试完成后，进行如下操作</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/image-ejuk.png"
+                      alt="image-ejuk.png"
+                ></p>
+<ol>
+<li>发布</li>
+<li>更新</li>
+<li>访问API</li>
+</ol>
+<p>我们此时就获得到了<strong>api秘钥和服务器地址</strong></p>
+<h4 id="Docker进行部署"><a href="#Docker进行部署" class="headerlink" title="Docker进行部署"></a>Docker进行部署</h4><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/hanfangyuan4396/dify-on-wechat</span><br><span class="line"><span class="built_in">cd</span> dify-on-wechat/docker       <span class="comment"># 进入docker目录</span></span><br><span class="line"><span class="comment"># 配置dify的API和服务器地址</span></span><br><span class="line">vi docker-compose.yml</span><br><span class="line"><span class="comment"># 我们配置environment字段即可</span></span><br><span class="line">environment:</span><br><span class="line">      DIFY_API_BASE: <span class="string">&#x27;浪浪云ip+对应的端口地址&#x27;</span></span><br><span class="line">      DIFY_API_KEY: <span class="string">&#x27;app-api-key&#x27;</span></span><br><span class="line">      DIFY_APP_TYPE: <span class="string">&#x27;chatbot&#x27;</span></span><br><span class="line">      MODEL: <span class="string">&#x27;dify&#x27;</span></span><br><span class="line">      SINGLE_CHAT_PREFIX: <span class="string">&#x27;[&quot;&quot;]&#x27;</span></span><br><span class="line">      SINGLE_CHAT_REPLY_PREFIX: <span class="string">&#x27;&quot;&quot;&#x27;</span></span><br><span class="line">      GROUP_CHAT_PREFIX: <span class="string">&#x27;[&quot;@bot&quot;]&#x27;</span></span><br><span class="line">      GROUP_NAME_WHITE_LIST: <span class="string">&#x27;[&quot;ALL_GROUP&quot;]&#x27;</span></span><br><span class="line"><span class="comment"># 字段详解</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">&#123; </span><br><span class="line">  <span class="string">&quot;dify_api_base&quot;</span>: <span class="string">&quot;https://api.dify.ai/v1&quot;</span>,    <span class="comment"># dify base url</span></span><br><span class="line">  <span class="string">&quot;dify_api_key&quot;</span>: <span class="string">&quot;app-xxx&quot;</span>,                    <span class="comment"># dify api key</span></span><br><span class="line">  <span class="string">&quot;dify_app_type&quot;</span>: <span class="string">&quot;chatbot&quot;</span>,                   <span class="comment"># dify应用类型 chatbot(对应聊天助手)/agent(对应Agent)/workflow(对应工作流)，默认为chatbot</span></span><br><span class="line">  <span class="string">&quot;dify_convsersation_max_messages&quot;</span>: 5,         <span class="comment"># dify目前不支持设置历史消息长度，暂时使用超过最大消息数清空会话的策略，缺点是没有滑动窗口，会突然丢失历史消息, 当前为5</span></span><br><span class="line">  <span class="string">&quot;channel_type&quot;</span>: <span class="string">&quot;wx&quot;</span>,                         <span class="comment"># 通道类型，当前为个人微信</span></span><br><span class="line">  <span class="string">&quot;model&quot;</span>: <span class="string">&quot;dify&quot;</span>,                              <span class="comment"># 模型名称，当前对应dify平台</span></span><br><span class="line">  <span class="string">&quot;single_chat_prefix&quot;</span>: [<span class="string">&quot;&quot;</span>],                   <span class="comment"># 私聊时文本需要包含该前缀才能触发机器人回复</span></span><br><span class="line">  <span class="string">&quot;single_chat_reply_prefix&quot;</span>: <span class="string">&quot;&quot;</span>,               <span class="comment"># 私聊时自动回复的前缀，用于区分真人</span></span><br><span class="line">  <span class="string">&quot;group_chat_prefix&quot;</span>: [<span class="string">&quot;@bot&quot;</span>],                <span class="comment"># 群聊时包含该前缀则会触发机器人回复</span></span><br><span class="line">  <span class="string">&quot;group_name_white_list&quot;</span>: [<span class="string">&quot;ALL_GROUP&quot;</span>]        <span class="comment"># 机器人回复的群名称列表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">docker compose up -d           <span class="comment"># 启动docker容器</span></span><br><span class="line">docker logs -f dify-on-wechat  <span class="comment"># 查看二维码并登录</span></span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>如果作者大佬的项目对您有帮助请帮助大佬点一个star吧~</p>
+</blockquote>
+<h4 id="使用源码部署"><a href="#使用源码部署" class="headerlink" title="使用源码部署"></a>使用源码部署</h4><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装依赖</span></span><br><span class="line">pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"><span class="comment">#安装扩展依赖</span></span><br><span class="line">pip3 install -r requirements-optional.txt -i https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"><span class="comment">#复制配置文件</span></span><br><span class="line"><span class="built_in">cp</span> config-template.json config.json</span><br><span class="line"><span class="comment">#启动</span></span><br><span class="line">python3 app.py</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="效果演示"><a href="#效果演示" class="headerlink" title="效果演示"></a>效果演示</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/1885614c166a66087c38350ae4406d8.jpg"
+                      alt="1885614c166a66087c38350ae4406d8.jpg" style="zoom:33%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/81d875498990f4d9e83c89b701b20f1.jpg"
+                      alt="81d875498990f4d9e83c89b701b20f1.jpg"
+                ></p>
+<p>服务器日志大概如下:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/image-vmd7.png"
+                      alt="image-vmd7.png"
+                ></p>
+<h1 id="四、Q-A"><a href="#四、Q-A" class="headerlink" title="四、Q&amp;A"></a>四、Q&amp;A</h1><h2 id="有什么问题可以进行提问，常见的问题我会总结为Q-A"><a href="#有什么问题可以进行提问，常见的问题我会总结为Q-A" class="headerlink" title="有什么问题可以进行提问，常见的问题我会总结为Q&amp;A"></a>有什么问题可以进行提问，常见的问题我会总结为Q&amp;A</h2><h1 id="五、应用案例搭建"><a href="#五、应用案例搭建" class="headerlink" title="五、应用案例搭建"></a>五、应用案例搭建</h1>]]></content>
+      <categories>
+        <category>Dify</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github使用指南</title>
+    <url>/2024/06/16/github%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h1 id="GitHub-使用指南-📚"><a href="#GitHub-使用指南-📚" class="headerlink" title="GitHub 使用指南 📚"></a>GitHub 使用指南 📚</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li>什么是 GitHub？🧐</li>
+<li>注册与登录 🚪</li>
+<li>基本术语解释 🧠</li>
+<li>创建你的第一个仓库 🛠️</li>
+<li>克隆仓库到本地 🖥️</li>
+<li>提交和推送更改 🚀</li>
+<li>分支与合并 🌿</li>
+<li>Pull Request 和 Code Review 📥</li>
+<li>常见问题解答 FAQ ❓</li>
+<li>结语 🎉</li>
+</ol>
+<hr>
+<h2 id="1-什么是-GitHub？🧐"><a href="#1-什么是-GitHub？🧐" class="headerlink" title="1. 什么是 GitHub？🧐"></a>1. 什么是 GitHub？🧐</h2><p>GitHub 是一个基于云端的代码托管平台，使用 Git 版本控制系统。它允许你和其他开发者共同管理和修改项目代码。无论你是一个新手程序员还是一个资深开发者，GitHub 都是一个不可或缺的工具。</p>
+<hr>
+<h2 id="2-注册与登录-🚪"><a href="#2-注册与登录-🚪" class="headerlink" title="2. 注册与登录 🚪"></a>2. 注册与登录 🚪</h2><h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><ol>
+<li>打开 GitHub 官方网站：<a class="link"   href="https://github.com/" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
+<li>点击右上角的 “Sign up” 按钮。</li>
+<li>填写你的邮箱地址，并点击 “Continue”。</li>
+<li>创建一个用户名和密码。</li>
+<li>完成邮箱验证。</li>
+</ol>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><ol>
+<li>打开 GitHub 官方网站：<a class="link"   href="https://github.com/" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
+<li>点击右上角的 “Sign in” 按钮。</li>
+<li>输入你的用户名和密码，然后点击 “Sign in”。</li>
+</ol>
+<hr>
+<h2 id="3-基本术语解释-🧠"><a href="#3-基本术语解释-🧠" class="headerlink" title="3. 基本术语解释 🧠"></a>3. 基本术语解释 🧠</h2><ul>
+<li><strong>Repository（仓库）</strong>: 存放代码和项目文件的地方。</li>
+<li><strong>Branch（分支）</strong>: 并行开发的独立版本。</li>
+<li><strong>Commit（提交）</strong>: 对仓库进行的更改记录。</li>
+<li><strong>Clone（克隆）</strong>: 从 GitHub 下载仓库到本地。</li>
+<li><strong>Pull Request（拉取请求）</strong>: 请求将更改合并到主分支。</li>
+<li><strong>Merge（合并）</strong>: 将分支的更改合并到另一个分支。</li>
+</ul>
+<hr>
+<h2 id="4-创建你的第一个仓库-🛠️"><a href="#4-创建你的第一个仓库-🛠️" class="headerlink" title="4. 创建你的第一个仓库 🛠️"></a>4. 创建你的第一个仓库 🛠️</h2><ol>
+<li>登录 GitHub 后，点击右上角的 “+” 号，然后选择 “New repository”。</li>
+<li>输入仓库名称，如 “my-first-repo”。</li>
+<li>添加描述（可选）。</li>
+<li>选择 “Public” 或 “Private”。</li>
+<li>勾选 “Initialize this repository with a README”。</li>
+<li>点击 “Create repository”。</li>
+</ol>
+<p>恭喜！你已经创建了你的第一个 GitHub 仓库。</p>
+<hr>
+<h2 id="5-克隆仓库到本地-🖥️"><a href="#5-克隆仓库到本地-🖥️" class="headerlink" title="5. 克隆仓库到本地 🖥️"></a>5. 克隆仓库到本地 🖥️</h2><h3 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h3><ol>
+<li>前往 <a class="link"   href="https://git-scm.com/" >Git 官方网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 下载并安装 Git。</li>
+</ol>
+<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><ol>
+<li><p>打开终端或命令行。</p>
+</li>
+<li><p>运行以下命令以克隆仓库：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/你的用户名/my-first-repo.git</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>仓库将被下载到你的本地计算机。</p>
+</li>
+</ol>
+<hr>
+<h2 id="6-提交和推送更改-🚀"><a href="#6-提交和推送更改-🚀" class="headerlink" title="6. 提交和推送更改 🚀"></a>6. 提交和推送更改 🚀</h2><h3 id="提交更改"><a href="#提交更改" class="headerlink" title="提交更改"></a>提交更改</h3><ol>
+<li><p>在本地仓库中进行代码更改。</p>
+</li>
+<li><p>使用以下命令添加更改：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>提交更改：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;描述你的更改&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="推送更改"><a href="#推送更改" class="headerlink" title="推送更改"></a>推送更改</h3><ol>
+<li><p>将更改推送到 GitHub：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<hr>
+<h2 id="7-分支与合并-🌿"><a href="#7-分支与合并-🌿" class="headerlink" title="7. 分支与合并 🌿"></a>7. 分支与合并 🌿</h2><h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><ol>
+<li><p>创建一个新分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout -b my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ol>
+<li><p>切换到其他分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout main</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ol>
+<li><p>切换到目标分支（如 main）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout main</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>合并分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git merge my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<hr>
+<h2 id="8-Pull-Request-和-Code-Review-📥"><a href="#8-Pull-Request-和-Code-Review-📥" class="headerlink" title="8. Pull Request 和 Code Review 📥"></a>8. Pull Request 和 Code Review 📥</h2><h3 id="创建-Pull-Request"><a href="#创建-Pull-Request" class="headerlink" title="创建 Pull Request"></a>创建 Pull Request</h3><ol>
+<li><p>推送你的分支到 GitHub：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin my-feature-branch</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在 GitHub 仓库页面，点击 “Pull requests” 标签。</p>
+</li>
+<li><p>点击 “New pull request”。</p>
+</li>
+<li><p>选择你要合并的分支，填写相关信息并点击 “Create pull request”。</p>
+</li>
+</ol>
+<h3 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h3><ol>
+<li>你的队友可以查看你的 Pull Request，提出建议或请求修改。</li>
+<li>根据反馈进行修改，并更新 Pull Request。</li>
+</ol>
+<hr>
+<h2 id="9-常见问题解答-FAQ-❓"><a href="#9-常见问题解答-FAQ-❓" class="headerlink" title="9. 常见问题解答 FAQ ❓"></a>9. 常见问题解答 FAQ ❓</h2><h3 id="为什么我的推送被拒绝？"><a href="#为什么我的推送被拒绝？" class="headerlink" title="为什么我的推送被拒绝？"></a>为什么我的推送被拒绝？</h3><ul>
+<li><p>确保你有仓库的写权限。</p>
+</li>
+<li><p>确保你拉取了最新的更改并解决了任何冲突：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="如何撤销提交？"><a href="#如何撤销提交？" class="headerlink" title="如何撤销提交？"></a>如何撤销提交？</h3><ul>
+<li><p>撤销最近的提交：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git reset --soft HEAD~1</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="如何删除远程分支？"><a href="#如何删除远程分支？" class="headerlink" title="如何删除远程分支？"></a>如何删除远程分支？</h3><ul>
+<li><p>删除远程分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin --delete my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<hr>
+<h2 id="10-结语-🎉"><a href="#10-结语-🎉" class="headerlink" title="10. 结语 🎉"></a>10. 结语 🎉</h2><p>恭喜你！你已经掌握了使用 GitHub 的基本技能。GitHub 是一个非常强大的工具，通过不断练习和探索，你会发现更多的高级功能和使用技巧。现在，去创建你的项目，开始你的编码之旅吧！</p>
+<hr>
+<p>如果你对这篇指南有任何问题或建议，欢迎在下方留言。Happy coding! 😊</p>
+]]></content>
+      <categories>
+        <category>Code</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker源下载过慢解决办法</title>
+    <url>/2024/06/07/docker%E6%BA%90%E4%B8%8B%E8%BD%BD%E8%BF%87%E6%85%A2%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="首先换源"><a href="#首先换源" class="headerlink" title="首先换源"></a>首先换源</h1><p>换完源以后还是不能的下载的话参考下面的教程</p>
+<h1 id="DNS的修改"><a href="#DNS的修改" class="headerlink" title="DNS的修改"></a>DNS的修改</h1><p>通常我们知道，修改dns的几个途径</p>
+<ul>
+<li>&#x2F;etc&#x2F;resolv.conf</li>
+<li>&#x2F;etc&#x2F;netplan&#x2F;01-netcfg.yaml</li>
+</ul>
+<p>修改上面两个文件，一般情况下，可以解决，但是在一次使用新安装的ubuntu22.04的时候，发现，无论怎么修改，dig解析域名都是往127.0.0.53发送，哪怕在缓存中的已经生效</p>
+<p>在Docker容器拉取的过程中会发现无法进行容器的拉取，我们可以采用的方法就是修改DNS服务器</p>
+<p>首先查看DNS服务器是什么</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/resolv.conf</span><br><span class="line"><span class="comment">#直接进行编辑即可</span></span><br><span class="line">vim /etc/resolv.conf</span><br><span class="line"><span class="comment">#只需要更改nameserver中对应的DNS服务器地址即可</span></span><br></pre></td></tr></table></figure></div>
+
+<p>修改完对应的DNS服务器重启服务器即可</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python教学01</title>
+    <url>/2024/05/18/python%E6%95%99%E5%AD%A601/</url>
+    <content><![CDATA[<h1 id="python程序基本格式"><a href="#python程序基本格式" class="headerlink" title="python程序基本格式"></a>python程序基本格式</h1><h2 id="缩进风格"><a href="#缩进风格" class="headerlink" title="缩进风格"></a>缩进风格</h2><ul>
+<li><p>恰当的空格，缩进问题</p>
+<ul>
+<li><p>逻辑行首的空白（空格和制表符）用来决定逻辑行的缩进层次，从而决定语句的分组</p>
+</li>
+<li><p>语句从新行的第一列开始</p>
+</li>
+</ul>
+</li>
+<li><p>缩进风格统一</p>
+<ul>
+<li><p>每个缩进层次都是固定的当个制表符或者4个空格</p>
+</li>
+<li><p>python用缩进而不是{}表示程序块的层次关系</p>
+</li>
+</ul>
+</li>
+<li><p>python 区分大小写</p>
+</li>
+</ul>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><ul>
+<li>一定要写注释</li>
+<li>单行注释#</li>
+<li>多行注释 “””</li>
+</ul>
+<blockquote>
+<p>三个连续引号，其实就是定义了一个字符串。只不过没有没有变量指向，会被当做垃圾回收</p>
+</blockquote>
+<ul>
+<li>行连接符：\</li>
+</ul>
+<h1 id="对象的基本组成和内存示意图"><a href="#对象的基本组成和内存示意图" class="headerlink" title="对象的基本组成和内存示意图"></a>对象的基本组成和内存示意图</h1><h2 id="对象的组成"><a href="#对象的组成" class="headerlink" title="对象的组成"></a>对象的组成</h2><ul>
+<li>Python中一切皆对象</li>
+<li>每个对象都是由<ul>
+<li>1.标识：也就是对象的地址</li>
+<li>2.类型：对象存储的数据类型</li>
+<li>3.值：对象中所存储的真正的值</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>对象的本质就是：一个内存块，拥有特定的值，支持特定类型的相关操作</p>
+</blockquote>
+<h2 id="内存示意图"><a href="#内存示意图" class="headerlink" title="内存示意图"></a>内存示意图</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/img/image-20240518155221787.png"
+                      alt="image-20240518155409092"
+                ></p>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>在Python中变量也被称为对象的引用（reference）。变量存储的就是对象的地址。变量通过地址引用了对象。</p>
+<p>变量位于：栈内存（压栈出栈等细节，后续再讲）</p>
+<p>对象位于：堆内存中可以参考上面对应的内存示意图</p>
+<blockquote>
+<p>python 是动态类型语言变量不需要显式声明类型变量。根据变量引用的对象，Python解释器自动确定数据类型</p>
+</blockquote>
+<h1 id="标识符规则"><a href="#标识符规则" class="headerlink" title="标识符规则"></a>标识符规则</h1><ul>
+<li>区分大小写</li>
+<li>第一个字符必须是字母，下划线。其后的字符是：字母，数字，下划线</li>
+<li>不能使用关键字。</li>
+<li>以双下划线开头和结尾的名称通常有特殊含义，尽量避免这种写法</li>
+</ul>
+<blockquote>
+<p>使用Python的命令行查看系统关键字</p>
+<p>进入Python命令行</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/img/image-20240518163907680.png"
+                      alt="image-20240518163907680"
+                ></p>
+<h2 id="python标识符命名规则"><a href="#python标识符命名规则" class="headerlink" title="python标识符命名规则"></a>python标识符命名规则</h2><p>开发中一般约定俗成遵守如下规则</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>规则</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模块和包名</td>
+<td>全小写字母，尽量简单。若多个单词之间用下划线</td>
+<td>math，os，sys</td>
+</tr>
+<tr>
+<td>函数名</td>
+<td>全小写字母。若多个单词之间用下划线</td>
+<td>phone,my_name</td>
+</tr>
+<tr>
+<td>类名</td>
+<td>首字母大写，采用驼峰原则，多个单词时，每个单词第一个字母大写，其余部分小写</td>
+<td>MyPhone，MyClass，Phone</td>
+</tr>
+<tr>
+<td>常量名</td>
+<td>全大写字母，多个单词使用下划线隔开</td>
+<td>SPEED，MAX_SPEED</td>
+</tr>
+</tbody></table>
+<h1 id="变量和简单赋值语句"><a href="#变量和简单赋值语句" class="headerlink" title="变量和简单赋值语句"></a>变量和简单赋值语句</h1><h2 id="变量的声明和赋值"><a href="#变量的声明和赋值" class="headerlink" title="变量的声明和赋值"></a>变量的声明和赋值</h2><p>变量的声明和赋值：用于讲一个变量绑定到一个对象上，格式<code>变量名=表达式</code></p>
+<p> 最简单的表达式就是字面量。比如<code>a=123</code>。运算过程中，解释器先运行右边的表达式生成一个代表表达运算结果的对象，然后将这个对象地址赋值给左边的变量</p>
+<blockquote>
+<p>注意：变量在使用之前必须先要初始化（先赋值再使用）</p>
+</blockquote>
+<h2 id="删除变量和垃圾回收机制"><a href="#删除变量和垃圾回收机制" class="headerlink" title="删除变量和垃圾回收机制"></a>删除变量和垃圾回收机制</h2><ul>
+<li>可以通过del语句删除不再使用的变量</li>
+<li>如果对象没有变量引用，就会被垃圾回收器回收，清空内存空间</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#删除变量</span></span><br><span class="line">d = <span class="number">123</span></span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line"><span class="keyword">del</span> d</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line"><span class="comment">#报错如下：NameError: name &#x27;d&#x27; is not defined. Did you mean: &#x27;id&#x27;?</span></span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python教学02</title>
+    <url>/2024/05/19/python%E6%95%99%E5%AD%A602/</url>
+    <content><![CDATA[<h1 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h1><p>Python不支持常量，即没有语法规则限制改变一个常量的值。我们只能约定常量的命名规则，以及在程序的逻辑上不对常量的值做出修改</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">MAX_SPEED = <span class="number">120</span></span><br><span class="line"><span class="built_in">print</span>(MAX_SPEED)  <span class="comment"># 输出120</span></span><br><span class="line">MAX_SPEED = <span class="number">140</span>  <span class="comment"># 实际上是可以更改的，只能在逻辑上不进行更改</span></span><br><span class="line"><span class="built_in">print</span>(MAX_SPEED)  <span class="comment"># 输出140</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="链式赋值"><a href="#链式赋值" class="headerlink" title="链式赋值"></a>链式赋值</h2><p> 链式赋值用于同一个对象赋值多个变量</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">x=y=<span class="number">100</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="系列解包赋值"><a href="#系列解包赋值" class="headerlink" title="系列解包赋值"></a>系列解包赋值</h2><p>系列数据赋值给对应相同个数的变量（个数必须要保持一致）</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">a,b,c=<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span></span><br><span class="line">a=<span class="number">1</span>,b=<span class="number">2</span>,c=<span class="number">3</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>tips</strong></p>
+<blockquote>
+<p>使用系列解包复制可以实现变量的值交换</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">a,b=<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">a,b=b,a</span><br></pre></td></tr></table></figure></div>
+</blockquote>
+<h1 id="最基本的内置数据类型"><a href="#最基本的内置数据类型" class="headerlink" title="最基本的内置数据类型"></a>最基本的内置数据类型</h1><p> python中变量没有类型，但是对象都有类型，python中最基本的内置数据类型：</p>
+<ul>
+<li>整型：int</li>
+<li>浮点型：float【科学计数法也可以】</li>
+<li>布尔型：bool</li>
+<li>字符串型：str</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">i = <span class="number">123</span></span><br><span class="line">f = <span class="number">3.14</span></span><br><span class="line">b = <span class="literal">True</span></span><br><span class="line">s = <span class="string">&quot;你好&quot;</span></span><br><span class="line"><span class="comment"># 打印类型</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(i))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(f))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(b))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(s))</span><br><span class="line"><span class="built_in">print</span>(i, f, b, s)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="数字和基本运算符"><a href="#数字和基本运算符" class="headerlink" title="数字和基本运算符"></a>数字和基本运算符</h2><p>python支持整数和浮点数，可以进行如下运算</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加法</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>浮点数除法</td>
+</tr>
+<tr>
+<td>&#x2F;&#x2F;</td>
+<td>整数除法</td>
+</tr>
+<tr>
+<td>%</td>
+<td>模（取余）</td>
+</tr>
+<tr>
+<td>**</td>
+<td>幂</td>
+</tr>
+</tbody></table>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>python的整数没有大小限制</p>
+<p>在python中除了十进制还有三种进制【2，8，16（需要有点计算机基础此处不详细展开）】</p>
+<p>这三种进制可以非常方便的使用位运算</p>
+<h3 id="使用int-实现类型的转换"><a href="#使用int-实现类型的转换" class="headerlink" title="使用int()实现类型的转换"></a>使用int()实现类型的转换</h3><ul>
+<li>浮点数直接舍去小数部分。</li>
+<li>布尔值True转换为1，False转为0</li>
+<li>字符串符合整数格式（浮点数不行）的，则直接转为对应的整数，否则报错</li>
+</ul>
+<h2 id="自动转型"><a href="#自动转型" class="headerlink" title="自动转型"></a>自动转型</h2><p>整数和浮点数混合运算时，表达式结果自动转型为浮点数</p>
+<h2 id="整数可以任意大"><a href="#整数可以任意大" class="headerlink" title="整数可以任意大"></a>整数可以任意大</h2><p>python3中可以存储任意大小的值</p>
+<blockquote>
+<p>python3可以做超大数的计算，而不会造成”整数溢出”，这也是Python特别适合科学运算的特点</p>
+</blockquote>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><ul>
+<li>浮点数用科学计数法表示。</li>
+<li>这些数字在内存中也是按照科学计数法存储’</li>
+</ul>
+<h2 id="类型转换和四舍五入"><a href="#类型转换和四舍五入" class="headerlink" title="类型转换和四舍五入"></a>类型转换和四舍五入</h2><ul>
+<li>类似<code>int()</code>,我们也可以使用<code>float()</code>将其他类型转换为浮点数</li>
+<li>整数和浮点数混合运算时，表达式结果自动转换为浮点数。</li>
+<li><code>round(value)</code>可以返回四舍五入的值。但是不会改变原有值，而是产生新的值</li>
+</ul>
+<h1 id="增强型赋值运算"><a href="#增强型赋值运算" class="headerlink" title="增强型赋值运算"></a>增强型赋值运算</h1><p>运算符<code>+</code>,<code>-</code>,<code>*</code>,<code>/</code>,<code>//</code>,<code>**</code>,<code>%</code>和赋值符<code>=</code>结合可以构成“增强型赋值运算符”</p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>实例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+&#x3D;</td>
+<td><strong>加法</strong>赋值运算符</td>
+<td>a+&#x3D;b  等价于 a &#x3D; a+b</td>
+</tr>
+<tr>
+<td>-&#x3D;</td>
+<td><strong>减法</strong>赋值运算符</td>
+<td>a-&#x3D;b  等价于 a &#x3D; a-b</td>
+</tr>
+<tr>
+<td>*&#x3D;</td>
+<td><strong>乘法</strong>赋值运算符</td>
+<td>a*&#x3D;b  等价于  a&#x3D;a*b</td>
+</tr>
+<tr>
+<td>&#x2F;&#x3D;</td>
+<td><strong>除法</strong>赋值运算符</td>
+<td>a&#x2F;&#x3D;b  等价于  a&#x3D; a&#x2F;b</td>
+</tr>
+<tr>
+<td>&#x2F;&#x2F;&#x3D;</td>
+<td><strong>整除</strong>赋值运算符</td>
+<td>a&#x2F;&#x2F;&#x3D;b 等价于  a&#x3D;a&#x2F;&#x2F;b</td>
+</tr>
+<tr>
+<td>%&#x3D;</td>
+<td><strong>求模</strong>赋值运算符</td>
+<td>a%&#x3D;b 等价于  a&#x3D; a%b</td>
+</tr>
+<tr>
+<td>**&#x3D;</td>
+<td><strong>求幂</strong>赋值运算符</td>
+<td>a**&#x3D;b 等价于  a&#x3D; a**b</td>
+</tr>
+<tr>
+<td>&gt;&gt;&#x3D;</td>
+<td><strong>右移</strong>赋值运算符</td>
+<td>a&gt;&gt;&#x3D;b 等价于  a &#x3D; a&gt;&gt;b</td>
+</tr>
+<tr>
+<td>&lt;&lt;&#x3D;</td>
+<td><strong>左移</strong>赋值运算符</td>
+<td>a&lt;&lt;&#x3D;b 等价于  a&#x3D; a&lt;&lt;b</td>
+</tr>
+<tr>
+<td>&amp;&#x3D;</td>
+<td><strong>换位</strong>与赋值运算符</td>
+<td>a&amp;&#x3D;b  等价于  a&#x3D; a&amp;b</td>
+</tr>
+<tr>
+<td>|&#x3D;</td>
+<td><strong>按位</strong>或赋值运算符</td>
+<td>a|&#x3D;b   等价于  a&#x3D;a|b</td>
+</tr>
+<tr>
+<td>^&#x3D;</td>
+<td><strong>按位异</strong>或赋值运算符</td>
+<td>a^&#x3D;b  等价于  a&#x3D;a^b</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意“+&#x3D;”中间都不能有空格</p>
+</blockquote>
+<h1 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h1><p>UNIX时间，或称POSIX时间是 UNIX 或 类UNIX 系统使用的时间表示方式：从 协调世界时 <strong>1970年1月1日0时0分0秒</strong>起至现在的总秒数，不考虑 闰秒 </p>
+<p>python中可以通过<code>time.time()</code>获得当前时刻，返回的值是以秒为单位的，带微秒精度的浮点值</p>
+<blockquote>
+<p>刚开始，我们简单认识下时间，是为了让大家更深刻认识“一切都是数字“。关于时间格式化问题，日期问题。后面再讲</p>
+</blockquote>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">nowtime = <span class="built_in">int</span>(time.time())</span><br><span class="line"><span class="built_in">print</span>(nowtime)</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h1><p>Python3中，把True和False定义成了关键字，但是他们的本质还是1和0。甚至可以和数字相加</p>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">逻辑表达式</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">and</td>
+<td align="left">x and y</td>
+<td align="left">布尔”与” - 如果 x 为 False，x and y 返回 False，否则它返回 y 的计算值。</td>
+<td align="left">(a and b) 返回 20。</td>
+</tr>
+<tr>
+<td align="left">or</td>
+<td align="left">x or y</td>
+<td align="left">布尔”或” - 如果 x 是非 0，它返回 x 的计算值，否则它返回 y 的计算值。</td>
+<td align="left">(a or b) 返回 10。</td>
+</tr>
+<tr>
+<td align="left">not</td>
+<td align="left">not x</td>
+<td align="left">布尔”非” - 如果 x 为 True，返回 False 。如果 x 为 False，它返回 True。</td>
+<td align="left">not(a and b) 返回 False</td>
+</tr>
+</tbody></table>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">a, b, c = <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span></span><br><span class="line"><span class="built_in">print</span>((a &lt; b) <span class="keyword">and</span> (b &lt; c))  <span class="comment"># 全为真则为真 true</span></span><br><span class="line"><span class="built_in">print</span>((a &lt; b) <span class="keyword">or</span> (b &gt; a))  <span class="comment"># 一个为真则为真 true</span></span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">not</span> (b &gt; c))  <span class="comment"># 取反 true</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h2><p>  所有的比较运算符返回1表示真，返回0表示假。这分别与特殊变量True和False等价</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较运算符</span></span><br><span class="line">a = <span class="number">4</span></span><br><span class="line"><span class="built_in">print</span>(a &lt;= <span class="number">30</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="number">3</span> &lt; a &lt; <span class="number">10</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a在3与10之间&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><p>按位运算符是把数字看做二进制来进行计算的。Python中按位运算法则同计科中的一样</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shell终端美化</title>
+    <url>/2024/05/08/shell%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="打造酷帅的最强shell终端，效率直接快100倍！！！"><a href="#打造酷帅的最强shell终端，效率直接快100倍！！！" class="headerlink" title="打造酷帅的最强shell终端，效率直接快100倍！！！"></a>打造酷帅的最强shell终端，效率直接快100倍！！！</h1><h2 id="什么是shell？"><a href="#什么是shell？" class="headerlink" title="什么是shell？"></a>什么是shell？</h2><p>​		Shell 终端，也被称为命令行接口或控制台，是一种交互式用户界面，允许用户通过键入命令来与操作系统进行交互。</p>
+<p>​		在 Shell 终端中，用户可以执行各种各样的操作，例如管理文件和目录，运行程序，监控系统状态，配置系统设置，等等。这些操作都是通过键入特定的命令来实现的。</p>
+<p>​		Shell 终端的名称来源于 “shell”，这是一个用于描述用户和操作系统内核之间的接口的术语。Shell 提供了一个解释和执行用户命令的环境，而终端则是用户与 shell 交互的界面。</p>
+<p>​		在 Unix 和类 Unix 系统（如 Linux）中，常见的 shell 包括 Bourne shell（sh）、Bourne Again shell（bash）、C shell（csh）、Korn shell（ksh）等。在 Windows 系统中，常见的 shell 包括命令提示符（cmd）和 PowerShell。</p>
+<p>​		总的来说，Shell 终端是进行系统管理和开发工作的重要工具，对于理解操作系统的工作原理和进行高效的工作都非常有帮助。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>​		一个支持全彩的终端，我使用的是Windows terminal</p>
+<h3 id="Windows-terminal"><a href="#Windows-terminal" class="headerlink" title="Windows terminal"></a>Windows terminal</h3><p>​		Windows Terminal 是微软开发的一个新的、现代的、功能丰富的、开源的终端应用程序，用于访问命令行工具和 shell，如 Command Prompt、PowerShell 和 WSL (Windows Subsystem for Linux)。它于 2019 年首次发布，旨在提供一个集中的位置，用户可以访问多种命令行接口。</p>
+<p>以下是 Windows Terminal 的一些主要特性：</p>
+<ol>
+<li><strong>多标签界面</strong>：Windows Terminal 允许用户在一个窗口中打开多个标签，每个标签可以运行不同的命令行工具或 shell。</li>
+<li><strong>丰富的可定制选项</strong>：用户可以通过修改一个 JSON 文件来定制 Windows Terminal 的许多方面，包括字体、颜色方案、背景图片、透明度等。</li>
+<li><strong>GPU 加速文本渲染</strong>：Windows Terminal 使用 GPU 进行文本渲染，提供流畅且高效的用户体验。</li>
+<li><strong>Unicode 和 UTF-8 字符支持</strong>：Windows Terminal 支持显示各种 Unicode 字符和表情符号。</li>
+<li><strong>支持 PowerShell、命令提示符和 WSL</strong>：Windows Terminal 可以访问 Windows 系统中的各种命令行工具和 shell，包括 PowerShell、命令提示符和 WSL。</li>
+</ol>
+<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>根据你安装的主题可能需要一个字体，来做适配，可以看你使用的主题的说明</p>
+<h3 id="其他准备"><a href="#其他准备" class="headerlink" title="其他准备"></a>其他准备</h3><p><strong>安装git</strong></p>
+<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line"># 安装</span><br><span class="line">sudo apt install zsh</span><br><span class="line"></span><br><span class="line"># 将 zsh 设置为默认 shell</span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"></span><br><span class="line"># 检查</span><br><span class="line">echo $SHELL</span><br><span class="line"># 返回 /usr/bin/zsh 即表示成功；若没成功，重启试试看</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><p><strong>在 Ubuntu 或其他基于 Debian 的 Linux 系统上</strong>：</p>
+<p>首先，打开终端，然后使用 apt-get 命令安装 Zsh：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure></div>
+
+<p>安装完成后，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，重新登录或重启你的计算机。</p>
+</li>
+<li><p><strong>在 Fedora 或其他基于 RPM 的 Linux 系统上</strong>：</p>
+<p>打开终端，然后使用 dnf 命令安装 Zsh：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dnf install zsh</span><br></pre></td></tr></table></figure></div>
+
+<p>同样，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，重新登录或重启你的计算机。</p>
+</li>
+<li><p><strong>在 macOS 上</strong>：</p>
+<p>macOS Catalina（10.15）及更高版本默认使用 Zsh。如果你使用的是早期版本的 macOS，你可能需要手动安装 Zsh。你可以使用 Homebrew 来安装 Zsh：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install zsh</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，重新登录或重启你的计算机</p>
+<h3 id="配置文件地址"><a href="#配置文件地址" class="headerlink" title="配置文件地址"></a>配置文件地址</h3><p>默认在~&#x2F;.zshrc</p>
+<p>没有的话可以新建一个</p>
+</li>
+</ol>
+<h2 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h2><p><code>Oh My Zsh</code> 是一个开源的、社区驱动的框架，用于管理 Zsh 配置。它拥有大量的插件和主题，可以帮助用户定制他们的 Zsh 环境，使得命令行操作更加高效、友好。</p>
+<p>以下是如何在已经安装了 Zsh 的系统上安装 “Oh My Zsh”：</p>
+<ol>
+<li><p>首先，确保你的系统上已经安装了 <code>curl</code> 或 <code>wget</code>。如果没有，你可以使用你的包管理器（如 <code>apt</code> 或 <code>brew</code>）来安装。</p>
+</li>
+<li><p>然后，你可以使用 “Oh My Zsh” 的安装脚本来安装。你可以通过 <code>curl</code> 或 <code>wget</code> 来运行这个脚本：</p>
+<p>使用 <code>curl</code>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>或使用 <code>wget</code>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这个脚本将会自动下载并安装 “Oh My Zsh”，并且将你的默认 shell 设置为 Zsh。</p>
+</li>
+<li><p>安装完成后，你可以通过编辑 <code>~/.zshrc</code> 文件来定制你的 Zsh 环境。例如，你可以在这个文件中启用插件或更改主题]</p>
+<p>上面是官方的教程大概是这个意思，但是国内的话安装是有一点问题的</p>
+<p>oh_my_zsh 国内安装修改镜像 直连gitee官方源</p>
+<h4 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h4><h5 id="Install-oh-my-zsh-via-curl"><a href="#Install-oh-my-zsh-via-curl" class="headerlink" title="Install oh-my-zsh via curl"></a>Install oh-my-zsh via curl</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh)&quot;</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="Install-oh-my-zsh-via-wget"><a href="#Install-oh-my-zsh-via-wget" class="headerlink" title="Install oh-my-zsh via wget"></a>Install oh-my-zsh via wget</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(wget https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh </span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="powerlevel10k"><a href="#powerlevel10k" class="headerlink" title="powerlevel10k"></a>powerlevel10k</h2><p>官方地址： <a class="link"   href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh" >romkatv&#x2F;powerlevel10k: A Zsh theme (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></div>
+
+<p>主题的设置：Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>.</p>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python教学03</title>
+    <url>/2024/06/23/python%E6%95%99%E5%AD%A603/</url>
+    <content><![CDATA[<h1 id="同一运算符"><a href="#同一运算符" class="headerlink" title="同一运算符"></a>同一运算符</h1><p>用于比较两个对象的存储单元，实际比较的是对象的地址</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>is</td>
+<td>is是判断两个标识符是不是引用同一个对象</td>
+</tr>
+<tr>
+<td>is not</td>
+<td>is not是判断两个标识符是不是引用不同的对象</td>
+</tr>
+</tbody></table>
+<p>is与&#x3D;&#x3D;的区别：</p>
+<ul>
+<li>is用于判断两个变量引用对象是否为同一个，既比较对象的地址</li>
+<li>&#x3D;&#x3D;用于判断引用变量引用对象的值是否相等，默认调用对象的<code>_eq_()</code>方法</li>
+</ul>
+<h2 id="整数缓存问题"><a href="#整数缓存问题" class="headerlink" title="整数缓存问题"></a>整数缓存问题</h2><ul>
+<li>命令行模式下，Python仅仅对比较小的整数对象进行缓存，（范围为[-5，256]），而并非是所有的整数对象</li>
+<li>文件模式下，所有的数字都会被缓存起来，范围是[-无穷，+无穷]<ul>
+<li>缓存实现[-5，256]仍然是底层用数组实现；不在[-5，256]出现的数，缓存到链表中，不连续分配空间</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>总结：</p>
+<p>1.is是比较两个对象的id值是否相等，是否指向同一个内存地址</p>
+<p>2.&#x3D;&#x3D;比较的是两个对象的内容是否相等，值是否相等</p>
+<p>3.is运算符比&#x3D;&#x3D;效率高，</p>
+</blockquote>
+<h2 id="成员运算符"><a href="#成员运算符" class="headerlink" title="成员运算符"></a>成员运算符</h2><p>成员运算符测试实例中包含了一系列的成员，包括字符串，列表或元组</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in</td>
+<td>如果在指定的序列中找到值返回True，否则返回False</td>
+</tr>
+<tr>
+<td>not in</td>
+<td>不在，则返回true</td>
+</tr>
+</tbody></table>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">str2 = <span class="string">&quot;string&quot;</span></span><br><span class="line">str1 = <span class="string">&quot;in&quot;</span></span><br><span class="line"><span class="built_in">print</span>(str1 <span class="keyword">in</span> str2)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="运算符优先级问题"><a href="#运算符优先级问题" class="headerlink" title="运算符优先级问题"></a>运算符优先级问题</h2><table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">**</td>
+<td align="center">指数（最高优先级）</td>
+</tr>
+<tr>
+<td align="center">~、+、-</td>
+<td align="center">按位翻转，一元加号和减号（最后两个的方法名为+@和-@）</td>
+</tr>
+<tr>
+<td align="center">*、&#x2F;、%、&#x2F;&#x2F;</td>
+<td align="center">乘、除、取模和取整除</td>
+</tr>
+<tr>
+<td align="center">+、-</td>
+<td align="center">加法、减法</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;、&lt;&lt;</td>
+<td align="center">右移、左移运算符</td>
+</tr>
+<tr>
+<td align="center">&amp;</td>
+<td align="center">位与</td>
+</tr>
+<tr>
+<td align="center">^、|</td>
+<td align="center">位运算符</td>
+</tr>
+<tr>
+<td align="center">&lt;&#x3D;、&lt;、&gt;、&gt;&#x3D;</td>
+<td align="center">比较运算符</td>
+</tr>
+<tr>
+<td align="center">&lt;&gt; &#x3D;&#x3D; !&#x3D;</td>
+<td align="center">等于运算符</td>
+</tr>
+<tr>
+<td align="center">&#x3D; %&#x3D; &#x2F;&#x3D; &#x2F;&#x2F;&#x3D; -&#x3D; +&#x3D; *&#x3D; **&#x3D;</td>
+<td align="center">赋值运算符</td>
+</tr>
+<tr>
+<td align="center">is  is not</td>
+<td align="center">身份运算符</td>
+</tr>
+<tr>
+<td align="center">in  in not</td>
+<td align="center">成员运算符</td>
+</tr>
+<tr>
+<td align="center">not or and</td>
+<td align="center">逻辑运算符</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>实际使用中，记住如下简单的规则即可，复杂的表示式一定要使用小括号组织</p>
+<p>当一个表达式中出现多个操作符时，求值的顺序依赖于优先级规则。Python遵守数学操作符的传统规则</p>
+</blockquote>
+<p>​     </p>
+<h1 id="字符串基本特点"><a href="#字符串基本特点" class="headerlink" title="字符串基本特点"></a>字符串基本特点</h1><ul>
+<li>字符串的本质是：字符序列</li>
+<li>Python不支持单字符类型，单字符也是作为一个字符串使用的</li>
+</ul>
+<blockquote>
+<p>Python的字符串是不可变的，我们无法对原字符串做任何的修改。但，可以将字符串的一部分复制到新创建的字符串。达到“看起来修改的效果”</p>
+</blockquote>
+<h2 id="字符串的编码"><a href="#字符串的编码" class="headerlink" title="字符串的编码"></a>字符串的编码</h2><p>Python3直接支持Unicode，可以表示世界上的任何书面语言的字符。Python3的字符默认就是16为的Unicode，ASCII是Unicode编码的子集</p>
+<p>使用内置函数ord()可以把字符转换成对应的Unicode码</p>
+<p>使用内置函数chr()可以把十进制数字转换为对应的字符</p>
+<h2 id="引号创建字符串"><a href="#引号创建字符串" class="headerlink" title="引号创建字符串"></a>引号创建字符串</h2><p>我们可以通过单引号或双引号创建字符串。</p>
+<p>使用两种引号的好处就是可以创建本身就包含引号的字符串，而不使用转义字符。</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&#x27;&quot;李&quot;优秀&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="空字符串和len-函数"><a href="#空字符串和len-函数" class="headerlink" title="空字符串和len()函数"></a>空字符串和len()函数</h2><p>python允许空字符串的存在，不包含任何字符串且长度为0</p>
+<p>len()用于计算字符串包含多少字符</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">c=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(c))</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h1><p>转义字符是很多程序语言、数据格式和通信协议的形式文法的一部分。</p>
+<p>ASCII编码为每个字符都分配了唯一的编号，称为编码值。在 Python中，一个ASCII字符除了可以用它的实体（也就是真正的字符）表示，还可以用它的编码值表示。这种使用编码值来间接地表示字符的方式称为转义字符（Escape Character）。</p>
+<table>
+<thead>
+<tr>
+<th align="center">转义字符</th>
+<th align="center">字 符 值</th>
+<th align="center">输 出 结 果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&#39;</td>
+<td align="center">一个单撇号（’）</td>
+<td align="center">输出单撇号字符’</td>
+</tr>
+<tr>
+<td align="center">&quot;</td>
+<td align="center">一个双撇号（”）</td>
+<td align="center">输出双撇号字符”</td>
+</tr>
+<tr>
+<td align="center">?</td>
+<td align="center">一个问号（?）</td>
+<td align="center">输出问号字符?</td>
+</tr>
+<tr>
+<td align="center">\</td>
+<td align="center">一个反斜杠（\）</td>
+<td align="center">输出反斜杠字符\</td>
+</tr>
+<tr>
+<td align="center">\a</td>
+<td align="center">警告（alert）</td>
+<td align="center">产生声音或视觉信号</td>
+</tr>
+<tr>
+<td align="center">\b</td>
+<td align="center">退格（backspace）</td>
+<td align="center">将光标当前位置后退一个字符</td>
+</tr>
+<tr>
+<td align="center">\f</td>
+<td align="center">换页（from feed）</td>
+<td align="center">将光标当前位置移到下一页的开头</td>
+</tr>
+<tr>
+<td align="center">\n</td>
+<td align="center">换行</td>
+<td align="center">将光标当前位置移到下一行的开头</td>
+</tr>
+<tr>
+<td align="center">\r</td>
+<td align="center">回车（carriagereturn）</td>
+<td align="center">将光标当前位置移到本行的开头</td>
+</tr>
+<tr>
+<td align="center">\t</td>
+<td align="center">水平制表符</td>
+<td align="center">将光标当前位置移到下一个Tab位置</td>
+</tr>
+<tr>
+<td align="center">\v</td>
+<td align="center">垂直制表符</td>
+<td align="center">将光标当前位置移到下一个垂直表对齐点</td>
+</tr>
+<tr>
+<td align="center">\o、\oo、\ooo其中o表示一个八进制数字</td>
+<td align="center">与该八进制码对应的ASCII字符</td>
+<td align="center">与该八进制码对应的字符</td>
+</tr>
+<tr>
+<td align="center">\xh[h…]其中h代表一个十六进制数字</td>
+<td align="center">与该十六进制码对应的ASCII字符</td>
+<td align="center">与该十六进制码对应的字符</td>
+</tr>
+</tbody></table>
+<h1 id="从控制台读取字符串"><a href="#从控制台读取字符串" class="headerlink" title="从控制台读取字符串"></a>从控制台读取字符串</h1><p>我们可以使用input()从控制台读取键盘输入的内容</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">myname = <span class="built_in">input</span>(<span class="string">&quot;请输入名字：&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;您的名字是:&quot;</span>+myname)</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="字符串的操作"><a href="#字符串的操作" class="headerlink" title="字符串的操作"></a>字符串的操作</h1><h2 id="replace-实现字符串的替换"><a href="#replace-实现字符串的替换" class="headerlink" title="replace()实现字符串的替换"></a>replace()实现字符串的替换</h2><p>字符串从始至终不会变的，要么换新的要么删除</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"> a = <span class="string">&quot;asdfasdfasdfasdfasdfs&quot;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line">a = a.replace(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;l&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>输出结果</p>
+<p>asdfasdfasdfasdfasdfs<br>lsdflsdflsdflsdflsdfs</p>
+</blockquote>
+<p>整个过程中，实际上我们是创建了新的字符串对象，并指向了变量a，而不是修改了以前的字符串 </p>
+<h2 id="str-实现数字转型字符串"><a href="#str-实现数字转型字符串" class="headerlink" title="str()实现数字转型字符串"></a>str()实现数字转型字符串</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">2.5</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(a))</span><br><span class="line">a = <span class="built_in">str</span>(a)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(a))</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>但我们调用了print()函数时，解释器自动调用了str()将非字符串的对象转换了字符串</p>
+</blockquote>
+<h2 id="使用-提取字符串"><a href="#使用-提取字符串" class="headerlink" title="使用[]提取字符串"></a>使用[]提取字符串</h2><p>字符串的本质就是字符序列，我们可以通过在字符串后面添加[]，在[]里面指定偏移量，可以提取该位置的单个字符</p>
+<ul>
+<li>正向搜索：从左侧开始</li>
+<li>反向搜索：从右侧开始</li>
+</ul>
+<h2 id="字符串切片slice操作"><a href="#字符串切片slice操作" class="headerlink" title="字符串切片slice操作"></a>字符串切片slice操作</h2><p>切片操作可以让我们快速提取子字符串，标准格式为，[起始偏移量：终止偏移量：步长]</p>
+<p>典型操作</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作说明</th>
+<th align="center">示例</th>
+<th align="center">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">[:]提取整个字符串</td>
+<td align="center">“abcde”[:]</td>
+<td align="center">abcde</td>
+</tr>
+<tr>
+<td align="center">[start:]从start索引开始到结尾</td>
+<td align="center">“abcde”[2:]</td>
+<td align="center">cde</td>
+</tr>
+<tr>
+<td align="center">[:end]从头直到end-1</td>
+<td align="center">“abcde”[:2]</td>
+<td align="center">ab</td>
+</tr>
+<tr>
+<td align="center">[start:end]从start到end-1</td>
+<td align="center">“abcde”[1:3]</td>
+<td align="center">bc</td>
+</tr>
+<tr>
+<td align="center">[start：end：step]</td>
+<td align="center">“abcde”[0:3:1]</td>
+<td align="center">a</td>
+</tr>
+</tbody></table>
+<p>[::-1]直接逆序输出</p>
+<h2 id="split-分割和join-合并"><a href="#split-分割和join-合并" class="headerlink" title="split()分割和join()合并"></a>split()分割和join()合并</h2><p>split()可以基于指定分割符，将字符串分割成多个子字符串（存储到列表中）。如果不指定分割符，则默认使用空白字符（换行符，空格，制表）</p>
+<p>join()的作用和split()作用相反，用于将一系列子字符连接起来。 </p>
+<blockquote>
+<p>使用字符串拼接符+，会生成新的字符串对象，因此不推荐使用+来拼接字符串，推荐使用join函数，这样会仅新建一次对象</p>
+</blockquote>
+<h2 id="字符串驻留机制和字符串比较"><a href="#字符串驻留机制和字符串比较" class="headerlink" title="字符串驻留机制和字符串比较"></a>字符串驻留机制和字符串比较</h2><p>字符串驻留：常量字符串只保留一次</p>
+<h2 id="字符串比较和统一性"><a href="#字符串比较和统一性" class="headerlink" title="字符串比较和统一性"></a>字符串比较和统一性</h2><p><code>==</code>,<code>!=</code>可以对字符串进行比较</p>
+<p><code>is</code>,<code>not is</code>用来判断是否为同一对象</p>
+<h2 id="成员操作符判断子字符串"><a href="#成员操作符判断子字符串" class="headerlink" title="成员操作符判断子字符串"></a>成员操作符判断子字符串</h2><p><code>in</code> <code>not in</code>，判断某个字符或者字符串是否存在于字符串中</p>
+<h2 id="常用方法汇总"><a href="#常用方法汇总" class="headerlink" title="常用方法汇总"></a>常用方法汇总</h2><p><a class="link"   href="https://blog.csdn.net/yueguang8/article/details/136682871" >Python之字符串操作大全（29种方法）_字符串的基本操作python-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="可变字符串"><a href="#可变字符串" class="headerlink" title="可变字符串"></a>可变字符串</h2><ul>
+<li>python中，字符串属于不可变对象，不支持原地修改，如果要修改其中的值，智能创建新的字符串对象</li>
+<li>确实要原地修改字符串可以使用io.StringIO对象或者array模块</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> io</span><br><span class="line"></span><br><span class="line">s = <span class="string">&quot;abcdefg&quot;</span></span><br><span class="line">sio = io.StringIO(s)  <span class="comment"># sio是可变字符串</span></span><br><span class="line"><span class="built_in">print</span>(sio)</span><br><span class="line"><span class="built_in">print</span>(sio.getvalue())</span><br><span class="line">sio.seek(<span class="number">3</span>)  <span class="comment"># 指针到索引3</span></span><br><span class="line">sio.write(<span class="string">&quot;***&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(sio)</span><br><span class="line"><span class="built_in">print</span>(sio.getvalue())</span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>你好贾维斯</title>
+    <url>/2024/05/10/%E4%BD%A0%E5%A5%BD%E8%B4%BE%E7%BB%B4%E6%96%AF/</url>
+    <content><![CDATA[<h1 id="Hello，Jarvis"><a href="#Hello，Jarvis" class="headerlink" title="Hello，Jarvis"></a>Hello，Jarvis</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/708523c1da6b1f58c8d838d4d20dcac3695af3ed.jpg"
+                      alt="708523c1da6b1f58c8d838d4d20dcac3695af3ed.jpg"
+                ></p>
+<h1 id="视频地址"><a href="#视频地址" class="headerlink" title="视频地址"></a><a class="link"   href="https://www.bilibili.com/video/BV1vC411j7En" >视频地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我心中的真正的人工智能的样子？</p>
+<blockquote>
+<p>在我心中，理想的人工智能是类似于电影《钢铁侠》中的贾维斯那样的存在。它不仅是一个高效的助手，可以处理各种复杂的任务，而且还能理解和预测我的需求，提供个性化的帮助。它具有自我学习和改进的能力，可以通过与我互动来不断提高其服务质量。更重要的是，这样的人工智能应具备一定的情感理解能力，能够理解人类的情绪，并在与人类的交互中表现出适当的情感反馈。最后，我希望这样的人工智能在满足所有这些功能的同时，还能够严格遵守数据安全和隐私保护的原则，让我在使用的过程中感到安心。</p>
+</blockquote>
+<p>现在人工智能的一大主要问题</p>
+<blockquote>
+<p>现在的人工智能（AI）在进行系统级操作方面存在一定的限制。这个问题主要体现在以下几个方面：</p>
+<ol>
+<li><p><strong>理解和实施复杂任务</strong>：虽然AI可以学习和执行一些特定的、有限的任务，但它们往往在理解和实施复杂、多步骤的任务时遇到困难。例如，AI可能能够理解单个指令，如“打开文件”或“搜索信息”，但可能无法理解或执行更复杂的指令，如“整理这个文件夹并删除所有旧的文件”。</p>
+</li>
+<li><p><strong>长期记忆和知识转移</strong>：当前的AI系统通常缺乏有效的长期记忆机制，这意味着它们可能无法记住过去的操作或学习经验，并将这些知识应用到新的任务中。这使得AI难以进行系统级的操作，因为这些操作通常需要对过去的信息进行整合和利用。</p>
+</li>
+<li><p><strong>安全性和隐私问题</strong>：AI进行系统级操作可能会涉及到敏感的信息和关键的系统资源。然而，现有的AI技术可能无法确保这些信息和资源的安全，因为它们可能被恶意利用，或者在无意中泄露用户的隐私。</p>
+</li>
+<li><p><strong>缺乏通用性</strong>：许多AI系统都是为特定的任务或环境设计的，而不是为广泛的系统级操作设计的。这意味着，尽管这些系统在特定的任务或环境中可能表现良好，但在其他环境或任务中可能表现不佳。</p>
+</li>
+</ol>
+<p>这些问题都是AI进行系统级操作的主要障碍。然而，随着AI技术的不断发展，我期待这些问题在未来得到解决。</p>
+</blockquote>
+<h1 id="项目推荐"><a href="#项目推荐" class="headerlink" title="项目推荐"></a>项目推荐</h1><p>GitHub地址：<a class="link"   href="https://github.com/OpenInterpreter/open-interpreter" >OpenInterpreter&#x2F;open-interpreter: A natural language interface for computers (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>官网：<a class="link"   href="https://www.openinterpreter.com/" >The Open Interpreter Project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>why interpreter</p>
+<blockquote>
+<p>借助大语言模型，Open Interpreter 可在本地运行代码（Python、Javascript、Shell 等），帮你执行各种任务。</p>
+<p>它可以在本机调用 GPT-4, GPT-3.5，或者开源免费的 CodeLlama 模型。</p>
+<p>安装以后，每次只要打开终端，输入 “interpreter” 这个命令以后，就可以打开类似于 ChatGPT 的聊天界面。</p>
+<p>所不同的是，它并不像代码解释器那样是一个封闭的环境。它可以联网，也可以和本地文件交互，因此你不需要上传文件进行分析。而且，如果在分析过程中如果它缺少某些 Python 库，可以联网自行下载。</p>
+<p>此外，其他的对于上传文件的大小是有限制的，但 Open Interpreter 却可以和你电脑上任意大的文件进行交互。因此，它对于处理文件非常方便。</p>
+</blockquote>
+<h1 id="极简部署安装"><a href="#极简部署安装" class="headerlink" title="极简部署安装"></a>极简部署安装</h1><blockquote>
+<p>较为推荐使用此方法+key</p>
+</blockquote>
+<p>Linux上部署</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
+
+<p>Windows上部署</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
+
+<p>mac上部署</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
+
+<p>api的配置</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">OPENAI_API_KEY</span><br><span class="line">OPENAI_API_BASE</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="使用本地模型"><a href="#使用本地模型" class="headerlink" title="使用本地模型"></a>使用本地模型</h1><blockquote>
+<p>不是很推荐</p>
+</blockquote>
+<p>以ollama举例</p>
+<p>首先安装ollama</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Download Ollama - https://ollama.ai/download</span><br></pre></td></tr></table></figure></div>
+
+<p>ollama启动某个模型</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ollama run qwen:14b</span><br></pre></td></tr></table></figure></div>
+
+<p>本地模型启动</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">interpreter --model ollama/qwen:14b</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="使用Litellm做接口访问"><a href="#使用Litellm做接口访问" class="headerlink" title="使用Litellm做接口访问"></a>使用Litellm做接口访问</h1><blockquote>
+<p>次推荐</p>
+</blockquote>
+<p>LiteLLM的功能就一句话：使用 OpenAI 格式调用所有 LLM API [Bedrock、Huggingface、VertexAI、TogetherAI、Azure、OpenAI 等]，具体包括：</p>
+<ul>
+<li>将输入转换为提供者的<code>completion</code>、<code>embedding</code>和<code>image_generation</code>端点</li>
+<li><a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/completion/output" >一致的输出 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，文本响应将始终可用<code>[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;]</code></li>
+<li>跨多个部署（例如 Azure&#x2F;OpenAI）的重试&#x2F;回退逻辑 -<a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/routing" >路由器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>设置每个项目的预算和费率限制、API 密钥、模型<a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/simple_proxy" >OpenAI 代理服务器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>项目地址：<a class="link"   href="https://github.com/BerriAI/litellm" >BerriAI&#x2F;litellm: Call all LLM APIs using the OpenAI format. Use Bedrock, Azure, OpenAI, Cohere, Anthropic, Ollama, Sagemaker, HuggingFace, Replicate (100+ LLMs) (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h1 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h1><ul>
+<li><input disabled="" type="checkbox"> 接入语音</li>
+</ul>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哪吒监控搭建记录</title>
+    <url>/2024/05/07/%E5%93%AA%E5%90%92%E7%9B%91%E6%8E%A7%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="哪吒监控搭建记录"><a href="#哪吒监控搭建记录" class="headerlink" title="哪吒监控搭建记录"></a>哪吒监控搭建记录</h1><h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><ol>
+<li>一台可以连接公网的 VPS，防火墙和安全策略需要放行 8008 和 5555 端口，否则会无法访问和无法接收数据。单核 512MB 内存的服务器配置就足以满足大多数使用场景</li>
+<li>一个已经设置好 A 记录，指向 Dashboard 服务器 ip 的域名</li>
+</ol>
+<blockquote>
+<p>TIP</p>
+<p>如果想使用 CDN，请准备两个域名，一个配置好 CDN 用作公开访问，CDN 需要支持WebSocket 协议；另一个域名不要使用 CDN，用作 Agent 端与 Dashboard 的通信</p>
+</blockquote>
+<p>3.一个 Github 账号</p>
+<h2 id="二、获取-Github-的-Client-ID-和密钥"><a href="#二、获取-Github-的-Client-ID-和密钥" class="headerlink" title="二、获取 Github 的 Client ID 和密钥"></a>二、获取 Github 的 Client ID 和密钥</h2><p>哪吒监控接入 Github、Gitlab、Gitee 作为后台管理员账号</p>
+<h2 id="三、在服务器中安装-Dashboard"><a href="#三、在服务器中安装-Dashboard" class="headerlink" title="三、在服务器中安装 Dashboard"></a>三、在服务器中安装 Dashboard</h2><ul>
+<li>在面板服务器中，运行安装脚本：</li>
+</ul>
+<p>bash</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh  -o nezha.sh &amp;&amp; chmod +x nezha.sh &amp;&amp; sudo ./nezha.sh</span><br></pre></td></tr></table></figure></div>
+
+<p>如果你的面板服务器位于中国大陆，可以使用镜像：</p>
+<p>bash</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -L https://gitee.com/naibahq/nezha/raw/master/script/install.sh -o nezha.sh &amp;&amp;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>等待Docker安装完毕后，分别输入以下值：<br><code>OAuth提供商</code> - Github，Gitlab，Gitee 中选择一个<br><code>Client ID</code> - 之前保存的 Client ID<br><code>Client Secret</code> - 之前保存的密钥<br><code>用户名</code> - OAuth 提供商中的用户名<br><code>站点标题</code> - 自定义站点标题<br><code>访问端口</code> - 公开访问端口，可自定义，默认 8008<br><code>Agent的通信端口</code> - Agent 与 Dashboard 的通信端口，默认 5555</p>
+</li>
+<li><p>输入完成后，等待拉取镜像<br>安装结束后，如果一切正常，此时你可以访问域名+端口号，如 “<a class="link"   href="http://cdn.example.com:8008/" >http://cdn.example.com:8008 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>” 来查看面板</p>
+</li>
+<li><p>将来如果需要再次运行脚本，可以运行：</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">./nezha.sh</span><br></pre></td></tr></table></figure></div>
+
+<p>来打开管理脚本</p>
+<p>此时就可以通过域名来访问哪吒监控了</p>
+<h2 id="四、最好通过docker进行安装"><a href="#四、最好通过docker进行安装" class="headerlink" title="四、最好通过docker进行安装"></a>四、最好通过docker进行安装</h2><h2 id="五、监控节点的安装"><a href="#五、监控节点的安装" class="headerlink" title="五、监控节点的安装"></a>五、监控节点的安装</h2><p>直接在面板的位置进行服务器的新增，然后使用一键安装即可</p>
+<h2 id="六、pve可能出现的问题"><a href="#六、pve可能出现的问题" class="headerlink" title="六、pve可能出现的问题"></a>六、pve可能出现的问题</h2><p>文件权限不足，需要进行提权</p>
+<h1 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h1><blockquote>
+<p>1.可以在管理端进行ssh链接，虽然的github进行了二次的验证但是我还是感觉不太安全</p>
+</blockquote>
+<p><strong>解决方案：</strong></p>
+<ol>
+<li>编辑 &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;nezha-agent.service</li>
+<li>在“ExecStart&#x3D; ”后加上 “–disable-command-execute”</li>
+<li>systemctl daemon-reload</li>
+<li>重启Agent</li>
+</ol>
+<blockquote>
+</blockquote>
+<h1 id="最后的效果"><a href="#最后的效果" class="headerlink" title="最后的效果"></a>最后的效果</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/65fa527f9f345e8d0304af41.png"
+                     
+                ></p>
+]]></content>
+      <categories>
+        <category>搭建记录</category>
+      </categories>
+      <tags>
+        <tag>记录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>费曼学习法的自我认识</title>
+    <url>/2024/05/09/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95%E7%9A%84%E8%87%AA%E6%88%91%E8%AE%A4%E8%AF%86/</url>
+    <content><![CDATA[<h1 id="费曼学习方法的自我认识"><a href="#费曼学习方法的自我认识" class="headerlink" title="费曼学习方法的自我认识"></a>费曼学习方法的自我认识</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/img/feiman.jpg"
+                     
+                ></p>
+<p>认知会改变心理，心理会影响行为，主要是从这三点出发，进行分析和总结</p>
+<div class="tabs" id="tab-first-unique-name"><ul class="nav-tabs"><li class="tab active"><a class="#first-unique-name-1">认知</a></li><li class="tab"><a class="#first-unique-name-2">心理</a></li><li class="tab"><a class="#first-unique-name-3">Third Tab</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-unique-name-1"><p>你就是要认为自己别人聪明，你的观众，你的学生都是笨蛋，你要想怎么教会他们，如果你能教会笨蛋的话，那么教会自己这么聪明的人就是非常简单 </p></div><div class="tab-pane" id="first-unique-name-2"><p>通过认知我们可以产生什么样的心理: </p>
+<p><strong>1.优越感（记住是正向的优越感）</strong></p>
+<p><strong>2.教学和教会学生的成就感</strong>.</p>
+<p><strong>3.增加自信心</strong></p></div><div class="tab-pane" id="first-unique-name-3"><p><strong>心理会影响行为，落实行为可以具体成某个或者某些行为</strong></p>
+<p><strong>比如：我们可以写讲义或者是博客。在此基础上通过现在流行的视频平台可以去做讲解视频</strong></p>
+<p><strong>可以先从基础讲解，用通俗易懂的方法去讲解</strong></p>
+<p><strong>再用高级的方法去讲解（串联起你的前后知识库），按照你的理解重排知识点，以观众更好理解的方式去进行讲解</strong></p></div></div></div>
+
+<p><strong>maki</strong>老师说了两句话让我觉得很好：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">决定一个函数从来不是当前值,而是斜率，哪怕你的值是很小，有向上的斜率，那么也是在进步</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">大部分厉害的数学家也都是优秀的教育家，不是因为他是一名好的数学家才教得好，而是本身是一名好的教育学家才更容易帮助他成为一名优秀的数学家</span><br><span class="line">发散一下这种思维，你要是想成为厉害的Coder，不妨先从写文档，出视频开始</span><br></pre></td></tr></table></figure></div>
+
+<p>两句话与诸君共勉</p>
+]]></content>
+      <categories>
+        <category>学习方法 - 费曼学习方法</category>
+      </categories>
+      <tags>
+        <tag>学习方法</tag>
+      </tags>
+  </entry>
+</search>
