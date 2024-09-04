@@ -17,28 +17,29 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://blog.ligood.top/2024/07/25/8位二进制cpu的设计和实现-全加器-八位二进制加法器/"/>
+    <link rel="canonical" href="https://blog.ligood.top/2024/09/04/浪浪云香港服务器测评/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="全加器全加器：实现二进制加法，涉及进位  逻辑表达式：S &#x3D; A ^ B ^ C、C &#x3D; (A &amp; B) | (B &amp; C) | (A &amp; C)  真值表    A B C S C    0 0 0 0 0   0 0 1 1 0   0 1 0 1 0   0 1 1 0 1   1 0 0 1 0   1 0 1 0 1   1 1 0 0 1   1 1 1 1 1">
+        <meta name="description" content="浪浪云香港大带宽服务器测试浪浪云之前一直做的是应用型服务器，最近上新了新平台做服务器，上个月可以五折购买，最近也在出活动，具体的优惠活动大家可以看他们的公众号或者官网 官网：https:&#x2F;&#x2F;langlangy.cn&#x2F;  前言：我这台服务器的配置是大带宽型4H4G，购买价格：48.00，通用型和大带宽同价格，不同的是大带宽有流量限制，流量用完以后需要购买流量包（上行流量限制，下行不限） 具体配置：1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8位二进制cpu的设计和实现-全加器^八位二进制加法器">
-<meta property="og:url" content="https://blog.ligood.top/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%85%A8%E5%8A%A0%E5%99%A8-%E5%85%AB%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/index.html">
+<meta property="og:title" content="浪浪云香港服务器测评">
+<meta property="og:url" content="https://blog.ligood.top/2024/09/04/%E6%B5%AA%E6%B5%AA%E4%BA%91%E9%A6%99%E6%B8%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%84/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="全加器全加器：实现二进制加法，涉及进位  逻辑表达式：S &#x3D; A ^ B ^ C、C &#x3D; (A &amp; B) | (B &amp; C) | (A &amp; C)  真值表    A B C S C    0 0 0 0 0   0 0 1 1 0   0 1 0 1 0   0 1 1 0 1   1 0 0 1 0   1 0 1 0 1   1 1 0 0 1   1 1 1 1 1">
+<meta property="og:description" content="浪浪云香港大带宽服务器测试浪浪云之前一直做的是应用型服务器，最近上新了新平台做服务器，上个月可以五折购买，最近也在出活动，具体的优惠活动大家可以看他们的公众号或者官网 官网：https:&#x2F;&#x2F;langlangy.cn&#x2F;  前言：我这台服务器的配置是大带宽型4H4G，购买价格：48.00，通用型和大带宽同价格，不同的是大带宽有流量限制，流量用完以后需要购买流量包（上行流量限制，下行不限） 具体配置：1">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/66a248a5d9c307b7e97724ba.png">
-<meta property="og:image" content="https://pic.imgdb.cn/item/66a248c8d9c307b7e9774391.png">
-<meta property="og:image" content="https://pic.imgdb.cn/item/66a248e8d9c307b7e97762ca.png">
-<meta property="og:image" content="https://pic.imgdb.cn/item/66a24916d9c307b7e977859b.png">
-<meta property="article:published_time" content="2024-07-25T12:45:23.000Z">
-<meta property="article:modified_time" content="2024-07-25T12:53:50.109Z">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66d7bb2fd9c307b7e964ab2e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66d7bd56d9c307b7e966123b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66d7bfb3d9c307b7e9691e7f.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66d7c21dd9c307b7e9702f91.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66d7c48ad9c307b7e971ece0.png">
+<meta property="article:published_time" content="2024-09-04T02:56:43.000Z">
+<meta property="article:modified_time" content="2024-09-04T02:58:13.112Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="8位二进制cpu的设计和实现">
+<meta property="article:tag" content="服务器">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/66a248a5d9c307b7e97724ba.png">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/66d7bb2fd9c307b7e964ab2e.png">
     
     
     <!--- Icon Part-->
@@ -50,7 +51,7 @@
     
     <title>
         
-            8位二进制cpu的设计和实现-全加器^八位二进制加法器 -
+            浪浪云香港服务器测评 -
         
         李优秀&#39;s Blog
     </title>
@@ -242,119 +243,7 @@
     
     
     
-<meta name="generator" content="Hexo 7.2.0"><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head>
+<meta name="generator" content="Hexo 7.2.0"></head>
 
 
 <body>
@@ -844,10 +733,10 @@ mjx-container[display="true"] + br {
             
                 
                 
-                <img src="https://pic.imgdb.cn/item/663c472f0ea9cb1403e4c285.png" alt="8位二进制cpu的设计和实现-全加器^八位二进制加法器" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                <img src="https://pic.imgdb.cn/item/663c472f0ea9cb1403e4c285.png" alt="浪浪云香港服务器测评" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
                 
                 <div class="w-full flex items-center absolute bottom-0 justify-start">
-                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">8位二进制cpu的设计和实现-全加器^八位二进制加法器</h1>
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">浪浪云香港服务器测评</h1>
                 </div>
             
             </div>
@@ -868,15 +757,15 @@ mjx-container[display="true"] + br {
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-07-25 20:45:23</span>
-        <span class="mobile">2024-07-25 20:45:23</span>
+        <span class="desktop">2024-09-04 10:56:43</span>
+        <span class="mobile">2024-09-04 10:56:43</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-07-25 20:53:50</span>
-            <span class="mobile">2024-07-25 20:53:50</span>
+            <span class="desktop">2024-09-04 10:58:13</span>
+            <span class="mobile">2024-09-04 10:58:13</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -890,7 +779,7 @@ mjx-container[display="true"] + br {
                     
                         
                         <li>
-                            <a href="/categories/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/">8位二进制cpu的设计和实现</a>&nbsp;
+                            <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>&nbsp;
                         </li>
                     
                     
@@ -904,7 +793,7 @@ mjx-container[display="true"] + br {
             <ul>
                 
                     <li>
-                        <a href="/tags/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/">8位二进制cpu的设计和实现</a>&nbsp;
+                        <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>&nbsp;
                     </li>
                 
             </ul>
@@ -914,12 +803,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>421 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.6k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 分钟</span>
         </span>
     
     
@@ -934,106 +823,62 @@ mjx-container[display="true"] + br {
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>全加器：实现二进制加法，涉及进位</p>
-<ul>
-<li><p>逻辑表达式：S = A ^ B ^ C、C = (A &amp; B) | (B &amp; C) | (A &amp; C)</p>
-</li>
-<li><p>真值表</p>
-<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>S</th>
-<th>C</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-</tbody></table>
-<p>实现这样一个运算的逻辑电路称为全加器<br>根据经验我们得知，逻辑表达式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="44.036ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 19464 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtable"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(922.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1978.6,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="mo" transform="translate(2950.8,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(3951,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(4932.2,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(5932.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mtext" transform="translate(6692.4,0)"><path data-c="A0" d=""></path></g><g data-mml-node="mi" transform="translate(6942.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(7980.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(9036,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(9425,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(11175,0)"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(759,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1148,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1426,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1815,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g><g data-mml-node="mtd" transform="translate(14749,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1149,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1427,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1816,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(18315,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></g></g></svg></mjx-container><br>打开logiccircuit根据上面异或和与关系搭建门电路，验证</p>
-</li>
-<li><p>将异或(XOR)门用与、或、非门实现出来</p>
-</li>
-<li><p>然后用异或(XOR)门和与门共同搭建半加器(Half Adder)</p>
-</li>
-<li><p>然后用半加器(Half Adder)和与门共同搭建全加器(Full Adder)</p>
-</li>
-<li><p>搭建完之后通过按键和LED测试，符合真值表逻辑即可</p>
-</li>
-</ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248a5d9c307b7e97724ba.png"></p>
-<p>利用只读存储器，通过真值表<br>（ROM）实现全加器</p>
-<ul>
-<li>将全加器电路用ROM实现出来</li>
-<li>搭建完之后通过按键和LED测试，符合真值表逻辑即可</li>
-<li>ROM中的数据写入为全加器的真值表</li>
-</ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248c8d9c307b7e9774391.png"></p>
-<h2 id="8位加法器-8Adder"><a href="#8位加法器-8Adder" class="headerlink" title="8位加法器 8Adder"></a>8位加法器 8Adder</h2><ul>
-<li>8位加法器：实现8位二进制加法，涉及进位<blockquote>
-<p>补充：这种全加器叫串形加法器，由于高位的运算需要等待低位的进位输出，所以会有延迟，效率不是很高。<br>还有一种并行加法器可以实现同步，这里不多做介绍。事实上还可以通过前面的ROM实现方法实现低延迟运算。</p>
-</blockquote>
-</li>
-</ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248e8d9c307b7e97762ca.png"></p>
-<p><strong>制作测试器测试</strong><br>也就是八位按钮和八位的LED，通过测试器测试，符合预期即可</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a24916d9c307b7e977859b.png"></p>
+            <h1 id="浪浪云香港大带宽服务器测试"><a href="#浪浪云香港大带宽服务器测试" class="headerlink" title="浪浪云香港大带宽服务器测试"></a>浪浪云香港大带宽服务器测试</h1><p>浪浪云之前一直做的是应用型服务器，最近上新了新平台做服务器，上个月可以五折购买，最近也在出活动，具体的优惠活动大家可以看他们的公众号或者官网</p>
+<p>官网：<a class="link"   target="_blank" rel="noopener" href="https://langlangy.cn/" >https://langlangy.cn/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>我这台服务器的配置是<strong>大带宽型4H4G</strong>，购买价格：<strong>48.00</strong>，通用型和大带宽同价格，不同的是大带宽有流量限制，流量用完以后需要购买流量包（上行流量限制，下行不限）</p>
+<h2 id="具体配置："><a href="#具体配置：" class="headerlink" title="具体配置："></a>具体配置：</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">---------------------基础信息查询--感谢所有开源项目---------------------</span><br><span class="line"> CPU 型号          : Intel(R) Xeon(R) Gold 6133 CPU @ 2.50GHz</span><br><span class="line"> CPU 核心数        : 4</span><br><span class="line"> CPU 频率          : 2494.140 MHz</span><br><span class="line"> CPU 缓存          : L1: 64.00 KB / L2: 2.00 MB / L3: 27.50 MB</span><br><span class="line"> AES-NI指令集      : ✔ Enabled</span><br><span class="line"> VM-x/AMD-V支持    : ✔ Enabled</span><br><span class="line"> 内存              : 229.30 MiB / 3.83 GiB</span><br><span class="line"> Swap              : [ no swap partition or swap file detected ]</span><br><span class="line"> 硬盘空间          : 1.63 GiB / 28.90 GiB</span><br><span class="line"> 启动盘路径        : /dev/vda1</span><br><span class="line"> 系统在线时间      : 0 days, 0 hour 11 min</span><br><span class="line"> 负载              : 0.37, 0.16, 0.06</span><br><span class="line"> 系统              : Ubuntu 22.04 LTS (x86_64)</span><br><span class="line"> 架构              : x86_64 (64 Bit)</span><br><span class="line"> 内核              : 5.15.0-30-generic</span><br><span class="line"> TCP加速方式       : cubic</span><br><span class="line"> 虚拟化架构        : KVM</span><br><span class="line"> NAT类型           : Full Cone</span><br><span class="line"> IPV4 ASN          : AS138995 Antbox Networks Limited</span><br><span class="line"> IPV4 位置         : Hong Kong / Hong Kong / HK</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7bb2fd9c307b7e964ab2e.png"
+                     
+                ></p>
+<h3 id="CPU测试"><a href="#CPU测试" class="headerlink" title="CPU测试"></a>CPU测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">----------------------CPU测试--通过sysbench测试-------------------------</span><br><span class="line"> -&gt; CPU 测试中 (Fast Mode, 1-Pass @ 5sec)</span><br><span class="line"> 1 线程测试(单核)得分:          938 Scores</span><br><span class="line"> 4 线程测试(多核)得分:          3665 Scores</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="内存测试"><a href="#内存测试" class="headerlink" title="内存测试"></a>内存测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---------------------内存测试--感谢lemonbench开源-----------------------</span><br><span class="line"> -&gt; 内存测试 Test (Fast Mode, 1-Pass @ 5sec)</span><br><span class="line"> 单线程读测试:          18484.08 MB/s</span><br><span class="line"> 单线程写测试:          15426.13 MB/s</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="磁盘读写测试"><a href="#磁盘读写测试" class="headerlink" title="磁盘读写测试"></a>磁盘读写测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">------------------磁盘<span class="built_in">dd</span>读写测试--感谢lemonbench开源--------------------</span><br><span class="line"> -&gt; 磁盘IO测试中 (4K Block/1M Block, Direct Mode)</span><br><span class="line"> 测试操作               写速度                                  读速度</span><br><span class="line"> 100MB-4K Block         10.8 MB/s (2647 IOPS, 9.67s)            10.8 MB/s (2648 IOPS, 9.67s)</span><br><span class="line"> 1GB-1M Block           256 MB/s (244 IOPS, 4.10s)              262 MB/s (250 IOPS, 4.00s)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="去程路由"><a href="#去程路由" class="headerlink" title="去程路由"></a>去程路由</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7bd56d9c307b7e966123b.png"
+                     
+                ></p>
+<p>再补一个随机地区测速</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7bfb3d9c307b7e9691e7f.png"
+                     
+                ></p>
+<p>综合来说电信走的是CN2，其他两家运营商走的是优质网络</p>
+<h3 id="回程路由"><a href="#回程路由" class="headerlink" title="回程路由"></a>回程路由</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">----------------三网回程--基于oneclickvirt/backtrace开源----------------</span><br><span class="line">北京电信 219.141.140.10  电信CN2GIA [精品线路] </span><br><span class="line">北京联通 202.106.195.68  联通4837   [普通线路] </span><br><span class="line">北京移动 221.179.155.161 移动CMI    [普通线路] </span><br><span class="line">上海电信 202.96.209.133  电信CN2GIA [精品线路] </span><br><span class="line">上海联通 210.22.97.1     联通4837   [普通线路] </span><br><span class="line">上海移动 211.136.112.200 移动CMI    [普通线路] </span><br><span class="line">广州电信 58.60.188.222   电信CN2GIA [精品线路] </span><br><span class="line">广州联通 210.21.196.6    联通4837   [普通线路] </span><br><span class="line">广州移动 120.196.165.24  移动CMI    [普通线路] </span><br><span class="line">成都电信 61.139.2.69     电信CN2GIA [精品线路] </span><br><span class="line">成都联通 119.6.6.6       联通4837   [普通线路] </span><br><span class="line">成都移动 211.137.96.205  移动CMI    [普通线路] </span><br><span class="line">准确线路自行查看详细路由，本测试结果仅作参考</span><br><span class="line">同一目标地址多个线路时，可能检测已越过汇聚层，除了第一个线路外，后续信息可能无效</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">---------------------回程路由--感谢fscarmen开源及PR---------------------</span><br><span class="line">依次测试电信/联通/移动经过的地区及线路，核心程序来自ipip.net或nexttrace，请知悉!</span><br><span class="line">广州电信 58.60.188.222</span><br><span class="line">1.50 ms         * 中国 香港</span><br><span class="line">2.20 ms         * 中国 香港 电信/CTGNet</span><br><span class="line">* ms    * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">14.95 ms        * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">13.12 ms        * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">* ms    AS4134 中国 广东 佛山市 www.chinatelecom.com.cn 电信</span><br><span class="line">11.31 ms        AS4134 中国 广东 深圳 福田区 www.chinatelecom.com.cn 电信</span><br><span class="line">广州联通 210.21.196.6</span><br><span class="line">2.22 ms         AS10099 中国 香港 chinaunicomglobal.com</span><br><span class="line">3.83 ms         AS10099 [CUG-BACKBONE] 中国 香港 chinaunicomglobal.com 联通</span><br><span class="line">2.11 ms         AS10099 中国 香港 chinaunicomglobal.com 联通</span><br><span class="line">10.18 ms        AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn</span><br><span class="line">14.48 ms        AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn 联通</span><br><span class="line">* ms    AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn 联通</span><br><span class="line">15.83 ms        AS17816 [UNICOM-GD] 中国 广东 深圳 chinaunicom.cn 联通</span><br><span class="line">13.42 ms        AS17623 [APNIC-AP] 中国 广东 深圳 chinaunicom.cn 联通</span><br><span class="line">12.87 ms        AS17623 [APNIC-AP] 中国 广东 深圳 宝安区 chinaunicom.cn 联通</span><br><span class="line">广州移动 120.196.165.24</span><br><span class="line">15.60 ms        AS58453 [CMI-INT] 中国 香港 cmi.chinamobile.com</span><br><span class="line">40.62 ms        AS58453 [CMI-INT] 中国 香港 cmi.chinamobile.com 移动</span><br><span class="line">44.69 ms        AS58453 [CMI-INT] 中国 广东 广州 回国到达层 cmi.chinamobile.com 移动</span><br><span class="line">44.31 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">44.69 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">46.39 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">48.51 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">48.48 ms        AS56040 [APNIC-AP] 中国 广东 深圳 gd.10086.cn 移动</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7c21dd9c307b7e9702f91.png"
+                     
+                ></p>
+<h3 id="网络测速"><a href="#网络测速" class="headerlink" title="网络测速"></a>网络测速</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--------------------自动更新测速节点列表--本脚本原创--------------------</span><br><span class="line">位置             上传速度        下载速度        延迟</span><br><span class="line">Speedtest.net    26.99Mbps       24.30Mbps       1.36ms</span><br><span class="line">联通WuXi         29.03Mbps       28.54Mbps       32.34ms</span><br><span class="line">电信浙江         29.11Mbps       26.20Mbps       34.47ms</span><br><span class="line">电信Suzhou5G     11.68Mbps       22.94Mbps       47.74ms</span><br></pre></td></tr></table></figure></div>
+
+<p>符合浪浪云的<strong>30M配置</strong></p>
+<h2 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">------------流媒体解锁--基于oneclickvirt/CommonMediaTests开源-----------</span><br><span class="line">以下测试的解锁地区是准确的，但是不是完整解锁的判断可能有误，这方面仅作参考使用</span><br><span class="line">----------------Netflix-----------------</span><br><span class="line">[IPV4]</span><br><span class="line">您的出口IP完整解锁Netflix，支持非自制剧的观看</span><br><span class="line">NF所识别的IP地域信息：中国香港</span><br><span class="line">[IPV6]</span><br><span class="line">您的网络可能没有正常配置IPv6，或者没有IPv6网络接入</span><br><span class="line">----------------Youtube-----------------</span><br><span class="line">[IPV4]</span><br><span class="line">连接方式: Youtube Video Server</span><br><span class="line">视频缓存节点地域: 新加坡 新加坡/樟宜  (SIN10S14)</span><br><span class="line">Youtube识别地域: 中国香港(HK)</span><br><span class="line">[IPV6]</span><br><span class="line">Youtube在您的出口IP所在的国家不提供服务</span><br><span class="line">---------------DisneyPlus---------------</span><br><span class="line">[IPV4]</span><br><span class="line">当前出口所在地区解锁DisneyPlus</span><br><span class="line">区域：HK 区</span><br><span class="line">[IPV6]</span><br><span class="line">DisneyPlus在您的出口IP所在的国家不提供服务</span><br><span class="line">解锁Netflix，Youtube，DisneyPlus上面和下面进行比较，不同之处自行判断</span><br><span class="line">----------------流媒体解锁--感谢RegionRestrictionCheck开源--------------</span><br><span class="line"> 以下为IPV4网络测试，若无IPV4网络则无输出</span><br><span class="line">============[ Multination ]============</span><br><span class="line"> Dazn:                                  Yes (Region: HK)</span><br><span class="line"> Disney+:                               Yes (Region: HK)</span><br><span class="line"> Netflix:                               Yes (Region: HK)</span><br><span class="line"> YouTube Premium:                       Yes (Region: HK)</span><br><span class="line"> Amazon Prime Video:                    Yes (Region: HK)</span><br><span class="line"> TVBAnywhere+:                          No</span><br><span class="line"> Spotify Registration:                  Yes (Region: HK)</span><br><span class="line"> Instagram Licensed Audio:              No</span><br><span class="line"> OneTrust Region:                       HK [Unknown]</span><br><span class="line"> iQyi Oversea Region:                   HK</span><br><span class="line"> Bing Region:                           HK</span><br><span class="line"> YouTube CDN:                           Singapore</span><br><span class="line"> Netflix Preferred CDN:                 Hong Kong</span><br><span class="line"> ChatGPT:                               No (Only Available with Mobile APP)</span><br><span class="line"> Google Gemini:                         No</span><br><span class="line"> Wikipedia Editability:                 Yes</span><br><span class="line"> Google Search CAPTCHA Free:            Yes</span><br><span class="line"> Steam Currency:                        HKD</span><br><span class="line"> ---Forum---</span><br><span class="line"> Reddit:                                Yes</span><br><span class="line">=======================================</span><br><span class="line"> 以下为IPV6网络测试，若无IPV6网络则无输出</span><br><span class="line">---------------TikTok解锁--感谢lmc999的源脚本及fscarmen PR--------------</span><br><span class="line"> Tiktok Region:         Failed</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7c48ad9c307b7e971ece0.png"
+                     
+                ></p>
+<h2 id="IP风险"><a href="#IP风险" class="headerlink" title="IP风险"></a>IP风险</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">########################################################################</span></span><br><span class="line">                      IP质量体检报告：103.194.*.*</span><br><span class="line">                    bash &lt;(curl -sL IP.Check.Place)</span><br><span class="line">                   https://github.com/xykt/IPQuality</span><br><span class="line">        报告时间：2024-09-04 10:27:29 CST  脚本版本：v2024-07-29</span><br><span class="line"><span class="comment">########################################################################</span></span><br><span class="line">一、基础信息（Maxmind 数据库）</span><br><span class="line">自治系统号：            AS138995</span><br><span class="line">组织：                  Antbox Networks Limited</span><br><span class="line">坐标：                  114°9′57″E, 22°15′28″N</span><br><span class="line">地图：                  https://check.place/22.2578,114.1657,13,cn</span><br><span class="line">城市：                  N/A</span><br><span class="line">使用地：                [HK]香港, [AS]亚洲</span><br><span class="line">注册地：                [HK]香港</span><br><span class="line">时区：                  Asia/Hong_Kong</span><br><span class="line">IP类型：                 原生IP </span><br><span class="line">二、IP类型属性</span><br><span class="line">数据库：      IPinfo    ipregistry    ipapi     AbuseIPDB  IP2LOCATION </span><br><span class="line">使用类型：     机房        机房        商业        机房        机房    </span><br><span class="line">公司类型：     机房        机房        商业    </span><br><span class="line">三、风险评分</span><br><span class="line">风险等级：      极低         低       中等       高         极高</span><br><span class="line">SCAMALYTICS：  0|低风险</span><br><span class="line">ipapi：       0.20%|低风险</span><br><span class="line">AbuseIPDB：    0|低风险</span><br><span class="line">IPQS：                        75|可疑IP</span><br><span class="line">四、风险因子</span><br><span class="line">库： IP2LOCATION ipapi ipregistry IPQS SCAMALYTICS ipdata IPinfo IPWHOIS</span><br><span class="line">地区：    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]</span><br><span class="line">代理：     否      否      否      是      否      否      否      否 </span><br><span class="line">Tor：      否      否      否      否      否      否      否      否 </span><br><span class="line">VPN：      否      否      否      是      否      无      否      否 </span><br><span class="line">服务器：   是      否      是      无      否      否      是      否 </span><br><span class="line">滥用：     否      否      否      否      无      否      无      无 </span><br><span class="line">机器人：   否      否      无      否      否      无      无      无 </span><br><span class="line">五、流媒体及AI服务解锁检测</span><br><span class="line">服务商：  TikTok   Disney+  Netflix Youtube  AmazonPV  Spotify  ChatGPT </span><br><span class="line">状态：     失败     解锁     解锁     解锁     解锁     解锁     仅APP  </span><br><span class="line">地区：              [HK]     [HK]     [HK]     [HK]     [HK]     [HK]   </span><br><span class="line">方式：              原生     原生     原生     原生     原生     原生   </span><br><span class="line">六、邮局连通性及黑名单检测</span><br><span class="line">本地25端口：阻断</span><br><span class="line">IP地址黑名单数据库：  有效 439   正常 429   已标记 10   黑名单 0</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="IP详细情况"><a href="#IP详细情况" class="headerlink" title="IP详细情况"></a>IP详细情况</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">-------------------- A Bench Script By spiritlhl ---------------------</span><br><span class="line">                   测评频道: https://t.me/vps_reviews                    </span><br><span class="line">版本：2024.07.26</span><br><span class="line">更新日志：IP质量测试，由频道 https://t.me/vps_reviews 原创</span><br><span class="line">数据仅作参考，不代表100%准确，IP类型如果不一致请手动查询多个数据库比对</span><br><span class="line">-------------IP质量检测--基于oneclickvirt/securityCheck使用-------------</span><br><span class="line">IPV4 ASN            : AS138995 Antbox Networks Limited</span><br><span class="line">IPV4 Location       : Hong Kong / Hong Kong / Hong Kong</span><br><span class="line">--------------------------------------------------</span><br><span class="line">以下为各数据库编号，输出结果后将自带数据库来源对应的编号</span><br><span class="line">ipinfo数据库  [0] | scamalytics数据库 [1] | virustotal数据库   [2] | abuseipdb数据库   [3] | ip2location数据库    [4]</span><br><span class="line">ip-api数据库  [5] | ipwhois数据库     [6] | ipregistry数据库   [7] | ipdata数据库      [8] | db-ip数据库          [9]</span><br><span class="line">ipapiis数据库 [A] | ipapicom数据库    [B] | bigdatacloud数据库 [C] | cheervision数据库 [D] | ipqualityscore数据库 [E]</span><br><span class="line">IPV4:</span><br><span class="line">安全得分:</span><br><span class="line">声誉(越高越好): 0 [2] </span><br><span class="line">信任得分(越高越好): 16 [8] </span><br><span class="line">VPN得分(越低越好): 87 [8] </span><br><span class="line">代理得分(越低越好): 66 [8]</span><br><span class="line">社区投票-无害: 0 [2] </span><br><span class="line">社区投票-恶意: 0 [2] </span><br><span class="line">威胁得分(越低越好): 100 [8] </span><br><span class="line">欺诈得分(越低越好): 0 [1] 65 [E]</span><br><span class="line">滥用得分(越低越好): 0 [3] </span><br><span class="line">ASN滥用得分(越低越好): 0.0007 (Low) [A] </span><br><span class="line">公司滥用得分(越低越好): 0.002 (Low) [A] </span><br><span class="line">威胁级别: low [B] </span><br><span class="line">黑名单记录统计:(有多少黑名单网站有记录):</span><br><span class="line">无害记录数: 0 [2]  恶意记录数: 0 [2]  可疑记录数: 0 [2]  无记录数: 94 [2]  </span><br><span class="line">安全信息:</span><br><span class="line">使用类型: hosting [0 7] business [8 A] hosting - high probability [C] DataCenter/WebHosting/Transit [3]</span><br><span class="line">公司类型: business [A] hosting [0 7]</span><br><span class="line">是否云提供商: Yes [7 D] </span><br><span class="line">是否数据中心: No [5 6 8 A] Yes [0 1 C]</span><br><span class="line">是否移动设备: No [5 A C] Yes [E]</span><br><span class="line">是否代理: No [0 1 4 5 6 7 8 A B C D] Yes [E]</span><br><span class="line">是否VPN: Yes [E] No [0 1 6 7 A C D]</span><br><span class="line">是否Tor: No [0 1 3 6 7 8 A B C D E] </span><br><span class="line">是否Tor出口: No [1 7 D] </span><br><span class="line">是否网络爬虫: No [A B E] </span><br><span class="line">是否匿名: No [1 6 7 8 D] </span><br><span class="line">是否攻击者: No [7 8 D] </span><br><span class="line">是否滥用者: No [7 8 A C D E] </span><br><span class="line">是否威胁: No [7 8 C D] </span><br><span class="line">是否中继: No [0 7 8 C D] </span><br><span class="line">是否Bogon: No [7 8 A C D] </span><br><span class="line">是否机器人: No [E] </span><br><span class="line">DNS-黑名单: 312(Total_Check) 0(Clean) 6(Blacklisted) 14(Other) </span><br><span class="line">Google搜索可行性：YES</span><br><span class="line">-------------邮件端口检测--基于oneclickvirt/portchecker开源-------------</span><br><span class="line">Platform  SMTP  SMTPS POP3  POP3S IMAP  IMAPS</span><br><span class="line">LocalPort ✔     ✔     ✔     ✔     ✔     ✔    </span><br><span class="line">QQ        ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">163       ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Sohu      ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Yandex    ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Gmail     ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">Outlook   ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Office365 ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Yahoo     ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">MailCOM   ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">MailRU    ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">AOL       ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">GMX       ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Sina      ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line"> 总共花费        : 22 秒</span><br><span class="line"> 时间          : 2024-09-04 02:32:35</span><br><span class="line">------------------------------------------------------------------------</span><br></pre></td></tr></table></figure></div>
+
 
         </div>
 
@@ -1041,18 +886,18 @@ mjx-container[display="true"] + br {
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 8位二进制cpu的设计和实现-全加器^八位二进制加法器</li>
+        <li><strong>标题:</strong> 浪浪云香港服务器测评</li>
         <li><strong>作者:</strong> ligood</li>
         <li><strong>创建于
-                :</strong> 2024-07-25 20:45:23</li>
+                :</strong> 2024-09-04 10:56:43</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-07-25 20:53:50
+                    :</strong> 2024-09-04 10:58:13
             </li>
         
         <li>
-            <strong>链接:</strong> https://blog.ligood.top/2024/07/25/8位二进制cpu的设计和实现-全加器-八位二进制加法器/
+            <strong>链接:</strong> https://blog.ligood.top/2024/09/04/浪浪云香港服务器测评/
         </li>
         <li>
             <strong>
@@ -1074,7 +919,7 @@ mjx-container[display="true"] + br {
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/">#8位二进制cpu的设计和实现</a>&nbsp;
+                        <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">#服务器</a>&nbsp;
                     </li>
                 
             </ul>
@@ -1085,29 +930,14 @@ mjx-container[display="true"] + br {
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/09/04/%E6%B5%AA%E6%B5%AA%E4%BA%91%E9%A6%99%E6%B8%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%84/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">浪浪云香港服务器测评</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%8D%8A%E5%8A%A0%E5%99%A8/"
+                        href="/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%85%A8%E5%8A%A0%E5%99%A8-%E5%85%AB%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">8位二进制cpu的设计和实现-半加器</span>
+                                <span class="post-nav-title-item">8位二进制cpu的设计和实现-全加器^八位二进制加法器</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -1128,8 +958,8 @@ mjx-container[display="true"] + br {
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">8位二进制cpu的设计和实现-全加器^八位二进制加法器</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%8A%A0%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">全加器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E4%BD%8D%E5%8A%A0%E6%B3%95%E5%99%A8-8Adder"><span class="nav-number">2.</span> <span class="nav-text">8位加法器 8Adder</span></a></li></ol>
+        <div class="page-title">浪浪云香港服务器测评</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%AA%E6%B5%AA%E4%BA%91%E9%A6%99%E6%B8%AF%E5%A4%A7%E5%B8%A6%E5%AE%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">浪浪云香港大带宽服务器测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">具体配置：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">CPU测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">内存测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">磁盘读写测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">1.3.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%BB%E7%A8%8B%E8%B7%AF%E7%94%B1"><span class="nav-number">1.3.1.</span> <span class="nav-text">去程路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E7%A8%8B%E8%B7%AF%E7%94%B1"><span class="nav-number">1.3.2.</span> <span class="nav-text">回程路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%8B%E9%80%9F"><span class="nav-number">1.3.3.</span> <span class="nav-text">网络测速</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%94%81"><span class="nav-number">1.4.</span> <span class="nav-text">解锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E9%A3%8E%E9%99%A9"><span class="nav-number">1.5.</span> <span class="nav-text">IP风险</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E8%AF%A6%E7%BB%86%E6%83%85%E5%86%B5"><span class="nav-number">1.6.</span> <span class="nav-text">IP详细情况</span></a></li></ol></li></ol>
 
     </div>
 </div>
