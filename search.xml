@@ -475,6 +475,37 @@
       </tags>
   </entry>
   <entry>
+    <title>biliup自动录播搭建</title>
+    <url>/2024/09/10/biliup%E8%87%AA%E5%8A%A8%E5%BD%95%E6%92%AD%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="自动录播"><a href="#自动录播" class="headerlink" title="自动录播"></a>自动录播</h1><h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><ul>
+<li>系统已经安装python(3.8-3.11)与pip。</li>
+<li>python3安装：<a class="link"   href="https://www.runoob.com/python3/python3-install.html" >Python3 环境搭建 | 菜鸟教程 (runoob.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<ul>
+<li>pip安装</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install python3-pip</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="服务器推荐"><a href="#服务器推荐" class="headerlink" title="服务器推荐"></a>服务器推荐</h2><p>安全稳定多样云产品，快速高效全面云服务。</p>
+<p>全面服务保障，丰富技术支持，让您的云上业务无忧未来！</p>
+<p><a class="link"   href="https://langlangy.cn/?i04adeb" >7折优惠购买地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip3 install biliup -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">biliup start</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>启动时访问 <a class="link"   href="http://your-ip:19159/" >http://your-ip:19159 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 使用webUI</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>简单的配置可以查看我的视频或者查看官方的文档</p>
+]]></content>
+      <categories>
+        <category>搭建记录</category>
+      </categories>
+      <tags>
+        <tag>记录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>dify接入微信</title>
     <url>/2024/05/14/dify%E6%8E%A5%E5%85%A5%E5%BE%AE%E4%BF%A1/</url>
     <content><![CDATA[<h1 id="一、Dify简介"><a href="#一、Dify简介" class="headerlink" title="一、Dify简介"></a>一、Dify简介</h1><p><strong>项目官网</strong>：<a class="link"   href="https://dify.ai/zh" >Dify.AI · 生成式 AI 应用创新引擎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
@@ -596,6 +627,141 @@
 <h1 id="四、Q-A"><a href="#四、Q-A" class="headerlink" title="四、Q&amp;A"></a>四、Q&amp;A</h1><h2 id="有什么问题可以进行提问，常见的问题我会总结为Q-A"><a href="#有什么问题可以进行提问，常见的问题我会总结为Q-A" class="headerlink" title="有什么问题可以进行提问，常见的问题我会总结为Q&amp;A"></a>有什么问题可以进行提问，常见的问题我会总结为Q&amp;A</h2><h1 id="五、应用案例搭建"><a href="#五、应用案例搭建" class="headerlink" title="五、应用案例搭建"></a>五、应用案例搭建</h1>]]></content>
       <categories>
         <category>Dify</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github使用指南</title>
+    <url>/2024/06/16/github%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h1 id="GitHub-使用指南-📚"><a href="#GitHub-使用指南-📚" class="headerlink" title="GitHub 使用指南 📚"></a>GitHub 使用指南 📚</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li>什么是 GitHub？🧐</li>
+<li>注册与登录 🚪</li>
+<li>基本术语解释 🧠</li>
+<li>创建你的第一个仓库 🛠️</li>
+<li>克隆仓库到本地 🖥️</li>
+<li>提交和推送更改 🚀</li>
+<li>分支与合并 🌿</li>
+<li>Pull Request 和 Code Review 📥</li>
+<li>常见问题解答 FAQ ❓</li>
+<li>结语 🎉</li>
+</ol>
+<hr>
+<h2 id="1-什么是-GitHub？🧐"><a href="#1-什么是-GitHub？🧐" class="headerlink" title="1. 什么是 GitHub？🧐"></a>1. 什么是 GitHub？🧐</h2><p>GitHub 是一个基于云端的代码托管平台，使用 Git 版本控制系统。它允许你和其他开发者共同管理和修改项目代码。无论你是一个新手程序员还是一个资深开发者，GitHub 都是一个不可或缺的工具。</p>
+<hr>
+<h2 id="2-注册与登录-🚪"><a href="#2-注册与登录-🚪" class="headerlink" title="2. 注册与登录 🚪"></a>2. 注册与登录 🚪</h2><h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><ol>
+<li>打开 GitHub 官方网站：<a class="link"   href="https://github.com/" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
+<li>点击右上角的 “Sign up” 按钮。</li>
+<li>填写你的邮箱地址，并点击 “Continue”。</li>
+<li>创建一个用户名和密码。</li>
+<li>完成邮箱验证。</li>
+</ol>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><ol>
+<li>打开 GitHub 官方网站：<a class="link"   href="https://github.com/" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
+<li>点击右上角的 “Sign in” 按钮。</li>
+<li>输入你的用户名和密码，然后点击 “Sign in”。</li>
+</ol>
+<hr>
+<h2 id="3-基本术语解释-🧠"><a href="#3-基本术语解释-🧠" class="headerlink" title="3. 基本术语解释 🧠"></a>3. 基本术语解释 🧠</h2><ul>
+<li><strong>Repository（仓库）</strong>: 存放代码和项目文件的地方。</li>
+<li><strong>Branch（分支）</strong>: 并行开发的独立版本。</li>
+<li><strong>Commit（提交）</strong>: 对仓库进行的更改记录。</li>
+<li><strong>Clone（克隆）</strong>: 从 GitHub 下载仓库到本地。</li>
+<li><strong>Pull Request（拉取请求）</strong>: 请求将更改合并到主分支。</li>
+<li><strong>Merge（合并）</strong>: 将分支的更改合并到另一个分支。</li>
+</ul>
+<hr>
+<h2 id="4-创建你的第一个仓库-🛠️"><a href="#4-创建你的第一个仓库-🛠️" class="headerlink" title="4. 创建你的第一个仓库 🛠️"></a>4. 创建你的第一个仓库 🛠️</h2><ol>
+<li>登录 GitHub 后，点击右上角的 “+” 号，然后选择 “New repository”。</li>
+<li>输入仓库名称，如 “my-first-repo”。</li>
+<li>添加描述（可选）。</li>
+<li>选择 “Public” 或 “Private”。</li>
+<li>勾选 “Initialize this repository with a README”。</li>
+<li>点击 “Create repository”。</li>
+</ol>
+<p>恭喜！你已经创建了你的第一个 GitHub 仓库。</p>
+<hr>
+<h2 id="5-克隆仓库到本地-🖥️"><a href="#5-克隆仓库到本地-🖥️" class="headerlink" title="5. 克隆仓库到本地 🖥️"></a>5. 克隆仓库到本地 🖥️</h2><h3 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h3><ol>
+<li>前往 <a class="link"   href="https://git-scm.com/" >Git 官方网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 下载并安装 Git。</li>
+</ol>
+<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><ol>
+<li><p>打开终端或命令行。</p>
+</li>
+<li><p>运行以下命令以克隆仓库：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/你的用户名/my-first-repo.git</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>仓库将被下载到你的本地计算机。</p>
+</li>
+</ol>
+<hr>
+<h2 id="6-提交和推送更改-🚀"><a href="#6-提交和推送更改-🚀" class="headerlink" title="6. 提交和推送更改 🚀"></a>6. 提交和推送更改 🚀</h2><h3 id="提交更改"><a href="#提交更改" class="headerlink" title="提交更改"></a>提交更改</h3><ol>
+<li><p>在本地仓库中进行代码更改。</p>
+</li>
+<li><p>使用以下命令添加更改：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>提交更改：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;描述你的更改&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="推送更改"><a href="#推送更改" class="headerlink" title="推送更改"></a>推送更改</h3><ol>
+<li><p>将更改推送到 GitHub：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<hr>
+<h2 id="7-分支与合并-🌿"><a href="#7-分支与合并-🌿" class="headerlink" title="7. 分支与合并 🌿"></a>7. 分支与合并 🌿</h2><h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><ol>
+<li><p>创建一个新分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout -b my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ol>
+<li><p>切换到其他分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout main</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ol>
+<li><p>切换到目标分支（如 main）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout main</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>合并分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git merge my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<hr>
+<h2 id="8-Pull-Request-和-Code-Review-📥"><a href="#8-Pull-Request-和-Code-Review-📥" class="headerlink" title="8. Pull Request 和 Code Review 📥"></a>8. Pull Request 和 Code Review 📥</h2><h3 id="创建-Pull-Request"><a href="#创建-Pull-Request" class="headerlink" title="创建 Pull Request"></a>创建 Pull Request</h3><ol>
+<li><p>推送你的分支到 GitHub：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin my-feature-branch</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在 GitHub 仓库页面，点击 “Pull requests” 标签。</p>
+</li>
+<li><p>点击 “New pull request”。</p>
+</li>
+<li><p>选择你要合并的分支，填写相关信息并点击 “Create pull request”。</p>
+</li>
+</ol>
+<h3 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h3><ol>
+<li>你的队友可以查看你的 Pull Request，提出建议或请求修改。</li>
+<li>根据反馈进行修改，并更新 Pull Request。</li>
+</ol>
+<hr>
+<h2 id="9-常见问题解答-FAQ-❓"><a href="#9-常见问题解答-FAQ-❓" class="headerlink" title="9. 常见问题解答 FAQ ❓"></a>9. 常见问题解答 FAQ ❓</h2><h3 id="为什么我的推送被拒绝？"><a href="#为什么我的推送被拒绝？" class="headerlink" title="为什么我的推送被拒绝？"></a>为什么我的推送被拒绝？</h3><ul>
+<li><p>确保你有仓库的写权限。</p>
+</li>
+<li><p>确保你拉取了最新的更改并解决了任何冲突：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="如何撤销提交？"><a href="#如何撤销提交？" class="headerlink" title="如何撤销提交？"></a>如何撤销提交？</h3><ul>
+<li><p>撤销最近的提交：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git reset --soft HEAD~1</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="如何删除远程分支？"><a href="#如何删除远程分支？" class="headerlink" title="如何删除远程分支？"></a>如何删除远程分支？</h3><ul>
+<li><p>删除远程分支：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin --delete my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<hr>
+<h2 id="10-结语-🎉"><a href="#10-结语-🎉" class="headerlink" title="10. 结语 🎉"></a>10. 结语 🎉</h2><p>恭喜你！你已经掌握了使用 GitHub 的基本技能。GitHub 是一个非常强大的工具，通过不断练习和探索，你会发现更多的高级功能和使用技巧。现在，去创建你的项目，开始你的编码之旅吧！</p>
+<hr>
+<p>如果你对这篇指南有任何问题或建议，欢迎在下方留言。Happy coding! 😊</p>
+]]></content>
+      <categories>
+        <category>Code</category>
       </categories>
       <tags>
         <tag>教程</tag>
@@ -744,141 +910,6 @@
 ]]></content>
       <categories>
         <category>Python</category>
-      </categories>
-      <tags>
-        <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github使用指南</title>
-    <url>/2024/06/16/github%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<h1 id="GitHub-使用指南-📚"><a href="#GitHub-使用指南-📚" class="headerlink" title="GitHub 使用指南 📚"></a>GitHub 使用指南 📚</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
-<li>什么是 GitHub？🧐</li>
-<li>注册与登录 🚪</li>
-<li>基本术语解释 🧠</li>
-<li>创建你的第一个仓库 🛠️</li>
-<li>克隆仓库到本地 🖥️</li>
-<li>提交和推送更改 🚀</li>
-<li>分支与合并 🌿</li>
-<li>Pull Request 和 Code Review 📥</li>
-<li>常见问题解答 FAQ ❓</li>
-<li>结语 🎉</li>
-</ol>
-<hr>
-<h2 id="1-什么是-GitHub？🧐"><a href="#1-什么是-GitHub？🧐" class="headerlink" title="1. 什么是 GitHub？🧐"></a>1. 什么是 GitHub？🧐</h2><p>GitHub 是一个基于云端的代码托管平台，使用 Git 版本控制系统。它允许你和其他开发者共同管理和修改项目代码。无论你是一个新手程序员还是一个资深开发者，GitHub 都是一个不可或缺的工具。</p>
-<hr>
-<h2 id="2-注册与登录-🚪"><a href="#2-注册与登录-🚪" class="headerlink" title="2. 注册与登录 🚪"></a>2. 注册与登录 🚪</h2><h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><ol>
-<li>打开 GitHub 官方网站：<a class="link"   href="https://github.com/" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
-<li>点击右上角的 “Sign up” 按钮。</li>
-<li>填写你的邮箱地址，并点击 “Continue”。</li>
-<li>创建一个用户名和密码。</li>
-<li>完成邮箱验证。</li>
-</ol>
-<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><ol>
-<li>打开 GitHub 官方网站：<a class="link"   href="https://github.com/" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
-<li>点击右上角的 “Sign in” 按钮。</li>
-<li>输入你的用户名和密码，然后点击 “Sign in”。</li>
-</ol>
-<hr>
-<h2 id="3-基本术语解释-🧠"><a href="#3-基本术语解释-🧠" class="headerlink" title="3. 基本术语解释 🧠"></a>3. 基本术语解释 🧠</h2><ul>
-<li><strong>Repository（仓库）</strong>: 存放代码和项目文件的地方。</li>
-<li><strong>Branch（分支）</strong>: 并行开发的独立版本。</li>
-<li><strong>Commit（提交）</strong>: 对仓库进行的更改记录。</li>
-<li><strong>Clone（克隆）</strong>: 从 GitHub 下载仓库到本地。</li>
-<li><strong>Pull Request（拉取请求）</strong>: 请求将更改合并到主分支。</li>
-<li><strong>Merge（合并）</strong>: 将分支的更改合并到另一个分支。</li>
-</ul>
-<hr>
-<h2 id="4-创建你的第一个仓库-🛠️"><a href="#4-创建你的第一个仓库-🛠️" class="headerlink" title="4. 创建你的第一个仓库 🛠️"></a>4. 创建你的第一个仓库 🛠️</h2><ol>
-<li>登录 GitHub 后，点击右上角的 “+” 号，然后选择 “New repository”。</li>
-<li>输入仓库名称，如 “my-first-repo”。</li>
-<li>添加描述（可选）。</li>
-<li>选择 “Public” 或 “Private”。</li>
-<li>勾选 “Initialize this repository with a README”。</li>
-<li>点击 “Create repository”。</li>
-</ol>
-<p>恭喜！你已经创建了你的第一个 GitHub 仓库。</p>
-<hr>
-<h2 id="5-克隆仓库到本地-🖥️"><a href="#5-克隆仓库到本地-🖥️" class="headerlink" title="5. 克隆仓库到本地 🖥️"></a>5. 克隆仓库到本地 🖥️</h2><h3 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h3><ol>
-<li>前往 <a class="link"   href="https://git-scm.com/" >Git 官方网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 下载并安装 Git。</li>
-</ol>
-<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><ol>
-<li><p>打开终端或命令行。</p>
-</li>
-<li><p>运行以下命令以克隆仓库：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/你的用户名/my-first-repo.git</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>仓库将被下载到你的本地计算机。</p>
-</li>
-</ol>
-<hr>
-<h2 id="6-提交和推送更改-🚀"><a href="#6-提交和推送更改-🚀" class="headerlink" title="6. 提交和推送更改 🚀"></a>6. 提交和推送更改 🚀</h2><h3 id="提交更改"><a href="#提交更改" class="headerlink" title="提交更改"></a>提交更改</h3><ol>
-<li><p>在本地仓库中进行代码更改。</p>
-</li>
-<li><p>使用以下命令添加更改：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>提交更改：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;描述你的更改&quot;</span></span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<h3 id="推送更改"><a href="#推送更改" class="headerlink" title="推送更改"></a>推送更改</h3><ol>
-<li><p>将更改推送到 GitHub：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<hr>
-<h2 id="7-分支与合并-🌿"><a href="#7-分支与合并-🌿" class="headerlink" title="7. 分支与合并 🌿"></a>7. 分支与合并 🌿</h2><h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><ol>
-<li><p>创建一个新分支：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout -b my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ol>
-<li><p>切换到其他分支：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout main</span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ol>
-<li><p>切换到目标分支（如 main）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout main</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>合并分支：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git merge my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<hr>
-<h2 id="8-Pull-Request-和-Code-Review-📥"><a href="#8-Pull-Request-和-Code-Review-📥" class="headerlink" title="8. Pull Request 和 Code Review 📥"></a>8. Pull Request 和 Code Review 📥</h2><h3 id="创建-Pull-Request"><a href="#创建-Pull-Request" class="headerlink" title="创建 Pull Request"></a>创建 Pull Request</h3><ol>
-<li><p>推送你的分支到 GitHub：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin my-feature-branch</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>在 GitHub 仓库页面，点击 “Pull requests” 标签。</p>
-</li>
-<li><p>点击 “New pull request”。</p>
-</li>
-<li><p>选择你要合并的分支，填写相关信息并点击 “Create pull request”。</p>
-</li>
-</ol>
-<h3 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h3><ol>
-<li>你的队友可以查看你的 Pull Request，提出建议或请求修改。</li>
-<li>根据反馈进行修改，并更新 Pull Request。</li>
-</ol>
-<hr>
-<h2 id="9-常见问题解答-FAQ-❓"><a href="#9-常见问题解答-FAQ-❓" class="headerlink" title="9. 常见问题解答 FAQ ❓"></a>9. 常见问题解答 FAQ ❓</h2><h3 id="为什么我的推送被拒绝？"><a href="#为什么我的推送被拒绝？" class="headerlink" title="为什么我的推送被拒绝？"></a>为什么我的推送被拒绝？</h3><ul>
-<li><p>确保你有仓库的写权限。</p>
-</li>
-<li><p>确保你拉取了最新的更改并解决了任何冲突：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h3 id="如何撤销提交？"><a href="#如何撤销提交？" class="headerlink" title="如何撤销提交？"></a>如何撤销提交？</h3><ul>
-<li><p>撤销最近的提交：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git reset --soft HEAD~1</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h3 id="如何删除远程分支？"><a href="#如何删除远程分支？" class="headerlink" title="如何删除远程分支？"></a>如何删除远程分支？</h3><ul>
-<li><p>删除远程分支：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin --delete my-feature-branch</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<hr>
-<h2 id="10-结语-🎉"><a href="#10-结语-🎉" class="headerlink" title="10. 结语 🎉"></a>10. 结语 🎉</h2><p>恭喜你！你已经掌握了使用 GitHub 的基本技能。GitHub 是一个非常强大的工具，通过不断练习和探索，你会发现更多的高级功能和使用技巧。现在，去创建你的项目，开始你的编码之旅吧！</p>
-<hr>
-<p>如果你对这篇指南有任何问题或建议，欢迎在下方留言。Happy coding! 😊</p>
-]]></content>
-      <categories>
-        <category>Code</category>
       </categories>
       <tags>
         <tag>教程</tag>
@@ -1565,73 +1596,6 @@
       </tags>
   </entry>
   <entry>
-    <title>浪浪云香港服务器测评</title>
-    <url>/2024/09/04/%E6%B5%AA%E6%B5%AA%E4%BA%91%E9%A6%99%E6%B8%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%84/</url>
-    <content><![CDATA[<h1 id="浪浪云香港大带宽服务器测试"><a href="#浪浪云香港大带宽服务器测试" class="headerlink" title="浪浪云香港大带宽服务器测试"></a>浪浪云香港大带宽服务器测试</h1><p>浪浪云之前一直做的是应用型服务器，最近上新了新平台做服务器，上个月可以五折购买，最近也在出活动，具体的优惠活动大家可以看他们的公众号或者官网</p>
-<p>官网：<a class="link"   href="https://langlangy.cn/" >https://langlangy.cn/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>我这台服务器的配置是<strong>大带宽型4H4G</strong>，购买价格：<strong>48.00</strong>，通用型和大带宽同价格，不同的是大带宽有流量限制，流量用完以后需要购买流量包（上行流量限制，下行不限）</p>
-<h2 id="具体配置："><a href="#具体配置：" class="headerlink" title="具体配置："></a>具体配置：</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">---------------------基础信息查询--感谢所有开源项目---------------------</span><br><span class="line"> CPU 型号          : Intel(R) Xeon(R) Gold 6133 CPU @ 2.50GHz</span><br><span class="line"> CPU 核心数        : 4</span><br><span class="line"> CPU 频率          : 2494.140 MHz</span><br><span class="line"> CPU 缓存          : L1: 64.00 KB / L2: 2.00 MB / L3: 27.50 MB</span><br><span class="line"> AES-NI指令集      : ✔ Enabled</span><br><span class="line"> VM-x/AMD-V支持    : ✔ Enabled</span><br><span class="line"> 内存              : 229.30 MiB / 3.83 GiB</span><br><span class="line"> Swap              : [ no swap partition or swap file detected ]</span><br><span class="line"> 硬盘空间          : 1.63 GiB / 28.90 GiB</span><br><span class="line"> 启动盘路径        : /dev/vda1</span><br><span class="line"> 系统在线时间      : 0 days, 0 hour 11 min</span><br><span class="line"> 负载              : 0.37, 0.16, 0.06</span><br><span class="line"> 系统              : Ubuntu 22.04 LTS (x86_64)</span><br><span class="line"> 架构              : x86_64 (64 Bit)</span><br><span class="line"> 内核              : 5.15.0-30-generic</span><br><span class="line"> TCP加速方式       : cubic</span><br><span class="line"> 虚拟化架构        : KVM</span><br><span class="line"> NAT类型           : Full Cone</span><br><span class="line"> IPV4 ASN          : AS138995 Antbox Networks Limited</span><br><span class="line"> IPV4 位置         : Hong Kong / Hong Kong / HK</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.imgdb.cn/item/66d7bb2fd9c307b7e964ab2e.png"
-                     
-                ></p>
-<h3 id="CPU测试"><a href="#CPU测试" class="headerlink" title="CPU测试"></a>CPU测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">----------------------CPU测试--通过sysbench测试-------------------------</span><br><span class="line"> -&gt; CPU 测试中 (Fast Mode, 1-Pass @ 5sec)</span><br><span class="line"> 1 线程测试(单核)得分:          938 Scores</span><br><span class="line"> 4 线程测试(多核)得分:          3665 Scores</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="内存测试"><a href="#内存测试" class="headerlink" title="内存测试"></a>内存测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">---------------------内存测试--感谢lemonbench开源-----------------------</span><br><span class="line"> -&gt; 内存测试 Test (Fast Mode, 1-Pass @ 5sec)</span><br><span class="line"> 单线程读测试:          18484.08 MB/s</span><br><span class="line"> 单线程写测试:          15426.13 MB/s</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="磁盘读写测试"><a href="#磁盘读写测试" class="headerlink" title="磁盘读写测试"></a>磁盘读写测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">------------------磁盘<span class="built_in">dd</span>读写测试--感谢lemonbench开源--------------------</span><br><span class="line"> -&gt; 磁盘IO测试中 (4K Block/1M Block, Direct Mode)</span><br><span class="line"> 测试操作               写速度                                  读速度</span><br><span class="line"> 100MB-4K Block         10.8 MB/s (2647 IOPS, 9.67s)            10.8 MB/s (2648 IOPS, 9.67s)</span><br><span class="line"> 1GB-1M Block           256 MB/s (244 IOPS, 4.10s)              262 MB/s (250 IOPS, 4.00s)</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="去程路由"><a href="#去程路由" class="headerlink" title="去程路由"></a>去程路由</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.imgdb.cn/item/66d7bd56d9c307b7e966123b.png"
-                     
-                ></p>
-<p>再补一个随机地区测速</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.imgdb.cn/item/66d7bfb3d9c307b7e9691e7f.png"
-                     
-                ></p>
-<p>综合来说电信走的是CN2，其他两家运营商走的是优质网络</p>
-<h3 id="回程路由"><a href="#回程路由" class="headerlink" title="回程路由"></a>回程路由</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">----------------三网回程--基于oneclickvirt/backtrace开源----------------</span><br><span class="line">北京电信 219.141.140.10  电信CN2GIA [精品线路] </span><br><span class="line">北京联通 202.106.195.68  联通4837   [普通线路] </span><br><span class="line">北京移动 221.179.155.161 移动CMI    [普通线路] </span><br><span class="line">上海电信 202.96.209.133  电信CN2GIA [精品线路] </span><br><span class="line">上海联通 210.22.97.1     联通4837   [普通线路] </span><br><span class="line">上海移动 211.136.112.200 移动CMI    [普通线路] </span><br><span class="line">广州电信 58.60.188.222   电信CN2GIA [精品线路] </span><br><span class="line">广州联通 210.21.196.6    联通4837   [普通线路] </span><br><span class="line">广州移动 120.196.165.24  移动CMI    [普通线路] </span><br><span class="line">成都电信 61.139.2.69     电信CN2GIA [精品线路] </span><br><span class="line">成都联通 119.6.6.6       联通4837   [普通线路] </span><br><span class="line">成都移动 211.137.96.205  移动CMI    [普通线路] </span><br><span class="line">准确线路自行查看详细路由，本测试结果仅作参考</span><br><span class="line">同一目标地址多个线路时，可能检测已越过汇聚层，除了第一个线路外，后续信息可能无效</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">---------------------回程路由--感谢fscarmen开源及PR---------------------</span><br><span class="line">依次测试电信/联通/移动经过的地区及线路，核心程序来自ipip.net或nexttrace，请知悉!</span><br><span class="line">广州电信 58.60.188.222</span><br><span class="line">1.50 ms         * 中国 香港</span><br><span class="line">2.20 ms         * 中国 香港 电信/CTGNet</span><br><span class="line">* ms    * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">14.95 ms        * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">13.12 ms        * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">* ms    AS4134 中国 广东 佛山市 www.chinatelecom.com.cn 电信</span><br><span class="line">11.31 ms        AS4134 中国 广东 深圳 福田区 www.chinatelecom.com.cn 电信</span><br><span class="line">广州联通 210.21.196.6</span><br><span class="line">2.22 ms         AS10099 中国 香港 chinaunicomglobal.com</span><br><span class="line">3.83 ms         AS10099 [CUG-BACKBONE] 中国 香港 chinaunicomglobal.com 联通</span><br><span class="line">2.11 ms         AS10099 中国 香港 chinaunicomglobal.com 联通</span><br><span class="line">10.18 ms        AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn</span><br><span class="line">14.48 ms        AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn 联通</span><br><span class="line">* ms    AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn 联通</span><br><span class="line">15.83 ms        AS17816 [UNICOM-GD] 中国 广东 深圳 chinaunicom.cn 联通</span><br><span class="line">13.42 ms        AS17623 [APNIC-AP] 中国 广东 深圳 chinaunicom.cn 联通</span><br><span class="line">12.87 ms        AS17623 [APNIC-AP] 中国 广东 深圳 宝安区 chinaunicom.cn 联通</span><br><span class="line">广州移动 120.196.165.24</span><br><span class="line">15.60 ms        AS58453 [CMI-INT] 中国 香港 cmi.chinamobile.com</span><br><span class="line">40.62 ms        AS58453 [CMI-INT] 中国 香港 cmi.chinamobile.com 移动</span><br><span class="line">44.69 ms        AS58453 [CMI-INT] 中国 广东 广州 回国到达层 cmi.chinamobile.com 移动</span><br><span class="line">44.31 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">44.69 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">46.39 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">48.51 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">48.48 ms        AS56040 [APNIC-AP] 中国 广东 深圳 gd.10086.cn 移动</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.imgdb.cn/item/66d7c21dd9c307b7e9702f91.png"
-                     
-                ></p>
-<h3 id="网络测速"><a href="#网络测速" class="headerlink" title="网络测速"></a>网络测速</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">--------------------自动更新测速节点列表--本脚本原创--------------------</span><br><span class="line">位置             上传速度        下载速度        延迟</span><br><span class="line">Speedtest.net    26.99Mbps       24.30Mbps       1.36ms</span><br><span class="line">联通WuXi         29.03Mbps       28.54Mbps       32.34ms</span><br><span class="line">电信浙江         29.11Mbps       26.20Mbps       34.47ms</span><br><span class="line">电信Suzhou5G     11.68Mbps       22.94Mbps       47.74ms</span><br></pre></td></tr></table></figure></div>
-
-<p>符合浪浪云的<strong>30M配置</strong></p>
-<h2 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">------------流媒体解锁--基于oneclickvirt/CommonMediaTests开源-----------</span><br><span class="line">以下测试的解锁地区是准确的，但是不是完整解锁的判断可能有误，这方面仅作参考使用</span><br><span class="line">----------------Netflix-----------------</span><br><span class="line">[IPV4]</span><br><span class="line">您的出口IP完整解锁Netflix，支持非自制剧的观看</span><br><span class="line">NF所识别的IP地域信息：中国香港</span><br><span class="line">[IPV6]</span><br><span class="line">您的网络可能没有正常配置IPv6，或者没有IPv6网络接入</span><br><span class="line">----------------Youtube-----------------</span><br><span class="line">[IPV4]</span><br><span class="line">连接方式: Youtube Video Server</span><br><span class="line">视频缓存节点地域: 新加坡 新加坡/樟宜  (SIN10S14)</span><br><span class="line">Youtube识别地域: 中国香港(HK)</span><br><span class="line">[IPV6]</span><br><span class="line">Youtube在您的出口IP所在的国家不提供服务</span><br><span class="line">---------------DisneyPlus---------------</span><br><span class="line">[IPV4]</span><br><span class="line">当前出口所在地区解锁DisneyPlus</span><br><span class="line">区域：HK 区</span><br><span class="line">[IPV6]</span><br><span class="line">DisneyPlus在您的出口IP所在的国家不提供服务</span><br><span class="line">解锁Netflix，Youtube，DisneyPlus上面和下面进行比较，不同之处自行判断</span><br><span class="line">----------------流媒体解锁--感谢RegionRestrictionCheck开源--------------</span><br><span class="line"> 以下为IPV4网络测试，若无IPV4网络则无输出</span><br><span class="line">============[ Multination ]============</span><br><span class="line"> Dazn:                                  Yes (Region: HK)</span><br><span class="line"> Disney+:                               Yes (Region: HK)</span><br><span class="line"> Netflix:                               Yes (Region: HK)</span><br><span class="line"> YouTube Premium:                       Yes (Region: HK)</span><br><span class="line"> Amazon Prime Video:                    Yes (Region: HK)</span><br><span class="line"> TVBAnywhere+:                          No</span><br><span class="line"> Spotify Registration:                  Yes (Region: HK)</span><br><span class="line"> Instagram Licensed Audio:              No</span><br><span class="line"> OneTrust Region:                       HK [Unknown]</span><br><span class="line"> iQyi Oversea Region:                   HK</span><br><span class="line"> Bing Region:                           HK</span><br><span class="line"> YouTube CDN:                           Singapore</span><br><span class="line"> Netflix Preferred CDN:                 Hong Kong</span><br><span class="line"> ChatGPT:                               No (Only Available with Mobile APP)</span><br><span class="line"> Google Gemini:                         No</span><br><span class="line"> Wikipedia Editability:                 Yes</span><br><span class="line"> Google Search CAPTCHA Free:            Yes</span><br><span class="line"> Steam Currency:                        HKD</span><br><span class="line"> ---Forum---</span><br><span class="line"> Reddit:                                Yes</span><br><span class="line">=======================================</span><br><span class="line"> 以下为IPV6网络测试，若无IPV6网络则无输出</span><br><span class="line">---------------TikTok解锁--感谢lmc999的源脚本及fscarmen PR--------------</span><br><span class="line"> Tiktok Region:         Failed</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.imgdb.cn/item/66d7c48ad9c307b7e971ece0.png"
-                     
-                ></p>
-<h2 id="IP风险"><a href="#IP风险" class="headerlink" title="IP风险"></a>IP风险</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">########################################################################</span></span><br><span class="line">                      IP质量体检报告：103.194.*.*</span><br><span class="line">                    bash &lt;(curl -sL IP.Check.Place)</span><br><span class="line">                   https://github.com/xykt/IPQuality</span><br><span class="line">        报告时间：2024-09-04 10:27:29 CST  脚本版本：v2024-07-29</span><br><span class="line"><span class="comment">########################################################################</span></span><br><span class="line">一、基础信息（Maxmind 数据库）</span><br><span class="line">自治系统号：            AS138995</span><br><span class="line">组织：                  Antbox Networks Limited</span><br><span class="line">坐标：                  114°9′57″E, 22°15′28″N</span><br><span class="line">地图：                  https://check.place/22.2578,114.1657,13,cn</span><br><span class="line">城市：                  N/A</span><br><span class="line">使用地：                [HK]香港, [AS]亚洲</span><br><span class="line">注册地：                [HK]香港</span><br><span class="line">时区：                  Asia/Hong_Kong</span><br><span class="line">IP类型：                 原生IP </span><br><span class="line">二、IP类型属性</span><br><span class="line">数据库：      IPinfo    ipregistry    ipapi     AbuseIPDB  IP2LOCATION </span><br><span class="line">使用类型：     机房        机房        商业        机房        机房    </span><br><span class="line">公司类型：     机房        机房        商业    </span><br><span class="line">三、风险评分</span><br><span class="line">风险等级：      极低         低       中等       高         极高</span><br><span class="line">SCAMALYTICS：  0|低风险</span><br><span class="line">ipapi：       0.20%|低风险</span><br><span class="line">AbuseIPDB：    0|低风险</span><br><span class="line">IPQS：                        75|可疑IP</span><br><span class="line">四、风险因子</span><br><span class="line">库： IP2LOCATION ipapi ipregistry IPQS SCAMALYTICS ipdata IPinfo IPWHOIS</span><br><span class="line">地区：    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]</span><br><span class="line">代理：     否      否      否      是      否      否      否      否 </span><br><span class="line">Tor：      否      否      否      否      否      否      否      否 </span><br><span class="line">VPN：      否      否      否      是      否      无      否      否 </span><br><span class="line">服务器：   是      否      是      无      否      否      是      否 </span><br><span class="line">滥用：     否      否      否      否      无      否      无      无 </span><br><span class="line">机器人：   否      否      无      否      否      无      无      无 </span><br><span class="line">五、流媒体及AI服务解锁检测</span><br><span class="line">服务商：  TikTok   Disney+  Netflix Youtube  AmazonPV  Spotify  ChatGPT </span><br><span class="line">状态：     失败     解锁     解锁     解锁     解锁     解锁     仅APP  </span><br><span class="line">地区：              [HK]     [HK]     [HK]     [HK]     [HK]     [HK]   </span><br><span class="line">方式：              原生     原生     原生     原生     原生     原生   </span><br><span class="line">六、邮局连通性及黑名单检测</span><br><span class="line">本地25端口：阻断</span><br><span class="line">IP地址黑名单数据库：  有效 439   正常 429   已标记 10   黑名单 0</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="IP详细情况"><a href="#IP详细情况" class="headerlink" title="IP详细情况"></a>IP详细情况</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">-------------------- A Bench Script By spiritlhl ---------------------</span><br><span class="line">                   测评频道: https://t.me/vps_reviews                    </span><br><span class="line">版本：2024.07.26</span><br><span class="line">更新日志：IP质量测试，由频道 https://t.me/vps_reviews 原创</span><br><span class="line">数据仅作参考，不代表100%准确，IP类型如果不一致请手动查询多个数据库比对</span><br><span class="line">-------------IP质量检测--基于oneclickvirt/securityCheck使用-------------</span><br><span class="line">IPV4 ASN            : AS138995 Antbox Networks Limited</span><br><span class="line">IPV4 Location       : Hong Kong / Hong Kong / Hong Kong</span><br><span class="line">--------------------------------------------------</span><br><span class="line">以下为各数据库编号，输出结果后将自带数据库来源对应的编号</span><br><span class="line">ipinfo数据库  [0] | scamalytics数据库 [1] | virustotal数据库   [2] | abuseipdb数据库   [3] | ip2location数据库    [4]</span><br><span class="line">ip-api数据库  [5] | ipwhois数据库     [6] | ipregistry数据库   [7] | ipdata数据库      [8] | db-ip数据库          [9]</span><br><span class="line">ipapiis数据库 [A] | ipapicom数据库    [B] | bigdatacloud数据库 [C] | cheervision数据库 [D] | ipqualityscore数据库 [E]</span><br><span class="line">IPV4:</span><br><span class="line">安全得分:</span><br><span class="line">声誉(越高越好): 0 [2] </span><br><span class="line">信任得分(越高越好): 16 [8] </span><br><span class="line">VPN得分(越低越好): 87 [8] </span><br><span class="line">代理得分(越低越好): 66 [8]</span><br><span class="line">社区投票-无害: 0 [2] </span><br><span class="line">社区投票-恶意: 0 [2] </span><br><span class="line">威胁得分(越低越好): 100 [8] </span><br><span class="line">欺诈得分(越低越好): 0 [1] 65 [E]</span><br><span class="line">滥用得分(越低越好): 0 [3] </span><br><span class="line">ASN滥用得分(越低越好): 0.0007 (Low) [A] </span><br><span class="line">公司滥用得分(越低越好): 0.002 (Low) [A] </span><br><span class="line">威胁级别: low [B] </span><br><span class="line">黑名单记录统计:(有多少黑名单网站有记录):</span><br><span class="line">无害记录数: 0 [2]  恶意记录数: 0 [2]  可疑记录数: 0 [2]  无记录数: 94 [2]  </span><br><span class="line">安全信息:</span><br><span class="line">使用类型: hosting [0 7] business [8 A] hosting - high probability [C] DataCenter/WebHosting/Transit [3]</span><br><span class="line">公司类型: business [A] hosting [0 7]</span><br><span class="line">是否云提供商: Yes [7 D] </span><br><span class="line">是否数据中心: No [5 6 8 A] Yes [0 1 C]</span><br><span class="line">是否移动设备: No [5 A C] Yes [E]</span><br><span class="line">是否代理: No [0 1 4 5 6 7 8 A B C D] Yes [E]</span><br><span class="line">是否VPN: Yes [E] No [0 1 6 7 A C D]</span><br><span class="line">是否Tor: No [0 1 3 6 7 8 A B C D E] </span><br><span class="line">是否Tor出口: No [1 7 D] </span><br><span class="line">是否网络爬虫: No [A B E] </span><br><span class="line">是否匿名: No [1 6 7 8 D] </span><br><span class="line">是否攻击者: No [7 8 D] </span><br><span class="line">是否滥用者: No [7 8 A C D E] </span><br><span class="line">是否威胁: No [7 8 C D] </span><br><span class="line">是否中继: No [0 7 8 C D] </span><br><span class="line">是否Bogon: No [7 8 A C D] </span><br><span class="line">是否机器人: No [E] </span><br><span class="line">DNS-黑名单: 312(Total_Check) 0(Clean) 6(Blacklisted) 14(Other) </span><br><span class="line">Google搜索可行性：YES</span><br><span class="line">-------------邮件端口检测--基于oneclickvirt/portchecker开源-------------</span><br><span class="line">Platform  SMTP  SMTPS POP3  POP3S IMAP  IMAPS</span><br><span class="line">LocalPort ✔     ✔     ✔     ✔     ✔     ✔    </span><br><span class="line">QQ        ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">163       ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Sohu      ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Yandex    ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Gmail     ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">Outlook   ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Office365 ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Yahoo     ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">MailCOM   ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">MailRU    ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">AOL       ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">GMX       ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Sina      ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line"> 总共花费        : 22 秒</span><br><span class="line"> 时间          : 2024-09-04 02:32:35</span><br><span class="line">------------------------------------------------------------------------</span><br></pre></td></tr></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>服务器</category>
-      </categories>
-      <tags>
-        <tag>服务器</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>哪吒监控搭建记录</title>
     <url>/2024/05/07/%E5%93%AA%E5%90%92%E7%9B%91%E6%8E%A7%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h1 id="哪吒监控搭建记录"><a href="#哪吒监控搭建记录" class="headerlink" title="哪吒监控搭建记录"></a>哪吒监控搭建记录</h1><h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><ol>
@@ -1692,38 +1656,6 @@
       </categories>
       <tags>
         <tag>记录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>费曼学习法的自我认识</title>
-    <url>/2024/05/09/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95%E7%9A%84%E8%87%AA%E6%88%91%E8%AE%A4%E8%AF%86/</url>
-    <content><![CDATA[<h1 id="费曼学习方法的自我认识"><a href="#费曼学习方法的自我认识" class="headerlink" title="费曼学习方法的自我认识"></a>费曼学习方法的自我认识</h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/img/feiman.jpg"
-                     
-                ></p>
-<p>认知会改变心理，心理会影响行为，主要是从这三点出发，进行分析和总结</p>
-<div class="tabs" id="tab-first-unique-name"><ul class="nav-tabs"><li class="tab active"><a class="#first-unique-name-1">认知</a></li><li class="tab"><a class="#first-unique-name-2">心理</a></li><li class="tab"><a class="#first-unique-name-3">Third Tab</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-unique-name-1"><p>你就是要认为自己别人聪明，你的观众，你的学生都是笨蛋，你要想怎么教会他们，如果你能教会笨蛋的话，那么教会自己这么聪明的人就是非常简单 </p></div><div class="tab-pane" id="first-unique-name-2"><p>通过认知我们可以产生什么样的心理: </p>
-<p><strong>1.优越感（记住是正向的优越感）</strong></p>
-<p><strong>2.教学和教会学生的成就感</strong>.</p>
-<p><strong>3.增加自信心</strong></p></div><div class="tab-pane" id="first-unique-name-3"><p><strong>心理会影响行为，落实行为可以具体成某个或者某些行为</strong></p>
-<p><strong>比如：我们可以写讲义或者是博客。在此基础上通过现在流行的视频平台可以去做讲解视频</strong></p>
-<p><strong>可以先从基础讲解，用通俗易懂的方法去讲解</strong></p>
-<p><strong>再用高级的方法去讲解（串联起你的前后知识库），按照你的理解重排知识点，以观众更好理解的方式去进行讲解</strong></p></div></div></div>
-
-<p><strong>maki</strong>老师说了两句话让我觉得很好：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">决定一个函数从来不是当前值,而是斜率，哪怕你的值是很小，有向上的斜率，那么也是在进步</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">大部分厉害的数学家也都是优秀的教育家，不是因为他是一名好的数学家才教得好，而是本身是一名好的教育学家才更容易帮助他成为一名优秀的数学家</span><br><span class="line">发散一下这种思维，你要是想成为厉害的Coder，不妨先从写文档，出视频开始</span><br></pre></td></tr></table></figure></div>
-
-<p>两句话与诸君共勉</p>
-]]></content>
-      <categories>
-        <category>学习方法 - 费曼学习方法</category>
-      </categories>
-      <tags>
-        <tag>学习方法</tag>
       </tags>
   </entry>
   <entry>
@@ -1931,6 +1863,105 @@
       </categories>
       <tags>
         <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浪浪云香港服务器测评</title>
+    <url>/2024/09/04/%E6%B5%AA%E6%B5%AA%E4%BA%91%E9%A6%99%E6%B8%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%84/</url>
+    <content><![CDATA[<h1 id="浪浪云香港大带宽服务器测试"><a href="#浪浪云香港大带宽服务器测试" class="headerlink" title="浪浪云香港大带宽服务器测试"></a>浪浪云香港大带宽服务器测试</h1><p>浪浪云之前一直做的是应用型服务器，最近上新了新平台做服务器，上个月可以五折购买，最近也在出活动，具体的优惠活动大家可以看他们的公众号或者官网</p>
+<p>官网：<a class="link"   href="https://langlangy.cn/" >https://langlangy.cn/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>我这台服务器的配置是<strong>大带宽型4H4G</strong>，购买价格：<strong>48.00</strong>，通用型和大带宽同价格，不同的是大带宽有流量限制，流量用完以后需要购买流量包（上行流量限制，下行不限）</p>
+<h2 id="具体配置："><a href="#具体配置：" class="headerlink" title="具体配置："></a>具体配置：</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">---------------------基础信息查询--感谢所有开源项目---------------------</span><br><span class="line"> CPU 型号          : Intel(R) Xeon(R) Gold 6133 CPU @ 2.50GHz</span><br><span class="line"> CPU 核心数        : 4</span><br><span class="line"> CPU 频率          : 2494.140 MHz</span><br><span class="line"> CPU 缓存          : L1: 64.00 KB / L2: 2.00 MB / L3: 27.50 MB</span><br><span class="line"> AES-NI指令集      : ✔ Enabled</span><br><span class="line"> VM-x/AMD-V支持    : ✔ Enabled</span><br><span class="line"> 内存              : 229.30 MiB / 3.83 GiB</span><br><span class="line"> Swap              : [ no swap partition or swap file detected ]</span><br><span class="line"> 硬盘空间          : 1.63 GiB / 28.90 GiB</span><br><span class="line"> 启动盘路径        : /dev/vda1</span><br><span class="line"> 系统在线时间      : 0 days, 0 hour 11 min</span><br><span class="line"> 负载              : 0.37, 0.16, 0.06</span><br><span class="line"> 系统              : Ubuntu 22.04 LTS (x86_64)</span><br><span class="line"> 架构              : x86_64 (64 Bit)</span><br><span class="line"> 内核              : 5.15.0-30-generic</span><br><span class="line"> TCP加速方式       : cubic</span><br><span class="line"> 虚拟化架构        : KVM</span><br><span class="line"> NAT类型           : Full Cone</span><br><span class="line"> IPV4 ASN          : AS138995 Antbox Networks Limited</span><br><span class="line"> IPV4 位置         : Hong Kong / Hong Kong / HK</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7bb2fd9c307b7e964ab2e.png"
+                     
+                ></p>
+<h3 id="CPU测试"><a href="#CPU测试" class="headerlink" title="CPU测试"></a>CPU测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">----------------------CPU测试--通过sysbench测试-------------------------</span><br><span class="line"> -&gt; CPU 测试中 (Fast Mode, 1-Pass @ 5sec)</span><br><span class="line"> 1 线程测试(单核)得分:          938 Scores</span><br><span class="line"> 4 线程测试(多核)得分:          3665 Scores</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="内存测试"><a href="#内存测试" class="headerlink" title="内存测试"></a>内存测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">---------------------内存测试--感谢lemonbench开源-----------------------</span><br><span class="line"> -&gt; 内存测试 Test (Fast Mode, 1-Pass @ 5sec)</span><br><span class="line"> 单线程读测试:          18484.08 MB/s</span><br><span class="line"> 单线程写测试:          15426.13 MB/s</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="磁盘读写测试"><a href="#磁盘读写测试" class="headerlink" title="磁盘读写测试"></a>磁盘读写测试</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">------------------磁盘<span class="built_in">dd</span>读写测试--感谢lemonbench开源--------------------</span><br><span class="line"> -&gt; 磁盘IO测试中 (4K Block/1M Block, Direct Mode)</span><br><span class="line"> 测试操作               写速度                                  读速度</span><br><span class="line"> 100MB-4K Block         10.8 MB/s (2647 IOPS, 9.67s)            10.8 MB/s (2648 IOPS, 9.67s)</span><br><span class="line"> 1GB-1M Block           256 MB/s (244 IOPS, 4.10s)              262 MB/s (250 IOPS, 4.00s)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="去程路由"><a href="#去程路由" class="headerlink" title="去程路由"></a>去程路由</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7bd56d9c307b7e966123b.png"
+                     
+                ></p>
+<p>再补一个随机地区测速</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7bfb3d9c307b7e9691e7f.png"
+                     
+                ></p>
+<p>综合来说电信走的是CN2，其他两家运营商走的是优质网络</p>
+<h3 id="回程路由"><a href="#回程路由" class="headerlink" title="回程路由"></a>回程路由</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">----------------三网回程--基于oneclickvirt/backtrace开源----------------</span><br><span class="line">北京电信 219.141.140.10  电信CN2GIA [精品线路] </span><br><span class="line">北京联通 202.106.195.68  联通4837   [普通线路] </span><br><span class="line">北京移动 221.179.155.161 移动CMI    [普通线路] </span><br><span class="line">上海电信 202.96.209.133  电信CN2GIA [精品线路] </span><br><span class="line">上海联通 210.22.97.1     联通4837   [普通线路] </span><br><span class="line">上海移动 211.136.112.200 移动CMI    [普通线路] </span><br><span class="line">广州电信 58.60.188.222   电信CN2GIA [精品线路] </span><br><span class="line">广州联通 210.21.196.6    联通4837   [普通线路] </span><br><span class="line">广州移动 120.196.165.24  移动CMI    [普通线路] </span><br><span class="line">成都电信 61.139.2.69     电信CN2GIA [精品线路] </span><br><span class="line">成都联通 119.6.6.6       联通4837   [普通线路] </span><br><span class="line">成都移动 211.137.96.205  移动CMI    [普通线路] </span><br><span class="line">准确线路自行查看详细路由，本测试结果仅作参考</span><br><span class="line">同一目标地址多个线路时，可能检测已越过汇聚层，除了第一个线路外，后续信息可能无效</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">---------------------回程路由--感谢fscarmen开源及PR---------------------</span><br><span class="line">依次测试电信/联通/移动经过的地区及线路，核心程序来自ipip.net或nexttrace，请知悉!</span><br><span class="line">广州电信 58.60.188.222</span><br><span class="line">1.50 ms         * 中国 香港</span><br><span class="line">2.20 ms         * 中国 香港 电信/CTGNet</span><br><span class="line">* ms    * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">14.95 ms        * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">13.12 ms        * [CN2-BackBone] 中国 广东 广州 chinatelecom.cn 电信</span><br><span class="line">* ms    AS4134 中国 广东 佛山市 www.chinatelecom.com.cn 电信</span><br><span class="line">11.31 ms        AS4134 中国 广东 深圳 福田区 www.chinatelecom.com.cn 电信</span><br><span class="line">广州联通 210.21.196.6</span><br><span class="line">2.22 ms         AS10099 中国 香港 chinaunicomglobal.com</span><br><span class="line">3.83 ms         AS10099 [CUG-BACKBONE] 中国 香港 chinaunicomglobal.com 联通</span><br><span class="line">2.11 ms         AS10099 中国 香港 chinaunicomglobal.com 联通</span><br><span class="line">10.18 ms        AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn</span><br><span class="line">14.48 ms        AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn 联通</span><br><span class="line">* ms    AS4837 [CU169-BACKBONE] 中国 广东 广州 chinaunicom.cn 联通</span><br><span class="line">15.83 ms        AS17816 [UNICOM-GD] 中国 广东 深圳 chinaunicom.cn 联通</span><br><span class="line">13.42 ms        AS17623 [APNIC-AP] 中国 广东 深圳 chinaunicom.cn 联通</span><br><span class="line">12.87 ms        AS17623 [APNIC-AP] 中国 广东 深圳 宝安区 chinaunicom.cn 联通</span><br><span class="line">广州移动 120.196.165.24</span><br><span class="line">15.60 ms        AS58453 [CMI-INT] 中国 香港 cmi.chinamobile.com</span><br><span class="line">40.62 ms        AS58453 [CMI-INT] 中国 香港 cmi.chinamobile.com 移动</span><br><span class="line">44.69 ms        AS58453 [CMI-INT] 中国 广东 广州 回国到达层 cmi.chinamobile.com 移动</span><br><span class="line">44.31 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">44.69 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">46.39 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">48.51 ms        AS9808 [CMNET] 中国 广东 广州 chinamobileltd.com 移动</span><br><span class="line">48.48 ms        AS56040 [APNIC-AP] 中国 广东 深圳 gd.10086.cn 移动</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7c21dd9c307b7e9702f91.png"
+                     
+                ></p>
+<h3 id="网络测速"><a href="#网络测速" class="headerlink" title="网络测速"></a>网络测速</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">--------------------自动更新测速节点列表--本脚本原创--------------------</span><br><span class="line">位置             上传速度        下载速度        延迟</span><br><span class="line">Speedtest.net    26.99Mbps       24.30Mbps       1.36ms</span><br><span class="line">联通WuXi         29.03Mbps       28.54Mbps       32.34ms</span><br><span class="line">电信浙江         29.11Mbps       26.20Mbps       34.47ms</span><br><span class="line">电信Suzhou5G     11.68Mbps       22.94Mbps       47.74ms</span><br></pre></td></tr></table></figure></div>
+
+<p>符合浪浪云的<strong>30M配置</strong></p>
+<h2 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">------------流媒体解锁--基于oneclickvirt/CommonMediaTests开源-----------</span><br><span class="line">以下测试的解锁地区是准确的，但是不是完整解锁的判断可能有误，这方面仅作参考使用</span><br><span class="line">----------------Netflix-----------------</span><br><span class="line">[IPV4]</span><br><span class="line">您的出口IP完整解锁Netflix，支持非自制剧的观看</span><br><span class="line">NF所识别的IP地域信息：中国香港</span><br><span class="line">[IPV6]</span><br><span class="line">您的网络可能没有正常配置IPv6，或者没有IPv6网络接入</span><br><span class="line">----------------Youtube-----------------</span><br><span class="line">[IPV4]</span><br><span class="line">连接方式: Youtube Video Server</span><br><span class="line">视频缓存节点地域: 新加坡 新加坡/樟宜  (SIN10S14)</span><br><span class="line">Youtube识别地域: 中国香港(HK)</span><br><span class="line">[IPV6]</span><br><span class="line">Youtube在您的出口IP所在的国家不提供服务</span><br><span class="line">---------------DisneyPlus---------------</span><br><span class="line">[IPV4]</span><br><span class="line">当前出口所在地区解锁DisneyPlus</span><br><span class="line">区域：HK 区</span><br><span class="line">[IPV6]</span><br><span class="line">DisneyPlus在您的出口IP所在的国家不提供服务</span><br><span class="line">解锁Netflix，Youtube，DisneyPlus上面和下面进行比较，不同之处自行判断</span><br><span class="line">----------------流媒体解锁--感谢RegionRestrictionCheck开源--------------</span><br><span class="line"> 以下为IPV4网络测试，若无IPV4网络则无输出</span><br><span class="line">============[ Multination ]============</span><br><span class="line"> Dazn:                                  Yes (Region: HK)</span><br><span class="line"> Disney+:                               Yes (Region: HK)</span><br><span class="line"> Netflix:                               Yes (Region: HK)</span><br><span class="line"> YouTube Premium:                       Yes (Region: HK)</span><br><span class="line"> Amazon Prime Video:                    Yes (Region: HK)</span><br><span class="line"> TVBAnywhere+:                          No</span><br><span class="line"> Spotify Registration:                  Yes (Region: HK)</span><br><span class="line"> Instagram Licensed Audio:              No</span><br><span class="line"> OneTrust Region:                       HK [Unknown]</span><br><span class="line"> iQyi Oversea Region:                   HK</span><br><span class="line"> Bing Region:                           HK</span><br><span class="line"> YouTube CDN:                           Singapore</span><br><span class="line"> Netflix Preferred CDN:                 Hong Kong</span><br><span class="line"> ChatGPT:                               No (Only Available with Mobile APP)</span><br><span class="line"> Google Gemini:                         No</span><br><span class="line"> Wikipedia Editability:                 Yes</span><br><span class="line"> Google Search CAPTCHA Free:            Yes</span><br><span class="line"> Steam Currency:                        HKD</span><br><span class="line"> ---Forum---</span><br><span class="line"> Reddit:                                Yes</span><br><span class="line">=======================================</span><br><span class="line"> 以下为IPV6网络测试，若无IPV6网络则无输出</span><br><span class="line">---------------TikTok解锁--感谢lmc999的源脚本及fscarmen PR--------------</span><br><span class="line"> Tiktok Region:         Failed</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/66d7c48ad9c307b7e971ece0.png"
+                     
+                ></p>
+<h2 id="IP风险"><a href="#IP风险" class="headerlink" title="IP风险"></a>IP风险</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">########################################################################</span></span><br><span class="line">                      IP质量体检报告：103.194.*.*</span><br><span class="line">                    bash &lt;(curl -sL IP.Check.Place)</span><br><span class="line">                   https://github.com/xykt/IPQuality</span><br><span class="line">        报告时间：2024-09-04 10:27:29 CST  脚本版本：v2024-07-29</span><br><span class="line"><span class="comment">########################################################################</span></span><br><span class="line">一、基础信息（Maxmind 数据库）</span><br><span class="line">自治系统号：            AS138995</span><br><span class="line">组织：                  Antbox Networks Limited</span><br><span class="line">坐标：                  114°9′57″E, 22°15′28″N</span><br><span class="line">地图：                  https://check.place/22.2578,114.1657,13,cn</span><br><span class="line">城市：                  N/A</span><br><span class="line">使用地：                [HK]香港, [AS]亚洲</span><br><span class="line">注册地：                [HK]香港</span><br><span class="line">时区：                  Asia/Hong_Kong</span><br><span class="line">IP类型：                 原生IP </span><br><span class="line">二、IP类型属性</span><br><span class="line">数据库：      IPinfo    ipregistry    ipapi     AbuseIPDB  IP2LOCATION </span><br><span class="line">使用类型：     机房        机房        商业        机房        机房    </span><br><span class="line">公司类型：     机房        机房        商业    </span><br><span class="line">三、风险评分</span><br><span class="line">风险等级：      极低         低       中等       高         极高</span><br><span class="line">SCAMALYTICS：  0|低风险</span><br><span class="line">ipapi：       0.20%|低风险</span><br><span class="line">AbuseIPDB：    0|低风险</span><br><span class="line">IPQS：                        75|可疑IP</span><br><span class="line">四、风险因子</span><br><span class="line">库： IP2LOCATION ipapi ipregistry IPQS SCAMALYTICS ipdata IPinfo IPWHOIS</span><br><span class="line">地区：    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]    [HK]</span><br><span class="line">代理：     否      否      否      是      否      否      否      否 </span><br><span class="line">Tor：      否      否      否      否      否      否      否      否 </span><br><span class="line">VPN：      否      否      否      是      否      无      否      否 </span><br><span class="line">服务器：   是      否      是      无      否      否      是      否 </span><br><span class="line">滥用：     否      否      否      否      无      否      无      无 </span><br><span class="line">机器人：   否      否      无      否      否      无      无      无 </span><br><span class="line">五、流媒体及AI服务解锁检测</span><br><span class="line">服务商：  TikTok   Disney+  Netflix Youtube  AmazonPV  Spotify  ChatGPT </span><br><span class="line">状态：     失败     解锁     解锁     解锁     解锁     解锁     仅APP  </span><br><span class="line">地区：              [HK]     [HK]     [HK]     [HK]     [HK]     [HK]   </span><br><span class="line">方式：              原生     原生     原生     原生     原生     原生   </span><br><span class="line">六、邮局连通性及黑名单检测</span><br><span class="line">本地25端口：阻断</span><br><span class="line">IP地址黑名单数据库：  有效 439   正常 429   已标记 10   黑名单 0</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="IP详细情况"><a href="#IP详细情况" class="headerlink" title="IP详细情况"></a>IP详细情况</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">-------------------- A Bench Script By spiritlhl ---------------------</span><br><span class="line">                   测评频道: https://t.me/vps_reviews                    </span><br><span class="line">版本：2024.07.26</span><br><span class="line">更新日志：IP质量测试，由频道 https://t.me/vps_reviews 原创</span><br><span class="line">数据仅作参考，不代表100%准确，IP类型如果不一致请手动查询多个数据库比对</span><br><span class="line">-------------IP质量检测--基于oneclickvirt/securityCheck使用-------------</span><br><span class="line">IPV4 ASN            : AS138995 Antbox Networks Limited</span><br><span class="line">IPV4 Location       : Hong Kong / Hong Kong / Hong Kong</span><br><span class="line">--------------------------------------------------</span><br><span class="line">以下为各数据库编号，输出结果后将自带数据库来源对应的编号</span><br><span class="line">ipinfo数据库  [0] | scamalytics数据库 [1] | virustotal数据库   [2] | abuseipdb数据库   [3] | ip2location数据库    [4]</span><br><span class="line">ip-api数据库  [5] | ipwhois数据库     [6] | ipregistry数据库   [7] | ipdata数据库      [8] | db-ip数据库          [9]</span><br><span class="line">ipapiis数据库 [A] | ipapicom数据库    [B] | bigdatacloud数据库 [C] | cheervision数据库 [D] | ipqualityscore数据库 [E]</span><br><span class="line">IPV4:</span><br><span class="line">安全得分:</span><br><span class="line">声誉(越高越好): 0 [2] </span><br><span class="line">信任得分(越高越好): 16 [8] </span><br><span class="line">VPN得分(越低越好): 87 [8] </span><br><span class="line">代理得分(越低越好): 66 [8]</span><br><span class="line">社区投票-无害: 0 [2] </span><br><span class="line">社区投票-恶意: 0 [2] </span><br><span class="line">威胁得分(越低越好): 100 [8] </span><br><span class="line">欺诈得分(越低越好): 0 [1] 65 [E]</span><br><span class="line">滥用得分(越低越好): 0 [3] </span><br><span class="line">ASN滥用得分(越低越好): 0.0007 (Low) [A] </span><br><span class="line">公司滥用得分(越低越好): 0.002 (Low) [A] </span><br><span class="line">威胁级别: low [B] </span><br><span class="line">黑名单记录统计:(有多少黑名单网站有记录):</span><br><span class="line">无害记录数: 0 [2]  恶意记录数: 0 [2]  可疑记录数: 0 [2]  无记录数: 94 [2]  </span><br><span class="line">安全信息:</span><br><span class="line">使用类型: hosting [0 7] business [8 A] hosting - high probability [C] DataCenter/WebHosting/Transit [3]</span><br><span class="line">公司类型: business [A] hosting [0 7]</span><br><span class="line">是否云提供商: Yes [7 D] </span><br><span class="line">是否数据中心: No [5 6 8 A] Yes [0 1 C]</span><br><span class="line">是否移动设备: No [5 A C] Yes [E]</span><br><span class="line">是否代理: No [0 1 4 5 6 7 8 A B C D] Yes [E]</span><br><span class="line">是否VPN: Yes [E] No [0 1 6 7 A C D]</span><br><span class="line">是否Tor: No [0 1 3 6 7 8 A B C D E] </span><br><span class="line">是否Tor出口: No [1 7 D] </span><br><span class="line">是否网络爬虫: No [A B E] </span><br><span class="line">是否匿名: No [1 6 7 8 D] </span><br><span class="line">是否攻击者: No [7 8 D] </span><br><span class="line">是否滥用者: No [7 8 A C D E] </span><br><span class="line">是否威胁: No [7 8 C D] </span><br><span class="line">是否中继: No [0 7 8 C D] </span><br><span class="line">是否Bogon: No [7 8 A C D] </span><br><span class="line">是否机器人: No [E] </span><br><span class="line">DNS-黑名单: 312(Total_Check) 0(Clean) 6(Blacklisted) 14(Other) </span><br><span class="line">Google搜索可行性：YES</span><br><span class="line">-------------邮件端口检测--基于oneclickvirt/portchecker开源-------------</span><br><span class="line">Platform  SMTP  SMTPS POP3  POP3S IMAP  IMAPS</span><br><span class="line">LocalPort ✔     ✔     ✔     ✔     ✔     ✔    </span><br><span class="line">QQ        ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">163       ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Sohu      ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Yandex    ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">Gmail     ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">Outlook   ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Office365 ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Yahoo     ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">MailCOM   ✔     ✔     ✔     ✘     ✔     ✘    </span><br><span class="line">MailRU    ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">AOL       ✔     ✔     ✘     ✘     ✘     ✘    </span><br><span class="line">GMX       ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">Sina      ✔     ✘     ✔     ✘     ✔     ✘    </span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line"> 总共花费        : 22 秒</span><br><span class="line"> 时间          : 2024-09-04 02:32:35</span><br><span class="line">------------------------------------------------------------------------</span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>费曼学习法的自我认识</title>
+    <url>/2024/05/09/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95%E7%9A%84%E8%87%AA%E6%88%91%E8%AE%A4%E8%AF%86/</url>
+    <content><![CDATA[<h1 id="费曼学习方法的自我认识"><a href="#费曼学习方法的自我认识" class="headerlink" title="费曼学习方法的自我认识"></a>费曼学习方法的自我认识</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/img/feiman.jpg"
+                     
+                ></p>
+<p>认知会改变心理，心理会影响行为，主要是从这三点出发，进行分析和总结</p>
+<div class="tabs" id="tab-first-unique-name"><ul class="nav-tabs"><li class="tab active"><a class="#first-unique-name-1">认知</a></li><li class="tab"><a class="#first-unique-name-2">心理</a></li><li class="tab"><a class="#first-unique-name-3">Third Tab</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-unique-name-1"><p>你就是要认为自己别人聪明，你的观众，你的学生都是笨蛋，你要想怎么教会他们，如果你能教会笨蛋的话，那么教会自己这么聪明的人就是非常简单 </p></div><div class="tab-pane" id="first-unique-name-2"><p>通过认知我们可以产生什么样的心理: </p>
+<p><strong>1.优越感（记住是正向的优越感）</strong></p>
+<p><strong>2.教学和教会学生的成就感</strong>.</p>
+<p><strong>3.增加自信心</strong></p></div><div class="tab-pane" id="first-unique-name-3"><p><strong>心理会影响行为，落实行为可以具体成某个或者某些行为</strong></p>
+<p><strong>比如：我们可以写讲义或者是博客。在此基础上通过现在流行的视频平台可以去做讲解视频</strong></p>
+<p><strong>可以先从基础讲解，用通俗易懂的方法去讲解</strong></p>
+<p><strong>再用高级的方法去讲解（串联起你的前后知识库），按照你的理解重排知识点，以观众更好理解的方式去进行讲解</strong></p></div></div></div>
+
+<p><strong>maki</strong>老师说了两句话让我觉得很好：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">决定一个函数从来不是当前值,而是斜率，哪怕你的值是很小，有向上的斜率，那么也是在进步</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">大部分厉害的数学家也都是优秀的教育家，不是因为他是一名好的数学家才教得好，而是本身是一名好的教育学家才更容易帮助他成为一名优秀的数学家</span><br><span class="line">发散一下这种思维，你要是想成为厉害的Coder，不妨先从写文档，出视频开始</span><br></pre></td></tr></table></figure></div>
+
+<p>两句话与诸君共勉</p>
+]]></content>
+      <categories>
+        <category>学习方法 - 费曼学习方法</category>
+      </categories>
+      <tags>
+        <tag>学习方法</tag>
       </tags>
   </entry>
 </search>
