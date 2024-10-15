@@ -1,117 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>8位二进制cpu的设计和实现-全加器^八位二进制加法器</title>
-    <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%85%A8%E5%8A%A0%E5%99%A8-%E5%85%AB%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>全加器：实现二进制加法，涉及进位</p>
-<ul>
-<li><p>逻辑表达式：S = A ^ B ^ C、C = (A &amp; B) | (B &amp; C) | (A &amp; C)</p>
-</li>
-<li><p>真值表</p>
-<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>S</th>
-<th>C</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-</tbody></table>
-<p>实现这样一个运算的逻辑电路称为全加器<br>根据经验我们得知，逻辑表达式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="44.036ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 19464 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtable"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(922.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1978.6,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="mo" transform="translate(2950.8,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(3951,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(4932.2,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(5932.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mtext" transform="translate(6692.4,0)"><path data-c="A0" d=""></path></g><g data-mml-node="mi" transform="translate(6942.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(7980.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(9036,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(9425,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(11175,0)"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(759,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1148,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1426,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1815,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g><g data-mml-node="mtd" transform="translate(14749,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1149,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1427,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1816,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(18315,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></g></g></svg></mjx-container><br>打开logiccircuit根据上面异或和与关系搭建门电路，验证</p>
-</li>
-<li><p>将异或(XOR)门用与、或、非门实现出来</p>
-</li>
-<li><p>然后用异或(XOR)门和与门共同搭建半加器(Half Adder)</p>
-</li>
-<li><p>然后用半加器(Half Adder)和与门共同搭建全加器(Full Adder)</p>
-</li>
-<li><p>搭建完之后通过按键和LED测试，符合真值表逻辑即可</p>
-</li>
-</ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248a5d9c307b7e97724ba.png"></p>
-<p>利用只读存储器，通过真值表<br>（ROM）实现全加器</p>
-<ul>
-<li>将全加器电路用ROM实现出来</li>
-<li>搭建完之后通过按键和LED测试，符合真值表逻辑即可</li>
-<li>ROM中的数据写入为全加器的真值表</li>
-</ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248c8d9c307b7e9774391.png"></p>
-<h2 id="8位加法器-8Adder"><a href="#8位加法器-8Adder" class="headerlink" title="8位加法器 8Adder"></a>8位加法器 8Adder</h2><ul>
-<li>8位加法器：实现8位二进制加法，涉及进位<blockquote>
-<p>补充：这种全加器叫串形加法器，由于高位的运算需要等待低位的进位输出，所以会有延迟，效率不是很高。<br>还有一种并行加法器可以实现同步，这里不多做介绍。事实上还可以通过前面的ROM实现方法实现低延迟运算。</p>
-</blockquote>
-</li>
-</ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248e8d9c307b7e97762ca.png"></p>
-<p><strong>制作测试器测试</strong><br>也就是八位按钮和八位的LED，通过测试器测试，符合预期即可</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a24916d9c307b7e977859b.png"></p>
-]]></content>
-      <categories>
-        <category>8位二进制cpu的设计和实现</category>
-      </categories>
-      <tags>
-        <tag>8位二进制cpu的设计和实现</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>8位二进制cpu的设计和实现-半加器</title>
     <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%8D%8A%E5%8A%A0%E5%99%A8/</url>
     <content><![CDATA[<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p>[CPU/Circuit/Half Adder at main · TomLiYouXiu/CPU (github.com)](<a class="link" href="https://github.com/TomLiYouXiu/CPU/tree/main/Circuit/Half">https://github.com/TomLiYouXiu/CPU/tree/main/Circuit/Half <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> Adder)</p>
@@ -460,6 +349,117 @@
       </tags>
   </entry>
   <entry>
+    <title>8位二进制cpu的设计和实现-全加器^八位二进制加法器</title>
+    <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0-%E5%85%A8%E5%8A%A0%E5%99%A8-%E5%85%AB%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>全加器：实现二进制加法，涉及进位</p>
+<ul>
+<li><p>逻辑表达式：S = A ^ B ^ C、C = (A &amp; B) | (B &amp; C) | (A &amp; C)</p>
+</li>
+<li><p>真值表</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>S</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>实现这样一个运算的逻辑电路称为全加器<br>根据经验我们得知，逻辑表达式：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="44.036ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 19464 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtable"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(922.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1978.6,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="mo" transform="translate(2950.8,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(3951,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(4932.2,0)"><path data-c="2295" d="M56 250Q56 394 156 488T384 583Q530 583 626 485T722 250Q722 110 625 14T390 -83Q249 -83 153 14T56 250ZM364 542Q308 539 251 509T148 418T96 278V270H369V542H364ZM681 278Q675 338 650 386T592 462T522 509T458 535T412 542H409V270H681V278ZM96 222Q104 150 139 95T219 12T302 -29T366 -42H369V230H96V222ZM681 222V230H409V-42H412Q429 -42 456 -36T521 -10T590 37T649 113T681 222Z"></path></g><g data-mml-node="mi" transform="translate(5932.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mtext" transform="translate(6692.4,0)"><path data-c="A0" d=""></path></g><g data-mml-node="mi" transform="translate(6942.4,0)"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(7980.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(9036,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(9425,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(11175,0)"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mo" transform="translate(759,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1148,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1426,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1815,0)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g><g data-mml-node="mtd" transform="translate(14749,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(1149,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(1427,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1816,0)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g><g data-mml-node="mtd" transform="translate(18315,0)"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="mo" transform="translate(760,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></g></g></svg></mjx-container><br>打开logiccircuit根据上面异或和与关系搭建门电路，验证</p>
+</li>
+<li><p>将异或(XOR)门用与、或、非门实现出来</p>
+</li>
+<li><p>然后用异或(XOR)门和与门共同搭建半加器(Half Adder)</p>
+</li>
+<li><p>然后用半加器(Half Adder)和与门共同搭建全加器(Full Adder)</p>
+</li>
+<li><p>搭建完之后通过按键和LED测试，符合真值表逻辑即可</p>
+</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248a5d9c307b7e97724ba.png"></p>
+<p>利用只读存储器，通过真值表<br>（ROM）实现全加器</p>
+<ul>
+<li>将全加器电路用ROM实现出来</li>
+<li>搭建完之后通过按键和LED测试，符合真值表逻辑即可</li>
+<li>ROM中的数据写入为全加器的真值表</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248c8d9c307b7e9774391.png"></p>
+<h2 id="8位加法器-8Adder"><a href="#8位加法器-8Adder" class="headerlink" title="8位加法器 8Adder"></a>8位加法器 8Adder</h2><ul>
+<li>8位加法器：实现8位二进制加法，涉及进位<blockquote>
+<p>补充：这种全加器叫串形加法器，由于高位的运算需要等待低位的进位输出，所以会有延迟，效率不是很高。<br>还有一种并行加法器可以实现同步，这里不多做介绍。事实上还可以通过前面的ROM实现方法实现低延迟运算。</p>
+</blockquote>
+</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a248e8d9c307b7e97762ca.png"></p>
+<p><strong>制作测试器测试</strong><br>也就是八位按钮和八位的LED，通过测试器测试，符合预期即可</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66a24916d9c307b7e977859b.png"></p>
+]]></content>
+      <categories>
+        <category>8位二进制cpu的设计和实现</category>
+      </categories>
+      <tags>
+        <tag>8位二进制cpu的设计和实现</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>8位二进制cpu的设计和实现</title>
     <url>/2024/07/25/8%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6cpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><h2 id="八位二进制CPU的学习与制造-开始日期2024年7月24日09-48-59-项目结构本项目包含以下文件和目录：-README-md：项目说明文件-Note：笔记目录-Circuit：电路目录-tests：测试目录-build：构建目录-resources：资源目录-项目简介本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：-CPU-基本电路的实现-半加器-全加器和八位二进制加法器"><a href="#八位二进制CPU的学习与制造-开始日期2024年7月24日09-48-59-项目结构本项目包含以下文件和目录：-README-md：项目说明文件-Note：笔记目录-Circuit：电路目录-tests：测试目录-build：构建目录-resources：资源目录-项目简介本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：-CPU-基本电路的实现-半加器-全加器和八位二进制加法器" class="headerlink" title="八位二进制CPU的学习与制造&gt; 开始日期2024年7月24日09:48:59&gt;## 项目结构本项目包含以下文件和目录：- README.md：项目说明文件- Note：笔记目录- Circuit：电路目录- tests：测试目录- build：构建目录- resources：资源目录## 项目简介本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：- CPU 基本电路的实现  - 半加器  - 全加器和八位二进制加法器"></a>八位二进制CPU的学习与制造<br>&gt; 开始日期2024年7月24日09:48:59<br>&gt;<br>## 项目结构<br>本项目包含以下文件和目录：<br>- <code>README.md</code>：项目说明文件<br>- <code>Note</code>：笔记目录<br>- <code>Circuit</code>：电路目录<br>- <code>tests</code>：测试目录<br>- <code>build</code>：构建目录<br>- <code>resources</code>：资源目录<br>## 项目简介<br>本项目是一个八位二进制CPU的学习与制造项目，旨在通过实践来加深对计算机组成原理的理解。项目包括以下部分：<br>- CPU 基本电路的实现<br>  - 半加器<br>  - 全加器和八位二进制加法器</h2><ul>
@@ -472,6 +472,120 @@
       </categories>
       <tags>
         <tag>8位二进制cpu的设计和实现</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Dify快速入门-创建聊天机器人与知识库</title>
+    <url>/2024/10/15/Dify%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-%E5%88%9B%E5%BB%BA%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%B8%8E%E7%9F%A5%E8%AF%86%E5%BA%93/</url>
+    <content><![CDATA[<h1 id="创建浪浪云账号"><a href="#创建浪浪云账号" class="headerlink" title="创建浪浪云账号"></a>创建浪浪云账号</h1><p>浪浪云官网：<a class="link"   href="https://langlangy.net/?i04adeb" >点击跳转 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>这里就是正常的注册流程</p>
+<h1 id="购买知识库服务器"><a href="#购买知识库服务器" class="headerlink" title="购买知识库服务器"></a>购买知识库服务器</h1><p>选择云服务器，首先地域选择快速部署应用，因为我们需要用到Dify知识库所以选择2H4G的配置【大家按需选择配置即可，理论配置越高性能越好】，操作系统中选择Dify知识库，系统版本选择最新版0.9.1<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e1065d29ded1a8cea5a26.png"
+                     
+                ></p>
+<h1 id="配置端口转发"><a href="#配置端口转发" class="headerlink" title="配置端口转发"></a>配置端口转发</h1><p>进入服务器控制，转发端口80<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e13a5d29ded1a8ced23a4.png"
+                     
+                ><br>点击添加策略，选择不对等分配，名称任意，端口输入80<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e15a1d29ded1a8ceeec4d.png"
+                     
+                ><br>此时我们会得到一个外网端口，效果如下图，我们在浏览器地址栏中输入【服务器IP地址:转发后的80端口】（注意是英文的冒号）<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e171cd29ded1a8cf019f0.png"
+                     
+                ></p>
+<h1 id="Dify配置"><a href="#Dify配置" class="headerlink" title="Dify配置"></a>Dify配置</h1><h2 id="配置管理员账号密码"><a href="#配置管理员账号密码" class="headerlink" title="配置管理员账号密码"></a>配置管理员账号密码</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e17e0d29ded1a8cf0b8a8.png"
+                     
+                ></p>
+<h2 id="设置模型"><a href="#设置模型" class="headerlink" title="设置模型"></a>设置模型</h2><p>登录进Dify后点击右上角，点击设置<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e1c2ad29ded1a8cf3f15c.png"
+                     
+                ><br>选择模型供应商，选择您的模型api填入即可【注：国内无法直接使用openai的官方API，需要使用第三方API】<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/202410151544293.png"
+                     
+                ></p>
+<h2 id="创建知识库"><a href="#创建知识库" class="headerlink" title="创建知识库"></a>创建知识库</h2><p>我们如果想要有一个自己的模型但是不会微调的话可以考虑使用RAG，也就是知识库。<br>创建知识库具体步骤 如下<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e24d0d29ded1a8cfae54a.png"
+                     
+                ><br>点击Dify知识库—&gt;创建知识库<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e2557d29ded1a8cfb7a6e.png"
+                     
+                ><br>上传文档，选择对应的Embedding模型，已经对应的检索方式，下期视频我会进行高速大家如何调优（现在保持默认即可），点击保存并处理<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e25ebd29ded1a8cfbffd3.png"
+                     
+                ></p>
+<h2 id="创建聊天机器人"><a href="#创建聊天机器人" class="headerlink" title="创建聊天机器人"></a>创建聊天机器人</h2><p>点击Dify中的工作室，创建空白应用<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e279bd29ded1a8cfddb73.png"
+                     
+                ><br>这里我们选择Agent或者聊天助手都可以【我以Agent为例】，名称任意<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.imgdb.cn/item/670e27f1d29ded1a8cfe3890.png"
+                     
+                ><br>在右上角可以切换模型，在上下文中可以导入知识库<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/202410151632391.png"
+                      alt="image.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>Dify</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>biliup自动录播搭建</title>
+    <url>/2024/09/10/biliup%E8%87%AA%E5%8A%A8%E5%BD%95%E6%92%AD%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="自动录播"><a href="#自动录播" class="headerlink" title="自动录播"></a>自动录播</h1><h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><ul>
+<li>系统已经安装python(3.8-3.11)与pip。</li>
+<li>python3安装：<a class="link"   href="https://www.runoob.com/python3/python3-install.html" >Python3 环境搭建 | 菜鸟教程 (runoob.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<ul>
+<li>pip安装</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install python3-pip</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="服务器推荐"><a href="#服务器推荐" class="headerlink" title="服务器推荐"></a>服务器推荐</h2><p>安全稳定多样云产品，快速高效全面云服务。</p>
+<p>全面服务保障，丰富技术支持，让您的云上业务无忧未来！</p>
+<p><a class="link"   href="https://langlangy.cn/?i04adeb" >7折优惠购买地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip3 install biliup -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">biliup start</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>启动时访问 <a class="link"   href="http://your-ip:19159/" >http://your-ip:19159 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 使用webUI</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>简单的配置可以查看我的视频或者查看官方的文档</p>
+]]></content>
+      <categories>
+        <category>搭建记录</category>
+      </categories>
+      <tags>
+        <tag>记录</tag>
       </tags>
   </entry>
   <entry>
@@ -599,37 +713,6 @@
       </categories>
       <tags>
         <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>biliup自动录播搭建</title>
-    <url>/2024/09/10/biliup%E8%87%AA%E5%8A%A8%E5%BD%95%E6%92%AD%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h1 id="自动录播"><a href="#自动录播" class="headerlink" title="自动录播"></a>自动录播</h1><h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><ul>
-<li>系统已经安装python(3.8-3.11)与pip。</li>
-<li>python3安装：<a class="link"   href="https://www.runoob.com/python3/python3-install.html" >Python3 环境搭建 | 菜鸟教程 (runoob.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<ul>
-<li>pip安装</li>
-</ul>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install python3-pip</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="服务器推荐"><a href="#服务器推荐" class="headerlink" title="服务器推荐"></a>服务器推荐</h2><p>安全稳定多样云产品，快速高效全面云服务。</p>
-<p>全面服务保障，丰富技术支持，让您的云上业务无忧未来！</p>
-<p><a class="link"   href="https://langlangy.cn/?i04adeb" >7折优惠购买地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip3 install biliup -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">biliup start</span><br></pre></td></tr></table></figure></div>
-
-<blockquote>
-<p>启动时访问 <a class="link"   href="http://your-ip:19159/" >http://your-ip:19159 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 使用webUI</p>
-</blockquote>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>简单的配置可以查看我的视频或者查看官方的文档</p>
-]]></content>
-      <categories>
-        <category>搭建记录</category>
-      </categories>
-      <tags>
-        <tag>记录</tag>
       </tags>
   </entry>
   <entry>
@@ -1124,6 +1207,180 @@
       </tags>
   </entry>
   <entry>
+    <title>shell终端美化</title>
+    <url>/2024/05/08/shell%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="打造酷帅的最强shell终端，效率直接快100倍！！！"><a href="#打造酷帅的最强shell终端，效率直接快100倍！！！" class="headerlink" title="打造酷帅的最强shell终端，效率直接快100倍！！！"></a>打造酷帅的最强shell终端，效率直接快100倍！！！</h1><h2 id="什么是shell？"><a href="#什么是shell？" class="headerlink" title="什么是shell？"></a>什么是shell？</h2><p>​		Shell 终端，也被称为命令行接口或控制台，是一种交互式用户界面，允许用户通过键入命令来与操作系统进行交互。</p>
+<p>​		在 Shell 终端中，用户可以执行各种各样的操作，例如管理文件和目录，运行程序，监控系统状态，配置系统设置，等等。这些操作都是通过键入特定的命令来实现的。</p>
+<p>​		Shell 终端的名称来源于 “shell”，这是一个用于描述用户和操作系统内核之间的接口的术语。Shell 提供了一个解释和执行用户命令的环境，而终端则是用户与 shell 交互的界面。</p>
+<p>​		在 Unix 和类 Unix 系统（如 Linux）中，常见的 shell 包括 Bourne shell（sh）、Bourne Again shell（bash）、C shell（csh）、Korn shell（ksh）等。在 Windows 系统中，常见的 shell 包括命令提示符（cmd）和 PowerShell。</p>
+<p>​		总的来说，Shell 终端是进行系统管理和开发工作的重要工具，对于理解操作系统的工作原理和进行高效的工作都非常有帮助。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>​		一个支持全彩的终端，我使用的是Windows terminal</p>
+<h3 id="Windows-terminal"><a href="#Windows-terminal" class="headerlink" title="Windows terminal"></a>Windows terminal</h3><p>​		Windows Terminal 是微软开发的一个新的、现代的、功能丰富的、开源的终端应用程序，用于访问命令行工具和 shell，如 Command Prompt、PowerShell 和 WSL (Windows Subsystem for Linux)。它于 2019 年首次发布，旨在提供一个集中的位置，用户可以访问多种命令行接口。</p>
+<p>以下是 Windows Terminal 的一些主要特性：</p>
+<ol>
+<li><strong>多标签界面</strong>：Windows Terminal 允许用户在一个窗口中打开多个标签，每个标签可以运行不同的命令行工具或 shell。</li>
+<li><strong>丰富的可定制选项</strong>：用户可以通过修改一个 JSON 文件来定制 Windows Terminal 的许多方面，包括字体、颜色方案、背景图片、透明度等。</li>
+<li><strong>GPU 加速文本渲染</strong>：Windows Terminal 使用 GPU 进行文本渲染，提供流畅且高效的用户体验。</li>
+<li><strong>Unicode 和 UTF-8 字符支持</strong>：Windows Terminal 支持显示各种 Unicode 字符和表情符号。</li>
+<li><strong>支持 PowerShell、命令提示符和 WSL</strong>：Windows Terminal 可以访问 Windows 系统中的各种命令行工具和 shell，包括 PowerShell、命令提示符和 WSL。</li>
+</ol>
+<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>根据你安装的主题可能需要一个字体，来做适配，可以看你使用的主题的说明</p>
+<h3 id="其他准备"><a href="#其他准备" class="headerlink" title="其他准备"></a>其他准备</h3><p><strong>安装git</strong></p>
+<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line"># 安装</span><br><span class="line">sudo apt install zsh</span><br><span class="line"></span><br><span class="line"># 将 zsh 设置为默认 shell</span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"></span><br><span class="line"># 检查</span><br><span class="line">echo $SHELL</span><br><span class="line"># 返回 /usr/bin/zsh 即表示成功；若没成功，重启试试看</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><p><strong>在 Ubuntu 或其他基于 Debian 的 Linux 系统上</strong>：</p>
+<p>首先，打开终端，然后使用 apt-get 命令安装 Zsh：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure></div>
+
+<p>安装完成后，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，重新登录或重启你的计算机。</p>
+</li>
+<li><p><strong>在 Fedora 或其他基于 RPM 的 Linux 系统上</strong>：</p>
+<p>打开终端，然后使用 dnf 命令安装 Zsh：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dnf install zsh</span><br></pre></td></tr></table></figure></div>
+
+<p>同样，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，重新登录或重启你的计算机。</p>
+</li>
+<li><p><strong>在 macOS 上</strong>：</p>
+<p>macOS Catalina（10.15）及更高版本默认使用 Zsh。如果你使用的是早期版本的 macOS，你可能需要手动安装 Zsh。你可以使用 Homebrew 来安装 Zsh：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install zsh</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后，重新登录或重启你的计算机</p>
+<h3 id="配置文件地址"><a href="#配置文件地址" class="headerlink" title="配置文件地址"></a>配置文件地址</h3><p>默认在~&#x2F;.zshrc</p>
+<p>没有的话可以新建一个</p>
+</li>
+</ol>
+<h2 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h2><p><code>Oh My Zsh</code> 是一个开源的、社区驱动的框架，用于管理 Zsh 配置。它拥有大量的插件和主题，可以帮助用户定制他们的 Zsh 环境，使得命令行操作更加高效、友好。</p>
+<p>以下是如何在已经安装了 Zsh 的系统上安装 “Oh My Zsh”：</p>
+<ol>
+<li><p>首先，确保你的系统上已经安装了 <code>curl</code> 或 <code>wget</code>。如果没有，你可以使用你的包管理器（如 <code>apt</code> 或 <code>brew</code>）来安装。</p>
+</li>
+<li><p>然后，你可以使用 “Oh My Zsh” 的安装脚本来安装。你可以通过 <code>curl</code> 或 <code>wget</code> 来运行这个脚本：</p>
+<p>使用 <code>curl</code>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>或使用 <code>wget</code>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这个脚本将会自动下载并安装 “Oh My Zsh”，并且将你的默认 shell 设置为 Zsh。</p>
+</li>
+<li><p>安装完成后，你可以通过编辑 <code>~/.zshrc</code> 文件来定制你的 Zsh 环境。例如，你可以在这个文件中启用插件或更改主题]</p>
+<p>上面是官方的教程大概是这个意思，但是国内的话安装是有一点问题的</p>
+<p>oh_my_zsh 国内安装修改镜像 直连gitee官方源</p>
+<h4 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h4><h5 id="Install-oh-my-zsh-via-curl"><a href="#Install-oh-my-zsh-via-curl" class="headerlink" title="Install oh-my-zsh via curl"></a>Install oh-my-zsh via curl</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh)&quot;</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="Install-oh-my-zsh-via-wget"><a href="#Install-oh-my-zsh-via-wget" class="headerlink" title="Install oh-my-zsh via wget"></a>Install oh-my-zsh via wget</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(wget https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh </span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="powerlevel10k"><a href="#powerlevel10k" class="headerlink" title="powerlevel10k"></a>powerlevel10k</h2><p>官方地址： <a class="link"   href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh" >romkatv&#x2F;powerlevel10k: A Zsh theme (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></div>
+
+<p>主题的设置：Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>.</p>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>你好贾维斯</title>
+    <url>/2024/05/10/%E4%BD%A0%E5%A5%BD%E8%B4%BE%E7%BB%B4%E6%96%AF/</url>
+    <content><![CDATA[<h1 id="Hello，Jarvis"><a href="#Hello，Jarvis" class="headerlink" title="Hello，Jarvis"></a>Hello，Jarvis</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.langlangy.com/langlangyblog/708523c1da6b1f58c8d838d4d20dcac3695af3ed.jpg"
+                      alt="708523c1da6b1f58c8d838d4d20dcac3695af3ed.jpg"
+                ></p>
+<h1 id="视频地址"><a href="#视频地址" class="headerlink" title="视频地址"></a><a class="link"   href="https://www.bilibili.com/video/BV1vC411j7En" >视频地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我心中的真正的人工智能的样子？</p>
+<blockquote>
+<p>在我心中，理想的人工智能是类似于电影《钢铁侠》中的贾维斯那样的存在。它不仅是一个高效的助手，可以处理各种复杂的任务，而且还能理解和预测我的需求，提供个性化的帮助。它具有自我学习和改进的能力，可以通过与我互动来不断提高其服务质量。更重要的是，这样的人工智能应具备一定的情感理解能力，能够理解人类的情绪，并在与人类的交互中表现出适当的情感反馈。最后，我希望这样的人工智能在满足所有这些功能的同时，还能够严格遵守数据安全和隐私保护的原则，让我在使用的过程中感到安心。</p>
+</blockquote>
+<p>现在人工智能的一大主要问题</p>
+<blockquote>
+<p>现在的人工智能（AI）在进行系统级操作方面存在一定的限制。这个问题主要体现在以下几个方面：</p>
+<ol>
+<li><p><strong>理解和实施复杂任务</strong>：虽然AI可以学习和执行一些特定的、有限的任务，但它们往往在理解和实施复杂、多步骤的任务时遇到困难。例如，AI可能能够理解单个指令，如“打开文件”或“搜索信息”，但可能无法理解或执行更复杂的指令，如“整理这个文件夹并删除所有旧的文件”。</p>
+</li>
+<li><p><strong>长期记忆和知识转移</strong>：当前的AI系统通常缺乏有效的长期记忆机制，这意味着它们可能无法记住过去的操作或学习经验，并将这些知识应用到新的任务中。这使得AI难以进行系统级的操作，因为这些操作通常需要对过去的信息进行整合和利用。</p>
+</li>
+<li><p><strong>安全性和隐私问题</strong>：AI进行系统级操作可能会涉及到敏感的信息和关键的系统资源。然而，现有的AI技术可能无法确保这些信息和资源的安全，因为它们可能被恶意利用，或者在无意中泄露用户的隐私。</p>
+</li>
+<li><p><strong>缺乏通用性</strong>：许多AI系统都是为特定的任务或环境设计的，而不是为广泛的系统级操作设计的。这意味着，尽管这些系统在特定的任务或环境中可能表现良好，但在其他环境或任务中可能表现不佳。</p>
+</li>
+</ol>
+<p>这些问题都是AI进行系统级操作的主要障碍。然而，随着AI技术的不断发展，我期待这些问题在未来得到解决。</p>
+</blockquote>
+<h1 id="项目推荐"><a href="#项目推荐" class="headerlink" title="项目推荐"></a>项目推荐</h1><p>GitHub地址：<a class="link"   href="https://github.com/OpenInterpreter/open-interpreter" >OpenInterpreter&#x2F;open-interpreter: A natural language interface for computers (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>官网：<a class="link"   href="https://www.openinterpreter.com/" >The Open Interpreter Project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>why interpreter</p>
+<blockquote>
+<p>借助大语言模型，Open Interpreter 可在本地运行代码（Python、Javascript、Shell 等），帮你执行各种任务。</p>
+<p>它可以在本机调用 GPT-4, GPT-3.5，或者开源免费的 CodeLlama 模型。</p>
+<p>安装以后，每次只要打开终端，输入 “interpreter” 这个命令以后，就可以打开类似于 ChatGPT 的聊天界面。</p>
+<p>所不同的是，它并不像代码解释器那样是一个封闭的环境。它可以联网，也可以和本地文件交互，因此你不需要上传文件进行分析。而且，如果在分析过程中如果它缺少某些 Python 库，可以联网自行下载。</p>
+<p>此外，其他的对于上传文件的大小是有限制的，但 Open Interpreter 却可以和你电脑上任意大的文件进行交互。因此，它对于处理文件非常方便。</p>
+</blockquote>
+<h1 id="极简部署安装"><a href="#极简部署安装" class="headerlink" title="极简部署安装"></a>极简部署安装</h1><blockquote>
+<p>较为推荐使用此方法+key</p>
+</blockquote>
+<p>Linux上部署</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
+
+<p>Windows上部署</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
+
+<p>mac上部署</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
+
+<p>api的配置</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">OPENAI_API_KEY</span><br><span class="line">OPENAI_API_BASE</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="使用本地模型"><a href="#使用本地模型" class="headerlink" title="使用本地模型"></a>使用本地模型</h1><blockquote>
+<p>不是很推荐</p>
+</blockquote>
+<p>以ollama举例</p>
+<p>首先安装ollama</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Download Ollama - https://ollama.ai/download</span><br></pre></td></tr></table></figure></div>
+
+<p>ollama启动某个模型</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ollama run qwen:14b</span><br></pre></td></tr></table></figure></div>
+
+<p>本地模型启动</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">interpreter --model ollama/qwen:14b</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="使用Litellm做接口访问"><a href="#使用Litellm做接口访问" class="headerlink" title="使用Litellm做接口访问"></a>使用Litellm做接口访问</h1><blockquote>
+<p>次推荐</p>
+</blockquote>
+<p>LiteLLM的功能就一句话：使用 OpenAI 格式调用所有 LLM API [Bedrock、Huggingface、VertexAI、TogetherAI、Azure、OpenAI 等]，具体包括：</p>
+<ul>
+<li>将输入转换为提供者的<code>completion</code>、<code>embedding</code>和<code>image_generation</code>端点</li>
+<li><a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/completion/output" >一致的输出 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，文本响应将始终可用<code>[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;]</code></li>
+<li>跨多个部署（例如 Azure&#x2F;OpenAI）的重试&#x2F;回退逻辑 -<a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/routing" >路由器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>设置每个项目的预算和费率限制、API 密钥、模型<a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/simple_proxy" >OpenAI 代理服务器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>项目地址：<a class="link"   href="https://github.com/BerriAI/litellm" >BerriAI&#x2F;litellm: Call all LLM APIs using the OpenAI format. Use Bedrock, Azure, OpenAI, Cohere, Anthropic, Ollama, Sagemaker, HuggingFace, Replicate (100+ LLMs) (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h1 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h1><ul>
+<li><input disabled="" type="checkbox"> 接入语音</li>
+</ul>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python教学03</title>
     <url>/2024/06/23/python%E6%95%99%E5%AD%A603/</url>
     <content><![CDATA[<h1 id="同一运算符"><a href="#同一运算符" class="headerlink" title="同一运算符"></a>同一运算符</h1><p>用于比较两个对象的存储单元，实际比较的是对象的地址</p>
@@ -1416,180 +1673,6 @@
 ]]></content>
       <categories>
         <category>Python</category>
-      </categories>
-      <tags>
-        <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>shell终端美化</title>
-    <url>/2024/05/08/shell%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="打造酷帅的最强shell终端，效率直接快100倍！！！"><a href="#打造酷帅的最强shell终端，效率直接快100倍！！！" class="headerlink" title="打造酷帅的最强shell终端，效率直接快100倍！！！"></a>打造酷帅的最强shell终端，效率直接快100倍！！！</h1><h2 id="什么是shell？"><a href="#什么是shell？" class="headerlink" title="什么是shell？"></a>什么是shell？</h2><p>​		Shell 终端，也被称为命令行接口或控制台，是一种交互式用户界面，允许用户通过键入命令来与操作系统进行交互。</p>
-<p>​		在 Shell 终端中，用户可以执行各种各样的操作，例如管理文件和目录，运行程序，监控系统状态，配置系统设置，等等。这些操作都是通过键入特定的命令来实现的。</p>
-<p>​		Shell 终端的名称来源于 “shell”，这是一个用于描述用户和操作系统内核之间的接口的术语。Shell 提供了一个解释和执行用户命令的环境，而终端则是用户与 shell 交互的界面。</p>
-<p>​		在 Unix 和类 Unix 系统（如 Linux）中，常见的 shell 包括 Bourne shell（sh）、Bourne Again shell（bash）、C shell（csh）、Korn shell（ksh）等。在 Windows 系统中，常见的 shell 包括命令提示符（cmd）和 PowerShell。</p>
-<p>​		总的来说，Shell 终端是进行系统管理和开发工作的重要工具，对于理解操作系统的工作原理和进行高效的工作都非常有帮助。</p>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>​		一个支持全彩的终端，我使用的是Windows terminal</p>
-<h3 id="Windows-terminal"><a href="#Windows-terminal" class="headerlink" title="Windows terminal"></a>Windows terminal</h3><p>​		Windows Terminal 是微软开发的一个新的、现代的、功能丰富的、开源的终端应用程序，用于访问命令行工具和 shell，如 Command Prompt、PowerShell 和 WSL (Windows Subsystem for Linux)。它于 2019 年首次发布，旨在提供一个集中的位置，用户可以访问多种命令行接口。</p>
-<p>以下是 Windows Terminal 的一些主要特性：</p>
-<ol>
-<li><strong>多标签界面</strong>：Windows Terminal 允许用户在一个窗口中打开多个标签，每个标签可以运行不同的命令行工具或 shell。</li>
-<li><strong>丰富的可定制选项</strong>：用户可以通过修改一个 JSON 文件来定制 Windows Terminal 的许多方面，包括字体、颜色方案、背景图片、透明度等。</li>
-<li><strong>GPU 加速文本渲染</strong>：Windows Terminal 使用 GPU 进行文本渲染，提供流畅且高效的用户体验。</li>
-<li><strong>Unicode 和 UTF-8 字符支持</strong>：Windows Terminal 支持显示各种 Unicode 字符和表情符号。</li>
-<li><strong>支持 PowerShell、命令提示符和 WSL</strong>：Windows Terminal 可以访问 Windows 系统中的各种命令行工具和 shell，包括 PowerShell、命令提示符和 WSL。</li>
-</ol>
-<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>根据你安装的主题可能需要一个字体，来做适配，可以看你使用的主题的说明</p>
-<h3 id="其他准备"><a href="#其他准备" class="headerlink" title="其他准备"></a>其他准备</h3><p><strong>安装git</strong></p>
-<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line"># 安装</span><br><span class="line">sudo apt install zsh</span><br><span class="line"></span><br><span class="line"># 将 zsh 设置为默认 shell</span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"></span><br><span class="line"># 检查</span><br><span class="line">echo $SHELL</span><br><span class="line"># 返回 /usr/bin/zsh 即表示成功；若没成功，重启试试看</span><br></pre></td></tr></table></figure></div>
-
-<ol>
-<li><p><strong>在 Ubuntu 或其他基于 Debian 的 Linux 系统上</strong>：</p>
-<p>首先，打开终端，然后使用 apt-get 命令安装 Zsh：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure></div>
-
-<p>安装完成后，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
-
-<p>然后，重新登录或重启你的计算机。</p>
-</li>
-<li><p><strong>在 Fedora 或其他基于 RPM 的 Linux 系统上</strong>：</p>
-<p>打开终端，然后使用 dnf 命令安装 Zsh：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dnf install zsh</span><br></pre></td></tr></table></figure></div>
-
-<p>同样，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
-
-<p>然后，重新登录或重启你的计算机。</p>
-</li>
-<li><p><strong>在 macOS 上</strong>：</p>
-<p>macOS Catalina（10.15）及更高版本默认使用 Zsh。如果你使用的是早期版本的 macOS，你可能需要手动安装 Zsh。你可以使用 Homebrew 来安装 Zsh：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install zsh</span><br></pre></td></tr></table></figure></div>
-
-<p>然后，你可以使用 <code>chsh</code> 命令来更改默认的 shell：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure></div>
-
-<p>然后，重新登录或重启你的计算机</p>
-<h3 id="配置文件地址"><a href="#配置文件地址" class="headerlink" title="配置文件地址"></a>配置文件地址</h3><p>默认在~&#x2F;.zshrc</p>
-<p>没有的话可以新建一个</p>
-</li>
-</ol>
-<h2 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h2><p><code>Oh My Zsh</code> 是一个开源的、社区驱动的框架，用于管理 Zsh 配置。它拥有大量的插件和主题，可以帮助用户定制他们的 Zsh 环境，使得命令行操作更加高效、友好。</p>
-<p>以下是如何在已经安装了 Zsh 的系统上安装 “Oh My Zsh”：</p>
-<ol>
-<li><p>首先，确保你的系统上已经安装了 <code>curl</code> 或 <code>wget</code>。如果没有，你可以使用你的包管理器（如 <code>apt</code> 或 <code>brew</code>）来安装。</p>
-</li>
-<li><p>然后，你可以使用 “Oh My Zsh” 的安装脚本来安装。你可以通过 <code>curl</code> 或 <code>wget</code> 来运行这个脚本：</p>
-<p>使用 <code>curl</code>：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>或使用 <code>wget</code>：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>这个脚本将会自动下载并安装 “Oh My Zsh”，并且将你的默认 shell 设置为 Zsh。</p>
-</li>
-<li><p>安装完成后，你可以通过编辑 <code>~/.zshrc</code> 文件来定制你的 Zsh 环境。例如，你可以在这个文件中启用插件或更改主题]</p>
-<p>上面是官方的教程大概是这个意思，但是国内的话安装是有一点问题的</p>
-<p>oh_my_zsh 国内安装修改镜像 直连gitee官方源</p>
-<h4 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h4><h5 id="Install-oh-my-zsh-via-curl"><a href="#Install-oh-my-zsh-via-curl" class="headerlink" title="Install oh-my-zsh via curl"></a>Install oh-my-zsh via curl</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh)&quot;</span><br></pre></td></tr></table></figure></div>
-
-<h5 id="Install-oh-my-zsh-via-wget"><a href="#Install-oh-my-zsh-via-wget" class="headerlink" title="Install oh-my-zsh via wget"></a>Install oh-my-zsh via wget</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(wget https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh </span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<h2 id="powerlevel10k"><a href="#powerlevel10k" class="headerlink" title="powerlevel10k"></a>powerlevel10k</h2><p>官方地址： <a class="link"   href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh" >romkatv&#x2F;powerlevel10k: A Zsh theme (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></div>
-
-<p>主题的设置：Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>.</p>
-]]></content>
-      <categories>
-        <category>shell</category>
-      </categories>
-      <tags>
-        <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>你好贾维斯</title>
-    <url>/2024/05/10/%E4%BD%A0%E5%A5%BD%E8%B4%BE%E7%BB%B4%E6%96%AF/</url>
-    <content><![CDATA[<h1 id="Hello，Jarvis"><a href="#Hello，Jarvis" class="headerlink" title="Hello，Jarvis"></a>Hello，Jarvis</h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.langlangy.com/langlangyblog/708523c1da6b1f58c8d838d4d20dcac3695af3ed.jpg"
-                      alt="708523c1da6b1f58c8d838d4d20dcac3695af3ed.jpg"
-                ></p>
-<h1 id="视频地址"><a href="#视频地址" class="headerlink" title="视频地址"></a><a class="link"   href="https://www.bilibili.com/video/BV1vC411j7En" >视频地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我心中的真正的人工智能的样子？</p>
-<blockquote>
-<p>在我心中，理想的人工智能是类似于电影《钢铁侠》中的贾维斯那样的存在。它不仅是一个高效的助手，可以处理各种复杂的任务，而且还能理解和预测我的需求，提供个性化的帮助。它具有自我学习和改进的能力，可以通过与我互动来不断提高其服务质量。更重要的是，这样的人工智能应具备一定的情感理解能力，能够理解人类的情绪，并在与人类的交互中表现出适当的情感反馈。最后，我希望这样的人工智能在满足所有这些功能的同时，还能够严格遵守数据安全和隐私保护的原则，让我在使用的过程中感到安心。</p>
-</blockquote>
-<p>现在人工智能的一大主要问题</p>
-<blockquote>
-<p>现在的人工智能（AI）在进行系统级操作方面存在一定的限制。这个问题主要体现在以下几个方面：</p>
-<ol>
-<li><p><strong>理解和实施复杂任务</strong>：虽然AI可以学习和执行一些特定的、有限的任务，但它们往往在理解和实施复杂、多步骤的任务时遇到困难。例如，AI可能能够理解单个指令，如“打开文件”或“搜索信息”，但可能无法理解或执行更复杂的指令，如“整理这个文件夹并删除所有旧的文件”。</p>
-</li>
-<li><p><strong>长期记忆和知识转移</strong>：当前的AI系统通常缺乏有效的长期记忆机制，这意味着它们可能无法记住过去的操作或学习经验，并将这些知识应用到新的任务中。这使得AI难以进行系统级的操作，因为这些操作通常需要对过去的信息进行整合和利用。</p>
-</li>
-<li><p><strong>安全性和隐私问题</strong>：AI进行系统级操作可能会涉及到敏感的信息和关键的系统资源。然而，现有的AI技术可能无法确保这些信息和资源的安全，因为它们可能被恶意利用，或者在无意中泄露用户的隐私。</p>
-</li>
-<li><p><strong>缺乏通用性</strong>：许多AI系统都是为特定的任务或环境设计的，而不是为广泛的系统级操作设计的。这意味着，尽管这些系统在特定的任务或环境中可能表现良好，但在其他环境或任务中可能表现不佳。</p>
-</li>
-</ol>
-<p>这些问题都是AI进行系统级操作的主要障碍。然而，随着AI技术的不断发展，我期待这些问题在未来得到解决。</p>
-</blockquote>
-<h1 id="项目推荐"><a href="#项目推荐" class="headerlink" title="项目推荐"></a>项目推荐</h1><p>GitHub地址：<a class="link"   href="https://github.com/OpenInterpreter/open-interpreter" >OpenInterpreter&#x2F;open-interpreter: A natural language interface for computers (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>官网：<a class="link"   href="https://www.openinterpreter.com/" >The Open Interpreter Project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>why interpreter</p>
-<blockquote>
-<p>借助大语言模型，Open Interpreter 可在本地运行代码（Python、Javascript、Shell 等），帮你执行各种任务。</p>
-<p>它可以在本机调用 GPT-4, GPT-3.5，或者开源免费的 CodeLlama 模型。</p>
-<p>安装以后，每次只要打开终端，输入 “interpreter” 这个命令以后，就可以打开类似于 ChatGPT 的聊天界面。</p>
-<p>所不同的是，它并不像代码解释器那样是一个封闭的环境。它可以联网，也可以和本地文件交互，因此你不需要上传文件进行分析。而且，如果在分析过程中如果它缺少某些 Python 库，可以联网自行下载。</p>
-<p>此外，其他的对于上传文件的大小是有限制的，但 Open Interpreter 却可以和你电脑上任意大的文件进行交互。因此，它对于处理文件非常方便。</p>
-</blockquote>
-<h1 id="极简部署安装"><a href="#极简部署安装" class="headerlink" title="极简部署安装"></a>极简部署安装</h1><blockquote>
-<p>较为推荐使用此方法+key</p>
-</blockquote>
-<p>Linux上部署</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
-
-<p>Windows上部署</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
-
-<p>mac上部署</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pip install open-interpreter</span><br></pre></td></tr></table></figure></div>
-
-<p>api的配置</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">OPENAI_API_KEY</span><br><span class="line">OPENAI_API_BASE</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="使用本地模型"><a href="#使用本地模型" class="headerlink" title="使用本地模型"></a>使用本地模型</h1><blockquote>
-<p>不是很推荐</p>
-</blockquote>
-<p>以ollama举例</p>
-<p>首先安装ollama</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Download Ollama - https://ollama.ai/download</span><br></pre></td></tr></table></figure></div>
-
-<p>ollama启动某个模型</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ollama run qwen:14b</span><br></pre></td></tr></table></figure></div>
-
-<p>本地模型启动</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">interpreter --model ollama/qwen:14b</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="使用Litellm做接口访问"><a href="#使用Litellm做接口访问" class="headerlink" title="使用Litellm做接口访问"></a>使用Litellm做接口访问</h1><blockquote>
-<p>次推荐</p>
-</blockquote>
-<p>LiteLLM的功能就一句话：使用 OpenAI 格式调用所有 LLM API [Bedrock、Huggingface、VertexAI、TogetherAI、Azure、OpenAI 等]，具体包括：</p>
-<ul>
-<li>将输入转换为提供者的<code>completion</code>、<code>embedding</code>和<code>image_generation</code>端点</li>
-<li><a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/completion/output" >一致的输出 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，文本响应将始终可用<code>[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;]</code></li>
-<li>跨多个部署（例如 Azure&#x2F;OpenAI）的重试&#x2F;回退逻辑 -<a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/routing" >路由器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>设置每个项目的预算和费率限制、API 密钥、模型<a class="link"   href="https://link.zhihu.com/?target=https://docs.litellm.ai/docs/simple_proxy" >OpenAI 代理服务器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<p>项目地址：<a class="link"   href="https://github.com/BerriAI/litellm" >BerriAI&#x2F;litellm: Call all LLM APIs using the OpenAI format. Use Bedrock, Azure, OpenAI, Cohere, Anthropic, Ollama, Sagemaker, HuggingFace, Replicate (100+ LLMs) (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h1 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h1><ul>
-<li><input disabled="" type="checkbox"> 接入语音</li>
-</ul>
-]]></content>
-      <categories>
-        <category>教程</category>
       </categories>
       <tags>
         <tag>教程</tag>
@@ -1933,38 +2016,6 @@
       </tags>
   </entry>
   <entry>
-    <title>费曼学习法的自我认识</title>
-    <url>/2024/05/09/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95%E7%9A%84%E8%87%AA%E6%88%91%E8%AE%A4%E8%AF%86/</url>
-    <content><![CDATA[<h1 id="费曼学习方法的自我认识"><a href="#费曼学习方法的自我认识" class="headerlink" title="费曼学习方法的自我认识"></a>费曼学习方法的自我认识</h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/img/feiman.jpg"
-                     
-                ></p>
-<p>认知会改变心理，心理会影响行为，主要是从这三点出发，进行分析和总结</p>
-<div class="tabs" id="tab-first-unique-name"><ul class="nav-tabs"><li class="tab active"><a class="#first-unique-name-1">认知</a></li><li class="tab"><a class="#first-unique-name-2">心理</a></li><li class="tab"><a class="#first-unique-name-3">Third Tab</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-unique-name-1"><p>你就是要认为自己别人聪明，你的观众，你的学生都是笨蛋，你要想怎么教会他们，如果你能教会笨蛋的话，那么教会自己这么聪明的人就是非常简单 </p></div><div class="tab-pane" id="first-unique-name-2"><p>通过认知我们可以产生什么样的心理: </p>
-<p><strong>1.优越感（记住是正向的优越感）</strong></p>
-<p><strong>2.教学和教会学生的成就感</strong>.</p>
-<p><strong>3.增加自信心</strong></p></div><div class="tab-pane" id="first-unique-name-3"><p><strong>心理会影响行为，落实行为可以具体成某个或者某些行为</strong></p>
-<p><strong>比如：我们可以写讲义或者是博客。在此基础上通过现在流行的视频平台可以去做讲解视频</strong></p>
-<p><strong>可以先从基础讲解，用通俗易懂的方法去讲解</strong></p>
-<p><strong>再用高级的方法去讲解（串联起你的前后知识库），按照你的理解重排知识点，以观众更好理解的方式去进行讲解</strong></p></div></div></div>
-
-<p><strong>maki</strong>老师说了两句话让我觉得很好：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">决定一个函数从来不是当前值,而是斜率，哪怕你的值是很小，有向上的斜率，那么也是在进步</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">大部分厉害的数学家也都是优秀的教育家，不是因为他是一名好的数学家才教得好，而是本身是一名好的教育学家才更容易帮助他成为一名优秀的数学家</span><br><span class="line">发散一下这种思维，你要是想成为厉害的Coder，不妨先从写文档，出视频开始</span><br></pre></td></tr></table></figure></div>
-
-<p>两句话与诸君共勉</p>
-]]></content>
-      <categories>
-        <category>学习方法 - 费曼学习方法</category>
-      </categories>
-      <tags>
-        <tag>学习方法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>项目复现-HivisionIDPhotos</title>
     <url>/2024/09/11/%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0-HivisionIDPhotos/</url>
     <content><![CDATA[<h1 id="项目复现-HivisionIDPhotos"><a href="#项目复现-HivisionIDPhotos" class="headerlink" title="项目复现-HivisionIDPhotos"></a>项目复现-HivisionIDPhotos</h1><blockquote>
@@ -2165,6 +2216,38 @@
       </categories>
       <tags>
         <tag>记录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>费曼学习法的自我认识</title>
+    <url>/2024/05/09/%E8%B4%B9%E6%9B%BC%E5%AD%A6%E4%B9%A0%E6%B3%95%E7%9A%84%E8%87%AA%E6%88%91%E8%AE%A4%E8%AF%86/</url>
+    <content><![CDATA[<h1 id="费曼学习方法的自我认识"><a href="#费曼学习方法的自我认识" class="headerlink" title="费曼学习方法的自我认识"></a>费曼学习方法的自我认识</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/img/feiman.jpg"
+                     
+                ></p>
+<p>认知会改变心理，心理会影响行为，主要是从这三点出发，进行分析和总结</p>
+<div class="tabs" id="tab-first-unique-name"><ul class="nav-tabs"><li class="tab active"><a class="#first-unique-name-1">认知</a></li><li class="tab"><a class="#first-unique-name-2">心理</a></li><li class="tab"><a class="#first-unique-name-3">Third Tab</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-unique-name-1"><p>你就是要认为自己别人聪明，你的观众，你的学生都是笨蛋，你要想怎么教会他们，如果你能教会笨蛋的话，那么教会自己这么聪明的人就是非常简单 </p></div><div class="tab-pane" id="first-unique-name-2"><p>通过认知我们可以产生什么样的心理: </p>
+<p><strong>1.优越感（记住是正向的优越感）</strong></p>
+<p><strong>2.教学和教会学生的成就感</strong>.</p>
+<p><strong>3.增加自信心</strong></p></div><div class="tab-pane" id="first-unique-name-3"><p><strong>心理会影响行为，落实行为可以具体成某个或者某些行为</strong></p>
+<p><strong>比如：我们可以写讲义或者是博客。在此基础上通过现在流行的视频平台可以去做讲解视频</strong></p>
+<p><strong>可以先从基础讲解，用通俗易懂的方法去讲解</strong></p>
+<p><strong>再用高级的方法去讲解（串联起你的前后知识库），按照你的理解重排知识点，以观众更好理解的方式去进行讲解</strong></p></div></div></div>
+
+<p><strong>maki</strong>老师说了两句话让我觉得很好：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">决定一个函数从来不是当前值,而是斜率，哪怕你的值是很小，有向上的斜率，那么也是在进步</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">大部分厉害的数学家也都是优秀的教育家，不是因为他是一名好的数学家才教得好，而是本身是一名好的教育学家才更容易帮助他成为一名优秀的数学家</span><br><span class="line">发散一下这种思维，你要是想成为厉害的Coder，不妨先从写文档，出视频开始</span><br></pre></td></tr></table></figure></div>
+
+<p>两句话与诸君共勉</p>
+]]></content>
+      <categories>
+        <category>学习方法 - 费曼学习方法</category>
+      </categories>
+      <tags>
+        <tag>学习方法</tag>
       </tags>
   </entry>
 </search>
